@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Calendar } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { useState } from 'react';
 import { EventsHero } from '../components/events/Hero';
 import { EventsTypesOverview } from '../components/events/TypesOverview';
 import { EventsListsSection } from '../components/events/Lists';
@@ -12,52 +10,53 @@ export interface Event {
   description: string;
   event_date: string;
   location: string;
-  event_type: string;
+  event_type: 'upcoming' | 'previous';
   image_url: string | null;
 }
 
+// 🔹 Temporary static data
+const EVENTS_DATA: Event[] = [
+  {
+    id: '1',
+    title: 'Founder–Investor Meetup',
+    description: 'Exclusive networking with VCs and founders.',
+    event_date: '2026-02-10',
+    location: 'Bangalore',
+    event_type: 'upcoming',
+    image_url: null,
+  },
+  {
+    id: '2',
+    title: 'Startup Pitch Night',
+    description: 'Pitch your startup to angel investors.',
+    event_date: '2025-11-12',
+    location: 'Delhi',
+    event_type: 'previous',
+    image_url: null,
+  },
+];
+
 export default function Events() {
-  const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
-  const [previousEvents, setPreviousEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading] = useState(false);
 
-  useEffect(() => {
-    loadEvents();
-  }, []);
+  const upcomingEvents = EVENTS_DATA.filter(
+    e => e.event_type === 'upcoming'
+  );
 
-  const loadEvents = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .order('event_date', { ascending: false });
-
-      if (error) throw error;
-
-      const upcoming = data?.filter(e => e.event_type === 'upcoming') || [];
-      const previous = data?.filter(e => e.event_type === 'previous') || [];
-
-      setUpcomingEvents(upcoming);
-      setPreviousEvents(previous);
-    } catch (error) {
-      console.error('Error loading events:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const previousEvents = EVENTS_DATA.filter(
+    e => e.event_type === 'previous'
+  );
 
   const openRegister = () => {
-    const event = new CustomEvent('openRegisterModal');
-    window.dispatchEvent(event);
+    window.dispatchEvent(new CustomEvent('openRegisterModal'));
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+  const formatDate = (dateString: string) =>
+    new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
-  };
 
   return (
     <div className="min-h-screen pt-20">
