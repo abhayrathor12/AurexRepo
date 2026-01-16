@@ -1,4 +1,4 @@
-import ScrollStackSection from "../components/scrollstack";
+import ScrollStackSection from "../components/ScrollStack";
 import {
   Cpu,
   Lightbulb,
