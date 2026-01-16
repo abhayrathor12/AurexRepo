@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Page } from './Router';
+import aurexLogo from '../public/AurexLong.png';
 
 interface HeaderProps {
   onRegisterClick: () => void;
 }
-import aurexLogo from '../public/AurexLong.png';
+
 export default function Header({ onRegisterClick }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activePage, setActivePage] = useState<Page>('home');
+
+  // 👇 detect hash change
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as Page;
+      setActivePage(hash || 'home');
+    };
+
+    handleHashChange(); // on refresh
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const navigate = (page: Page) => {
     window.location.hash = page;
@@ -15,27 +30,31 @@ export default function Header({ onRegisterClick }: HeaderProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const linkClass = (page: Page) =>
+    `transition-colors ${
+      activePage === page
+        ? 'text-aurex-accent font-semibold'
+        : 'text-slate-700 hover:text-aurex-accent'
+    }`;
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-aurex-background shadow-sm z-50 border-b border-slate-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-        <div
-          className="flex items-center cursor-pointer"
-          onClick={() => navigate('home')}
-        >
-          <img
-            src={aurexLogo}   // change this to your actual file name
-            alt="Aurex Ventures Logo"
-            className="h-14 w-auto"
-          />
-        </div>
 
+          {/* Logo */}
+          <div className="flex items-center cursor-pointer" onClick={() => navigate('home')}>
+            <img src={aurexLogo} alt="Aurex Ventures Logo" className="h-14 w-auto" />
+          </div>
+
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-slate-700 hover:text-aurex-primary transition-colors">Home</a>
-            <a href="#services" className="text-slate-700 hover:text-aurex-primary transition-colors">Services</a>
-            <a href="#team" className="text-slate-700 hover:text-aurex-primary transition-colors">Team</a>
-            <a href="#events" className="text-slate-700 hover:text-aurex-primary transition-colors">Events</a>
-            <a href="#contact" className="text-slate-700 hover:text-aurex-primary transition-colors">Contact</a>
+            <button onClick={() => navigate('home')} className={linkClass('home')}>Home</button>
+            <button onClick={() => navigate('services')} className={linkClass('services')}>Services</button>
+            <button onClick={() => navigate('team')} className={linkClass('team')}>Team</button>
+            <button onClick={() => navigate('events')} className={linkClass('events')}>Events</button>
+            <button onClick={() => navigate('contact')} className={linkClass('contact')}>Contact</button>
+
             <button
               onClick={onRegisterClick}
               className="bg-aurex-primary text-white px-6 py-2 rounded-lg hover:bg-aurex-primarySoft transition-colors font-medium"
@@ -44,21 +63,21 @@ export default function Header({ onRegisterClick }: HeaderProps) {
             </button>
           </div>
 
-          <button
-            className="md:hidden text-slate-700"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+          {/* Mobile Toggle */}
+          <button className="md:hidden text-slate-700" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 bg-aurex-background border-t border-slate-200">
-            <a href="#home" className="block text-slate-700 hover:text-aurex-primary" onClick={() => setIsMenuOpen(false)}>Home</a>
-            <a href="#services" className="block text-slate-700 hover:text-aurex-primary" onClick={() => setIsMenuOpen(false)}>Services</a>
-            <a href="#team" className="block text-slate-700 hover:text-aurex-primary" onClick={() => setIsMenuOpen(false)}>Team</a>
-            <a href="#events" className="block text-slate-700 hover:text-aurex-primary" onClick={() => setIsMenuOpen(false)}>Events</a>
-            <a href="#contact" className="block text-slate-700 hover:text-aurex-primary" onClick={() => setIsMenuOpen(false)}>Contact</a>
+            <button onClick={() => navigate('home')} className={linkClass('home')}>Home</button>
+            <button onClick={() => navigate('services')} className={linkClass('services')}>Services</button>
+            <button onClick={() => navigate('team')} className={linkClass('team')}>Team</button>
+            <button onClick={() => navigate('events')} className={linkClass('events')}>Events</button>
+            <button onClick={() => navigate('contact')} className={linkClass('contact')}>Contact</button>
+
             <button
               onClick={() => {
                 onRegisterClick();
