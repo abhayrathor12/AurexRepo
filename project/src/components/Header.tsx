@@ -71,24 +71,35 @@ export default function Header({ onRegisterClick }: HeaderProps) {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 space-y-4 bg-aurex-background border-t border-slate-200">
-            <button onClick={() => navigate('home')} className={linkClass('home')}>Home</button>
-            <button onClick={() => navigate('services')} className={linkClass('services')}>Services</button>
-            <button onClick={() => navigate('team')} className={linkClass('team')}>Team</button>
-            <button onClick={() => navigate('events')} className={linkClass('events')}>Events</button>
-            <button onClick={() => navigate('contact')} className={linkClass('contact')}>Contact</button>
+  <div className="md:hidden flex flex-col py-4 bg-aurex-background border-t border-slate-200">
+    <button onClick={() => navigate('home')} className={`${linkClass('home')} w-full text-left px-4 py-2`}>
+      Home
+    </button>
+    <button onClick={() => navigate('services')} className={`${linkClass('services')} w-full text-left px-4 py-2`}>
+      Services
+    </button>
+    <button onClick={() => navigate('team')} className={`${linkClass('team')} w-full text-left px-4 py-2`}>
+      Team
+    </button>
+    <button onClick={() => navigate('events')} className={`${linkClass('events')} w-full text-left px-4 py-2`}>
+      Events
+    </button>
+    <button onClick={() => navigate('contact')} className={`${linkClass('contact')} w-full text-left px-4 py-2`}>
+      Contact
+    </button>
 
-            <button
-              onClick={() => {
-                onRegisterClick();
-                setIsMenuOpen(false);
-              }}
-              className="w-full bg-aurex-primary text-white px-6 py-2 rounded-lg hover:bg-aurex-primarySoft transition-colors font-medium"
-            >
-              Register
-            </button>
-          </div>
-        )}
+    <button
+      onClick={() => {
+        onRegisterClick();
+        setIsMenuOpen(false);
+      }}
+      className="mt-4 mx-4 bg-aurex-primary text-white px-6 py-2 rounded-lg hover:bg-aurex-primarySoft transition-colors font-medium"
+    >
+      Register
+    </button>
+  </div>
+)}
+
       </nav>
     </header>
   );
