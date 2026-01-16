@@ -12,7 +12,7 @@ export function HomeTeamPreview() {
       image: prernaJain,
     },
     {
-      name: "Kapil Khurana",
+      name: "Mr. Kapil Khurana",
       role: "Senior Advisor & Mentor",
       description:
         "Strategic advisor with strong expertise in business leadership and operational excellence.",
