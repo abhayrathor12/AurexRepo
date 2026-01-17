@@ -221,11 +221,11 @@ export  function EventsHero() {
                         <p className="text-sm opacity-90 text-center">{event.desc}</p>
                         
                         {/* Date Badge */}
-                        {isActive && (
+                        {/* {isActive && (
                           <div className="mt-6 px-4 py-2 bg-white/20 rounded-full backdrop-blur-sm text-xs font-semibold">
                             Next Event
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   );
