@@ -123,44 +123,46 @@ export function HomeAbout() {
             </div>
           </div>
 
-          {/* RIGHT - Text content - more compact */}
-          <div className="order-1 md:order-2 space-y-5 md:space-y-6">
-            <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-              Aurex Ventures is a boutique advisory & execution platform created{' '}
-              <span className="font-semibold text-[#223258]">exclusively for early-stage and growth-stage startups</span>.
+          
+        {/* RIGHT - Text content */}
+        <div className="order-1 md:order-2 space-y-5 md:space-y-6">
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+            <span className="font-semibold text-[#223258]">Aurex Ventures</span> is a specialized{' '}
+            <span className="font-semibold">Investment Banking advisory firm</span> supporting
+            early-stage and growth-stage startups with{' '}
+            <span className="font-semibold">capital raising and transaction execution</span>.
+          </p>
+
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+            We advise founders across the complete fundraising lifecycle — investor readiness,
+            financial and valuation positioning, structured investor outreach, and deal coordination —
+            engaging with angels, venture capital funds, institutional lenders, and government
+            grant authorities until transaction closure.
+          </p>
+
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+            Beyond capital advisory, we facilitate company incorporation, statutory registrations,
+            intellectual property protection, and ROC compliance through our{' '}
+            <span className="font-semibold text-[#223258]">empaneled licensed professionals (CA, CS, PCS)</span>.
+          </p>
+
+          {/* Positioning line */}
+          <div className="pt-3">
+            <p className="font-semibold text-[#223258] text-base md:text-lg">
+              A single-point Investment Banking partner — so founders can focus on building and scaling.
             </p>
-
-            <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-              We guide ambitious founders through every stage of fundraising — from powerful storytelling and institutional-grade pitch materials to high-impact conversations with angels, family offices, and venture funds (equity, debt, grants).
-            </p>
-
-            <div className="pt-3">
-              <p className="font-semibold text-[#223258] mb-3 text-base md:text-lg">
-                We fast-track your foundational journey:
-              </p>
-
-              <ul className="space-y-3 text-slate-700 text-base md:text-lg">
-                {[
-                  "Company incorporation (OPC, LLP, Pvt Ltd, Section 8)",
-                  "Key registrations — Startup India, MSME, GST, IEC, DPIIT",
-                  "Strategic IP protection (trademark • copyright • patent • design)",
-                  "Complete ROC, statutory & secretarial compliance"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start">
-                    <span className="text-[#a8042b] text-xl leading-none mr-2.5 mt-0.5">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Disclaimer - smaller */}
-            <div className="mt-8 p-5 bg-gray-50/70 rounded-lg border border-gray-100">
-              <p className="text-sm text-slate-500 italic">
-                <span className="font-semibold text-[#a8042b]">Important:</span> Aurex Ventures provides professional facilitation and advisory services only. We do not guarantee any funding, investment outcome, or regulatory approval.
-              </p>
-            </div>
           </div>
+
+          {/* Disclaimer */}
+          <div className="mt-6 p-4 bg-gray-50/70 rounded-lg border border-gray-100">
+            <p className="text-sm text-slate-500 italic">
+              <span className="font-semibold text-[#a8042b]">Important:</span> Aurex Ventures provides
+              professional advisory and facilitation services only. We do not guarantee fundraising
+              outcomes or regulatory approvals.
+            </p>
+          </div>
+        </div>
+
         </div>
       </div>
     </section>
