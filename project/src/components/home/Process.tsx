@@ -1,6 +1,6 @@
 import { ArrowRight, CheckCircle2, FileText, Users, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
-
+import { useNavigate } from '../Router';
 function AnimatedHeading({ title, subtitle }) {
   return (
     <div className="text-center mb-8">
@@ -12,6 +12,7 @@ function AnimatedHeading({ title, subtitle }) {
 
 export  function HomeProcess() {
   const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate();
 
   const steps = [
     {
@@ -206,7 +207,7 @@ export  function HomeProcess() {
         </div>
 
         <div className="text-center mt-12 md:mt-16">
-          <button className="px-8 py-4 bg-[#a8042b] hover:bg-[#8f0324] text-white font-semibold rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 shadow-lg group">
+          <button  onClick={() => navigate('contact')} className="px-8 py-4 bg-[#a8042b] hover:bg-[#8f0324] text-white font-semibold rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 shadow-lg group">
             <span>Start Your Journey</span>
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
           </button>

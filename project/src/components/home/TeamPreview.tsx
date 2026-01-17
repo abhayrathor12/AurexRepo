@@ -1,23 +1,27 @@
 import { ArrowUpRight, Linkedin, Twitter, Globe } from "lucide-react";
-import prernaJain from "../../public/pr.png";
-import kapilSir from "../../public/kapil.jpg";
+import prernaJain from "../../public/1.png";
+import kapilSir from "../../public/2.png";
 import { AnimatedHeading } from '../AnimtedHeading';
+import { useNavigate } from "../Router";
 export function HomeTeamPreview() {
+  const navigate = useNavigate();
   const teamMembers = [
-    {
-      name: "CS Prerna Jain",
-      role: "Founder & Head – P.A.J & Co. | Company Secretary",
-      description:
-        "Practicing Company Secretary specializing in corporate compliance, governance, and regulatory advisory for startups and growing enterprises.",
-      image: prernaJain,
-    },
-    {
+    
+    {id: "kapil-khurana",
       name: "Mr. Kapil Khurana",
       role: "Senior Advisor & Mentor",
       description:
         "Strategic advisor with strong expertise in business leadership and operational excellence.",
       image: kapilSir,
     },
+    {
+      id: "prerna-jain",
+      name: "CS Prerna Jain",
+      role: "Founder & Head – P.A.J & Co. | Company Secretary",
+      description:
+        "Practicing Company Secretary specializing in corporate compliance, governance, and regulatory advisory for startups and growing enterprises.",
+      image: prernaJain,
+    }
   ];
   
   
@@ -63,7 +67,7 @@ export function HomeTeamPreview() {
                     </div>
 
                     <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white flex items-center justify-center transition">
-                      <ArrowUpRight className="w-5 h-5 text-white hover:text-slate-900" />
+                      <ArrowUpRight  onClick={() => navigate('team')} className="w-5 h-5 text-white hover:text-slate-900" />
                     </button>
                   </div>
 

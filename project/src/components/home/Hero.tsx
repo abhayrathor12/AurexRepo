@@ -49,61 +49,68 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
               <span className="text-sm font-medium text-[#223258]">Trusted by 500+ Startups</span>
             </div> */}
 
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-4xl font-bold mb-6 leading-tight">
               <span className="text-[#223258]">
-                Curated Capital
+                Investment Banking
               </span>
               <br />
-              <span className="text-[#223258]">for Serious</span>
+              <span className="text-[#223258]">
+                Advisory for Emerging
+              </span>
               <br />
               <span className="text-[#a8042b]">
-                Founders
+                & Growth-Stage Ventures
               </span>
             </h1>
 
+
             <p className="text-lg text-[#223258]/80 mb-8 leading-relaxed">
-              Aurex Ventures is a startup-focused advisory and facilitation platform enabling structured fundraising,
-              curated investor access, and compliance-backed growth support.
+            Aurex Ventures is an Investment Banking advisory firm supporting early-stage and growth-stage startups with capital raising, transaction structuring, and end-to-end execution.
+
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={onRegisterClick}
-                className="group relative bg-[#a8042b] text-white px-7 py-3.5 rounded-lg font-semibold text-base overflow-hidden transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#a8042b]/30"
-              >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Register as a Startup
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-[#8a0323] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </button>
+            <button
+  onClick={scrollToContact}
+  className="group relative bg-[#a8042b] text-white px-8 py-4 rounded-lg font-semibold text-base overflow-hidden transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#a8042b]/30"
+>
+  <span className="relative z-10 flex items-center justify-center gap-2">
+    Get Started with Aurex
+    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+  </span>
+  <div className="absolute inset-0 bg-[#8a0323] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
 
-              <button
-                onClick={scrollToContact}
-                className="group relative bg-white text-[#223258] border-2 border-[#223258] px-7 py-3.5 rounded-lg font-semibold text-base hover:bg-[#223258] hover:text-white transition-all hover:scale-105"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  Join as an Investor
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </button>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-[#223258]/10">
-              <div>
-                <div className="text-2xl font-bold text-[#a8042b] mb-1">₹250Cr+</div>
-                <div className="text-sm text-[#223258]/60">Capital Raised</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-[#a8042b] mb-1">500+</div>
-                <div className="text-sm text-[#223258]/60">Startups</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-[#a8042b] mb-1">150+</div>
-                <div className="text-sm text-[#223258]/60">Investors</div>
-              </div>
-            </div>
+  <div>
+    <div className="text-base font-semibold text-[#a8042b] mb-1">
+      Capital Advisory
+    </div>
+    <div className="text-sm text-[#223258]/60">
+      Equity & debt fundraising support
+    </div>
+  </div>
+  <div>
+    <div className="text-base font-semibold text-[#a8042b] mb-1">
+      Investor Outreach
+    </div>
+    <div className="text-sm text-[#223258]/60">
+      Angels, VCs & institutions
+    </div>
+  </div>
+  <div>
+    <div className="text-base font-semibold text-[#a8042b] mb-1">
+      Deal Execution
+    </div>
+    <div className="text-sm text-[#223258]/60">
+      Structuring to transaction closure
+    </div>
+  </div>
+</div>
+
           </div>
 
           {/* Right content - animated cards */}

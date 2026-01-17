@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, TrendingUp, Building2, Shield, FileText } from 'lucide-react';
 import { AnimatedHeading } from '../AnimtedHeading';
+import { useNavigate } from '../Router';
+
+
 export function HomeWhatWeEnable() {
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   // Auto-switch tabs every 5 seconds
   useEffect(() => {
@@ -150,10 +154,15 @@ export function HomeWhatWeEnable() {
                   ))}
                 </div>
 
-                <button className="inline-flex items-center gap-2 bg-[#a8042b] hover:bg-[#a8042b]/90 text-white px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg">
-                  {activeContent.buttonText}
-                  <ArrowRight size={20} />
-                </button>
+                
+<button
+  onClick={() => navigate('contact')}
+  className="inline-flex items-center gap-2 bg-[#a8042b] hover:bg-[#a8042b]/90 text-white px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg"
+>
+  {activeContent.buttonText}
+  <ArrowRight size={20} />
+</button>
+
               </div>
 
               {/* Icon Side */}

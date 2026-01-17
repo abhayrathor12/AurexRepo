@@ -37,26 +37,28 @@ export default function ScrollStackSection({
       const stackCards = gsap.utils.toArray<HTMLElement>(".stack-card");
 
       gsap.set(stackCards, {
-        y: 80,
-        scale: 0.94,
+        y: 120,
+        scale: 0.88,
         opacity: 0,
+        rotationX: 8,
       });
 
       gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${stackCards.length * 220}`, // ⬅ more scroll distance
+          end: `+=${stackCards.length * 280}`,
           pin: true,
-          scrub: 2.5, // ⬅ adds smooth resistance
+          scrub: 1.8,
         },
     
       }).to(stackCards, {
         y: 0,
         scale: 1,
         opacity: 1,
-        stagger: 0.35,
-        ease: "power4.out",
+        rotationX: 0,
+        stagger: 0.4,
+        ease: "power3.out",
       });
     }, sectionRef);
 

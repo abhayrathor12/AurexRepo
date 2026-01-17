@@ -11,11 +11,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-2">
       <ContactHero />
       <ContactInfoAndFormSection />
-      <ContactRegisterCardsSection onRegisterClick={openRegister} />
-      <ContactFooterNoteSection />
+      {/* <ContactRegisterCardsSection onRegisterClick={openRegister} /> */}
+      {/* <ContactFooterNoteSection /> */}
     </div>
   );
 }

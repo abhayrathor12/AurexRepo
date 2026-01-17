@@ -1,3 +1,4 @@
+import aurexLogo from '../public/aurex2.png';
 export default function Footer() {
   return (
     <footer className="relative bg-[#223258] text-white mt-16 overflow-hidden">
@@ -17,12 +18,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
           {/* Brand section */}
           <div className="md:col-span-5">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-[#a8042b] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A</span>
-              </div>
-              <h3 className="text-2xl font-bold">Aurex Ventures</h3>
-            </div>
+          <div className="flex items-center gap-3 mb-4">
+  <img
+    src={aurexLogo}  // or /logo.png
+    alt="Aurex Ventures Logo"
+    className="h-14 w-auto object-contain"
+  />
+</div>
             <p className="text-[#a8042b] font-semibold mb-3 tracking-wide">
               Capital • Compliance • Growth
             </p>
