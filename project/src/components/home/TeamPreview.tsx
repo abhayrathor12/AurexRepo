@@ -8,7 +8,7 @@ export function HomeTeamPreview() {
   const teamMembers = [
     
     {id: "kapil-khurana",
-      name: "Mr. Kapil Khurana",
+      name: "Kapil Khurana",
       role: "Senior Advisor & Mentor",
       description:
         "Strategic advisor with strong expertise in business leadership and operational excellence.",

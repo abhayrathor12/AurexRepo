@@ -15,7 +15,7 @@ export default function Team() {
       
     
       {
-        name: 'Mr. Kapil Khurana',
+        name: 'Kapil Khurana',
         title: 'Senior Advisor & Mentor',
         image_url: kapilimg,
     
