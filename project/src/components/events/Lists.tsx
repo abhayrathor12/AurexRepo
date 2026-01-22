@@ -251,7 +251,7 @@ export function EventsListsSection({
                         </div>
 
                         <button
-                          onClick={onRegisterClick}
+                          onClick={() => window.open("https://lu.ma/ij3hs4uq", "_blank", "noopener,noreferrer")}
                           className="w-full text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg"
                           style={{ backgroundColor: '#223258' }}
                           onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#a8042b')}

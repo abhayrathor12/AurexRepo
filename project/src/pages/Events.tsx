@@ -3,7 +3,7 @@ import { EventsHero } from '../components/events/Hero';
 import { EventsTypesOverview } from '../components/events/TypesOverview';
 import { EventsListsSection } from '../components/events/Lists';
 import { EventsWhyAttendSection } from '../components/events/WhyAttend';
-
+import UpcomingEventSection from '../components/events/NewEvent';
 export interface Event {
   id: string;
   title: string;
@@ -20,8 +20,8 @@ const EVENTS_DATA: Event[] = [
     id: '1',
     title: 'Founder–Investor Meetup',
     description: 'Exclusive networking with VCs and founders.',
-    event_date: '2026-02-10',
-    location: 'Bangalore',
+    event_date: '2026-01-30',
+    location: 'Delhi',
     event_type: 'upcoming',
     image_url: null,
   },
@@ -62,6 +62,7 @@ export default function Events() {
     <div className="min-h-screen pt-6">
       <EventsHero />
       <EventsTypesOverview />
+      <UpcomingEventSection />
       <EventsListsSection
         loading={loading}
         upcomingEvents={upcomingEvents}
