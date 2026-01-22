@@ -87,7 +87,7 @@ export default function EventPopup({ isOpen, onClose }: EventPopupProps) {
             rel="noopener noreferrer"
             className="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-[#223258] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#1b2847]"
           >
-            Apply for Selection
+            Apply for Registration
           </a>
 
           {/* Footer Note */}
