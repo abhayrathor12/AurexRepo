@@ -66,7 +66,7 @@ export default function UpcomingEventSection() {
                   <MapPin className="text-[#a8042b] flex-shrink-0" size={18} />
                   <div>
                     <p className="text-xs text-slate-500 font-medium">Venue</p>
-                    <p className="text-[#223258] font-semibold text-sm">IIT, Delhi</p>
+                    <p className="text-[#223258] font-semibold text-sm">Nasscom , Gurgaon</p>
                   </div>
                 </div>
 
@@ -153,7 +153,7 @@ export default function UpcomingEventSection() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-[#223258] to-transparent">
   <div className="flex items-center gap-2 text-white mb-2 justify-end">
     <Sparkles className="text-[#a8042b]" size={20} />
-    <span className="font-bold text-lg">IIT Delhi Campus</span>
+    <span className="font-bold text-lg">Nasscom Gurgaon</span>
   </div>
   <p className="text-white/90 text-sm text-right">
     Exclusive invite-only pitching event
@@ -162,7 +162,7 @@ export default function UpcomingEventSection() {
               </div>
               <div className="mt-4 text-center">
                 <p className="text-[#223258] font-semibold text-lg">Event Highlights</p>
-                <p className="text-slate-600 text-sm mt-1">January 30, 2026 • IIT Delhi</p>
+                <p className="text-slate-600 text-sm mt-1">January 30, 2026 • Nasscom Gurgaon</p>
               </div>
             </div>
           </div>
