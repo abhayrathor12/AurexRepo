@@ -21,7 +21,7 @@ const EVENTS_DATA: Event[] = [
     title: 'Founder–Investor Meetup',
     description: 'Exclusive networking with VCs and founders.',
     event_date: '2026-01-30',
-    location: 'Delhi',
+    location: 'Nasscom, Gurgaon',
     event_type: 'upcoming',
     image_url: null,
   },
