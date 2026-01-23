@@ -59,7 +59,7 @@ export default function EventPopup({ isOpen, onClose }: EventPopupProps) {
 
             <div className="flex items-center gap-2 col-span-2">
               <MapPin size={16} className="text-[#a8042b]" />
-              <span>Nasscomm, Gurgaon</span>
+              <span>Nasscom, Gurgaon</span>
             </div>
 
             <div className="flex items-center gap-2">
