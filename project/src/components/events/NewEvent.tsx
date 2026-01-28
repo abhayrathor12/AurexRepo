@@ -1,6 +1,6 @@
 import { ArrowRight, Calendar, MapPin, Clock, Users, CheckCircle, Rocket, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-
+import brochurePdf from "../../pdfs/Event Brochure.pdf";
 import { AnimatedHeading } from '../AnimtedHeading'; // Fixed typo in comment
 import eventimage from "../../public/eventpic1.jpeg";
 
@@ -66,7 +66,7 @@ export default function UpcomingEventSection() {
                   <MapPin className="text-[#a8042b] flex-shrink-0" size={18} />
                   <div>
                     <p className="text-xs text-slate-500 font-medium">Venue</p>
-                    <p className="text-[#223258] font-semibold text-sm">Nasscom , Gurgaon</p>
+                    <p className="text-[#223258] font-semibold text-sm">​HARTRON | IAMAI | NASSCOM</p>
                   </div>
                 </div>
 
@@ -87,14 +87,29 @@ export default function UpcomingEventSection() {
                 </div>
               </div>
 
-              <button
-  type="button"
-  onClick={() => window.open("https://lu.ma/ij3hs4uq", "_blank", "noopener,noreferrer")}
-  className="w-full group bg-[#a8042b] text-white px-6 py-3 rounded-xl hover:bg-[#8a0323] transition-all font-semibold text-base shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
->
-  Register Now
-  <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
-</button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  
+                  {/* Register Button */}
+                  <button
+                    type="button"
+                    onClick={() => window.open("https://lu.ma/ij3hs4uq", "_blank", "noopener,noreferrer")}
+                    className="group bg-[#a8042b] text-white px-6 py-3 rounded-xl hover:bg-[#8a0323] transition-all font-semibold text-base shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                  >
+                    Register Now
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+                  </button>
+
+                  {/* Download Brochure Button */}
+                  <a
+                    href={brochurePdf}
+                    download
+                    className="group border-2 border-aurex-primary text-aurex-primary px-6 py-3 rounded-xl hover:bg-aurex-primary hover:text-white transition-all font-semibold text-base shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    Download Brochure
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+                  </a>
+
+                </div>
             </div>
 
             {/* Agenda Card - CHANGED: 2 columns on md+ screens */}
@@ -151,14 +166,14 @@ export default function UpcomingEventSection() {
                   className="w-full h-[500px] object-contain group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-[#223258] to-transparent">
-  <div className="flex items-center gap-2 text-white mb-2 justify-end">
-    <Sparkles className="text-[#a8042b]" size={20} />
-    <span className="font-bold text-lg">Nasscom Gurgaon</span>
-  </div>
-  <p className="text-white/90 text-sm text-right">
-    Exclusive invite-only pitching event
-  </p>
-</div>
+                    <div className="flex items-center gap-2 text-white mb-2 justify-end">
+                      <Sparkles className="text-[#a8042b]" size={20} />
+                      <span className="font-bold text-lg">​HARTRON | IAMAI | NASSCOM</span>
+                    </div>
+                    <p className="text-white/90 text-sm text-right">
+                      Exclusive invite-only pitching event
+                    </p>
+                  </div>
               </div>
               <div className="mt-4 text-center">
                 <p className="text-[#223258] font-semibold text-lg">Event Highlights</p>
