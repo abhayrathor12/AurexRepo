@@ -2,7 +2,7 @@ import { ArrowRight, Calendar, MapPin, Clock, Users, CheckCircle, Rocket, Sparkl
 import { useState } from 'react';
 import brochurePdf from "../../pdfs/Event Brochure.pdf";
 import { AnimatedHeading } from '../AnimtedHeading'; // Fixed typo in comment
-import eventimage from "../../public/eventpic1.jpeg";
+import eventimage from "../../public/eventpicture.jpg";
 
 export default function UpcomingEventSection() {
   const [hoveredAgenda, setHoveredAgenda] = useState<number | null>(null);
@@ -165,7 +165,7 @@ export default function UpcomingEventSection() {
                   alt="Aurex Ventures Event"
                   className="w-full h-[500px] object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-[#223258] to-transparent">
+                {/* <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-[#223258] to-transparent">
                     <div className="flex items-center gap-2 text-white mb-2 justify-end">
                       <Sparkles className="text-[#a8042b]" size={20} />
                       <span className="font-bold text-lg">​HARTRON | IAMAI | NASSCOM</span>
@@ -173,7 +173,7 @@ export default function UpcomingEventSection() {
                     <p className="text-white/90 text-sm text-right">
                       Exclusive invite-only pitching event
                     </p>
-                  </div>
+                  </div> */}
               </div>
               <div className="mt-4 text-center">
                 <p className="text-[#223258] font-semibold text-lg">Event Highlights</p>

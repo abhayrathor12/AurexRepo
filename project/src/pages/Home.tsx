@@ -7,6 +7,7 @@ import { HomeTeamPreview } from '../components/home/TeamPreview';
 import { HomeEventsPreview } from '../components/home/EventsPreview';
 import { HomeContactCTA } from '../components/home/ContactCTA';
 import ModernJoinSection from '../components/home/Startups';
+import MissonValue from '../components/home/MissonValues';
 import { useEffect } from 'react';
 export default function Home() {
   const openRegister = () => {
@@ -37,6 +38,7 @@ export default function Home() {
 
       <HomeTeamPreview />
       <ModernJoinSection/>
+      <MissonValue/>
 
       
       <HomeEventsPreview />

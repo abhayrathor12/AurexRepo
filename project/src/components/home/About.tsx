@@ -124,44 +124,46 @@ export function HomeAbout() {
           </div>
 
           
-        {/* RIGHT - Text content */}
-        <div className="order-1 md:order-2 space-y-5 md:space-y-6">
-          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-            <span className="font-semibold text-[#223258]">Aurex Ventures</span> is a specialized{' '}
-            <span className="font-semibold">Investment Banking advisory firm</span> supporting
-            early-stage and growth-stage startups with{' '}
-            <span className="font-semibold">capital raising and transaction execution</span>.
-          </p>
+        
+{/* RIGHT - Text content */}
+<div className="order-1 md:order-2 space-y-5 md:space-y-6">
+  <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+    <span className="font-semibold text-[#223258]">Aurex Ventures</span> is an{' '}
+    <span className="font-semibold">investment banking advisory firm</span>{' '}
+    specializing in <span className="font-semibold">capital raising and transaction support</span>{' '}
+    for early-stage and growth-stage startups.
+  </p>
 
-          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-            We advise founders across the complete fundraising lifecycle — investor readiness,
-            financial and valuation positioning, structured investor outreach, and deal coordination —
-            engaging with angels, venture capital funds, institutional lenders, and government
-            grant authorities until transaction closure.
-          </p>
+  <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+    We operate as a <span className="font-semibold">single-point fundraising and transaction partner</span>,
+    guiding founders through the complete investment lifecycle — from{' '}
+    <span className="font-semibold">investor readiness and strategic positioning</span>{' '}
+    to <span className="font-semibold">deal execution and closure</span>.
+  </p>
 
-          <p className="text-base md:text-lg text-slate-700 leading-relaxed">
-            Beyond capital advisory, we facilitate company incorporation, statutory registrations,
-            intellectual property protection, and ROC compliance through our{' '}
-            <span className="font-semibold text-[#223258]">empaneled licensed professionals (CA, CS, PCS)</span>.
-          </p>
+  <p className="text-base md:text-lg text-slate-700 leading-relaxed">
+    We bridge the gap between <span className="font-semibold">ambitious founders</span>{' '}
+    and <span className="font-semibold">aligned capital</span> by combining disciplined advisory,
+    targeted investor access, and <span className="font-semibold">execution-led support</span>.
+  </p>
 
-          {/* Positioning line */}
-          <div className="pt-3">
-            <p className="font-semibold text-[#223258] text-base md:text-lg">
-              A single-point Investment Banking partner — so founders can focus on building and scaling.
-            </p>
-          </div>
+  {/* Positioning line */}
+  <div className="pt-3">
+    <p className="font-semibold text-[#223258] text-base md:text-lg">
+      A single-point Investment Banking partner — so founders can focus on building and scaling.
+    </p>
+  </div>
 
-          {/* Disclaimer */}
-          <div className="mt-6 p-4 bg-gray-50/70 rounded-lg border border-gray-100">
-            <p className="text-sm text-slate-500 italic">
-              <span className="font-semibold text-[#a8042b]">Important:</span> Aurex Ventures provides
-              professional advisory and facilitation services only. We do not guarantee fundraising
-              outcomes or regulatory approvals.
-            </p>
-          </div>
-        </div>
+  {/* Disclaimer */}
+  <div className="mt-6 p-4 bg-gray-50/70 rounded-lg border border-gray-100">
+    <p className="text-sm text-slate-500 italic">
+      <span className="font-semibold text-[#a8042b]">Important:</span> Aurex Ventures provides
+      professional advisory and facilitation services only. We do not guarantee fundraising
+      outcomes or regulatory approvals.
+    </p>
+  </div>
+</div>
+
 
         </div>
       </div>

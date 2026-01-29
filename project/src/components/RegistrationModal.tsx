@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { X, Building2, TrendingUp, Sparkles, ArrowRight } from "lucide-react";
+import { useNavigate } from "./Router"; 
+import {
+  X,
+  Building2,
+  TrendingUp,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
 
 interface RegistrationModalProps {
   isOpen: boolean;
@@ -11,32 +18,22 @@ export default function RegistrationModal({
   onClose,
 }: RegistrationModalProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-black/30"></div>
-
-      {/* Background blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full blur-3xl opacity-20 animate-pulse"
-          style={{ backgroundColor: "#a8042b", top: "10%", right: "10%" }}
-        />
-        <div
-          className="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full blur-3xl opacity-20 animate-pulse delay-1000"
-          style={{ backgroundColor: "#223258", bottom: "10%", left: "10%" }}
-        />
-      </div>
+      <div
+        className="absolute inset-0 backdrop-blur-sm bg-black/30"
+        onClick={onClose}
+      />
 
       {/* Modal */}
-      <div className="relative w-full max-w-3xl rounded-2xl shadow-2xl bg-white 
-                max-h-[90vh] sm:max-h-none overflow-y-auto sm:overflow-visible">
-
+      <div className="relative w-full max-w-3xl rounded-2xl shadow-2xl bg-white">
         {/* Header */}
-        <div className="relative p-4 sm:p-6 pb-3 overflow-hidden">
+        <div className="relative p-6 overflow-hidden">
           <div
             className="absolute inset-0"
             style={{
@@ -46,7 +43,7 @@ export default function RegistrationModal({
 
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 rounded-full flex items-center justify-center z-10 bg-white/10 hover:bg-[#a8042b]"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center z-10 bg-white/10 hover:bg-[#a8042b]"
           >
             <X className="text-white" size={18} />
           </button>
@@ -59,19 +56,19 @@ export default function RegistrationModal({
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="text-3xl font-bold text-white">
               Start Your Journey
             </h2>
-            <p className="text-white/80 text-xs sm:text-sm">
+            <p className="text-white/80 text-sm">
               Choose your path and unlock exclusive opportunities
             </p>
           </div>
         </div>
 
         {/* Cards */}
-        <div className="p-4 sm:p-6 pt-3">
+        <div className="p-6 pt-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Startup */}
+            {/* STARTUP */}
             <Card
               title="Register as Startup"
               description="Get access to fundraising support, curated investor connections, and compliance guidance."
@@ -86,36 +83,35 @@ export default function RegistrationModal({
               hovered={hoveredCard === "startup"}
               onEnter={() => setHoveredCard("startup")}
               onLeave={() => setHoveredCard(null)}
-              link="mailto:aurexventures@zohomail.in?subject=Startup Registration Interest"
+              onClick={() => {
+                onClose();
+                navigate("/startup-registration");
+              }}
               buttonText="Apply Now"
             />
 
-            {/* Investor */}
+            {/* INVESTOR */}
             <Card
-              title="Join as Investor"
-              description="Access curated deal flow from vetted startups aligned with your investment thesis."
-              items={[
-                "Pre-screened startups",
-                "Curated deal flow",
-                "Exclusive pitch events",
-                "Confidential process",
-              ]}
-              color="#a8042b"
-              icon={<TrendingUp size={22} />}
-              hovered={hoveredCard === "investor"}
-              onEnter={() => setHoveredCard("investor")}
-              onLeave={() => setHoveredCard(null)}
-              link="mailto:aurexventures@zohomail.in?subject=Investor Registration Interest"
-              buttonText="Join Network"
-            />
-          </div>
+  title="Join as Investor"
+  description="Access curated deal flow from vetted startups aligned with your investment thesis."
+  items={[
+    "Pre-screened startups",
+    "Curated deal flow",
+    "Exclusive pitch events",
+    "Confidential process",
+  ]}
+  color="#a8042b"
+  icon={<TrendingUp size={22} />}
+  hovered={hoveredCard === "investor"}
+  onEnter={() => setHoveredCard("investor")}
+  onLeave={() => setHoveredCard(null)}
+  onClick={() => {
+    onClose();
+    navigate("/investor-registration");
+  }}
+  buttonText="Join Network"
+/>
 
-          {/* Footer */}
-          <div className="mt-4 p-3 rounded-lg bg-[#223258]/5">
-            <p className="text-xs text-slate-600 text-center leading-relaxed">
-              By registering, you agree to be contacted by Aurex Ventures.
-              Your information will be kept confidential.
-            </p>
           </div>
         </div>
       </div>
@@ -123,7 +119,8 @@ export default function RegistrationModal({
   );
 }
 
-/* Reusable Card Component */
+/* CARD COMPONENT */
+
 function Card({
   title,
   description,
@@ -133,7 +130,7 @@ function Card({
   hovered,
   onEnter,
   onLeave,
-  link,
+  onClick,
   buttonText,
 }: any) {
   return (
@@ -158,16 +155,20 @@ function Card({
         {icon}
       </div>
 
-      <h3 className="text-lg sm:text-xl font-bold text-[#223258] mb-1">
+      <h3 className="text-xl font-bold text-[#223258] mb-1">
         {title}
       </h3>
-      <p className="text-xs sm:text-sm text-slate-600 mb-3">
+
+      <p className="text-sm text-slate-600 mb-3">
         {description}
       </p>
 
       <ul className="space-y-1.5 mb-4">
         {items.map((item: string, i: number) => (
-          <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
+          <li
+            key={i}
+            className="flex items-center gap-2 text-xs text-slate-600"
+          >
             <span
               className="w-1.5 h-1.5 rounded-full"
               style={{ backgroundColor: color }}
@@ -177,14 +178,14 @@ function Card({
         ))}
       </ul>
 
-      <a
-        href={link}
+      <button
+        onClick={onClick}
         className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-sm font-semibold text-white transition"
         style={{ backgroundColor: color }}
       >
         {buttonText}
         <ArrowRight size={16} />
-      </a>
+      </button>
     </div>
   );
 }

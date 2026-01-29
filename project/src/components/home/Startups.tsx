@@ -1,13 +1,17 @@
 import { ArrowRight, TrendingUp, Building2, CheckCircle, Rocket, LineChart, Users, Sparkles, Target, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { AnimatedHeading } from '../AnimtedHeading';
+import { useNavigate } from "../../components/Router";
 export default function ModernJoinSection() {
   const [hoveredStartup, setHoveredStartup] = useState(false);
   const [hoveredInvestor, setHoveredInvestor] = useState(false);
+  const navigate = useNavigate();
 
   const openRegister = () => {
-    const event = new CustomEvent('openRegisterModal');
-    window.dispatchEvent(event);
+    navigate("startup-registration");
+  };
+  const openRegister1 = () => {
+    navigate("investor-registration");
   };
 
   return (
@@ -247,7 +251,7 @@ export default function ModernJoinSection() {
               </div>
 
               <button
-                onClick={openRegister}
+                onClick={openRegister1}
                 className="group bg-aurex-accent text-white px-8 py-4 rounded-xl hover:bg-aurex-accentSoft transition-all font-semibold text-lg shadow-lg hover:shadow-xl flex items-center gap-2"
               >
                 Join as an Investor

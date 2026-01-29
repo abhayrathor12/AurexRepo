@@ -2,18 +2,20 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, TrendingUp, Building2, Shield, FileText } from 'lucide-react';
 import { AnimatedHeading } from '../AnimtedHeading';
 import { useNavigate } from '../Router';
-
+import funding from '../../public/funding.jpg';
+import grow from '../../public/Grow Business.jpg';
+import business from '../../public/Start Businesses.jpg';
+import protect from '../../public/Protect and Comply (1).jpg';
 
 export function HomeWhatWeEnable() {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
 
-  // Auto-switch tabs every 5 seconds
+  // Auto-switch tabs every 2 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTab((prev) => (prev + 1) % 4);
     }, 2000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -22,76 +24,82 @@ export function HomeWhatWeEnable() {
       id: 0,
       name: "Funding",
       icon: TrendingUp,
+      image: funding,  // ← place downloaded PNG here
       title: "Access Multiple Funding Options",
       subtitle: "Explore financial support tailored for your business growth",
-      description: "Get comprehensive funding solutions including debt financing, equity investments, and government-backed schemes to accelerate your startup journey.",
+      description:
+        "Get comprehensive funding solutions including debt financing, equity investments, and government-backed schemes to accelerate your startup journey.",
       services: [
         "Debt Funding",
-        "Equity Funding", 
+        "Equity Funding",
         "Government Schemes",
         "Angel Investment",
-        "Venture Capital"
+        "Venture Capital",
       ],
-      buttonText: "Explore Funding Options"
+      buttonText: "Explore Funding Options",
     },
     {
       id: 1,
       name: "Start Business",
       icon: Building2,
+      image: business,  // ← downloaded transparent PNG
       title: "Register Your Business Seamlessly",
       subtitle: "Choose the right structure for your venture",
-      description: "We help you set up your business with the most suitable legal structure, ensuring compliance and maximizing benefits from day one.",
+      description:
+        "We help you set up your business with the most suitable legal structure, ensuring compliance and maximizing benefits from day one.",
       services: [
         "One Person Company (OPC)",
         "Limited Liability Partnership (LLP)",
         "Private Limited Company",
         "Section 8 Company",
-        "Partnership Firm"
+        "Partnership Firm",
       ],
-      buttonText: "Start Your Business"
+      buttonText: "Start Your Business",
     },
     {
       id: 2,
       name: "Grow Business",
       icon: Shield,
+      image: grow,  // ← rocket launch / growth illustration
       title: "Scale Your Business with Certifications",
       subtitle: "Access government schemes and essential registrations",
-      description: "Unlock growth opportunities through strategic registrations, certifications, and compliance that open doors to funding and market access.",
+      description:
+        "Unlock growth opportunities through strategic registrations, certifications, and compliance that open doors to funding and market access.",
       services: [
         "Startup India Registration",
         "MSME (Udyam) Registration",
         "GST Registration",
         "IEC (Import Export Code)",
-        "ISO Certifications"
+        "ISO Certifications",
       ],
-      buttonText: "Explore Growth Services"
+      buttonText: "Explore Growth Services",
     },
     {
       id: 3,
       name: "Protect & Comply",
       icon: FileText,
+      image: protect,  // ← shield with IP / protection theme
       title: "Protect Your Assets & Stay Compliant",
       subtitle: "Secure your intellectual property and ensure regulatory compliance",
-      description: "Safeguard your business with comprehensive IP protection, maintain regulatory compliance, and get accurate valuations for strategic decisions.",
+      description:
+        "Safeguard your business with comprehensive IP protection, maintain regulatory compliance, and get accurate valuations for strategic decisions.",
       services: [
         "Trademark Registration",
         "Patent Filing",
         "ROC Compliance",
         "FEMA Compliance",
-        "Business Valuation"
+        "Business Valuation",
       ],
-      buttonText: "Secure Your Business"
-    }
+      buttonText: "Secure Your Business",
+    },
   ];
 
   const activeContent = tabs[activeTab];
-  const Icon = activeContent.icon;
 
   return (
     <section className="py-10 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-
         <AnimatedHeading
           title="What We Enable"
           subtitle="Comprehensive solutions for every stage of your startup journey"
@@ -123,7 +131,7 @@ export function HomeWhatWeEnable() {
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#a8042b]/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-2xl"></div>
-          
+
           <div className="relative z-10 p-8 md:p-12 lg:p-16">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               {/* Content Side */}
@@ -131,15 +139,15 @@ export function HomeWhatWeEnable() {
                 <div className="inline-block bg-[#a8042b] px-4 py-1 rounded-full text-sm font-semibold mb-4">
                   {activeContent.name.toUpperCase()}
                 </div>
-                
+
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
                   {activeContent.title}
                 </h3>
-                
+
                 <p className="text-white/90 text-lg mb-6">
                   {activeContent.subtitle}
                 </p>
-                
+
                 <p className="text-white/80 mb-8 leading-relaxed">
                   {activeContent.description}
                 </p>
@@ -154,25 +162,28 @@ export function HomeWhatWeEnable() {
                   ))}
                 </div>
 
-                
-<button
-  onClick={() => navigate('contact')}
-  className="inline-flex items-center gap-2 bg-[#a8042b] hover:bg-[#a8042b]/90 text-white px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg"
->
-  {activeContent.buttonText}
-  <ArrowRight size={20} />
-</button>
-
+                <button
+                  onClick={() => navigate('contact')}
+                  className="inline-flex items-center gap-2 bg-[#a8042b] hover:bg-[#a8042b]/90 text-white px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg"
+                >
+                  {activeContent.buttonText}
+                  <ArrowRight size={20} />
+                </button>
               </div>
 
-              {/* Icon Side */}
-              <div className="lg:w-1/3">
-                <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 border border-white/20">
-                  <div className="bg-white rounded-2xl p-8 shadow-xl flex items-center justify-center h-64">
-                    <Icon className="text-[#223258]" size={120} strokeWidth={1.5} />
-                  </div>
-                </div>
-              </div>
+              {/* Image Side */}
+              <div className="lg:w-1/2">
+  <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
+    <div className="rounded-2xl  p-1 flex items-center justify-center h-[360px] md:h-[320px] lg:h-[360px] overflow-hidden">
+      <img
+        src={activeContent.image}
+        alt={`${activeContent.name} illustration`}
+        className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
+      />
+    </div>
+  </div>
+</div>
+
             </div>
           </div>
         </div>

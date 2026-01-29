@@ -1,4 +1,5 @@
 import ScrollStackSection from "../components/ScrollStack";
+import WhoWeWorkWith from "../components/services/Whoworkwith";
 import {
   Cpu,
   Lightbulb,
@@ -315,7 +316,7 @@ export default function Services() {
     },
   ]}
 />
-
+<WhoWeWorkWith />
     </div>
   );
 }
