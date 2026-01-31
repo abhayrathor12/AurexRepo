@@ -7,36 +7,57 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useState } from "react";
+import api from "../../services/api";
 
 export function ContactInfoAndFormSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    type: "",
+    i_am_a: "",
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = () => {
-    alert(
-      "For direct inquiries, please email us at aurexventures@zohomail.in or call us at the provided numbers."
-    );
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await api.post("/api/con/create/", formData);
+      alert("✅ Message sent successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        i_am_a: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="py-14 sm:py-16 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
-        {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* LEFT COLUMN */}
+
+          {/* LEFT COLUMN (UNCHANGED) */}
           <div className="space-y-5">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#223258] mb-2">
@@ -47,7 +68,6 @@ export function ContactInfoAndFormSection() {
               </p>
             </div>
 
-            {/* Phone */}
             <div className="bg-gradient-to-br from-[#223258] to-[#2a4070] rounded-xl p-5 sm:p-6 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <Phone size={20} />
@@ -61,7 +81,6 @@ export function ContactInfoAndFormSection() {
               </a>
             </div>
 
-            {/* Email */}
             <div className="bg-white border-2 border-[#a8042b] rounded-xl p-5 sm:p-6">
               <div className="flex items-center gap-3 mb-4">
                 <Mail size={20} className="text-[#a8042b]" />
@@ -75,7 +94,6 @@ export function ContactInfoAndFormSection() {
               </a>
             </div>
 
-            {/* Address */}
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 sm:p-6">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin size={20} className="text-[#223258]" />
@@ -88,7 +106,6 @@ export function ContactInfoAndFormSection() {
               </p>
             </div>
 
-            {/* Office Hours */}
             <div className="bg-gradient-to-br from-[#a8042b] to-[#8a0323] rounded-xl p-5 sm:p-6 text-white">
               <div className="flex items-center gap-3 mb-4">
                 <Clock size={20} />
@@ -129,7 +146,6 @@ export function ContactInfoAndFormSection() {
               </div>
 
               <div className="space-y-5">
-                {/* Form Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <input
                     name="name"
@@ -156,16 +172,16 @@ export function ContactInfoAndFormSection() {
                     className="input-style"
                   />
                   <select
-                    name="type"
-                    value={formData.type}
+                    name="i_am_a"
+                    value={formData.i_am_a}
                     onChange={handleChange}
                     className="input-style"
                   >
                     <option value="">I am a</option>
-                    <option value="startup">Startup Founder</option>
-                    <option value="investor">Investor</option>
-                    <option value="service">Service Provider</option>
-                    <option value="other">Other</option>
+                    <option value="Startup Founder">Startup Founder</option>
+                    <option value="Investor">Investor</option>
+                    <option value="Service Provider">Service Provider</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
 
@@ -180,37 +196,18 @@ export function ContactInfoAndFormSection() {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-gradient-to-r from-[#a8042b] to-[#8a0323] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-[#a8042b] to-[#8a0323] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition disabled:opacity-60"
                 >
                   <Send size={18} />
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </div>
-            </div>
-
-            {/* Bottom Info */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {["Trusted Partner", "Tailored Solutions", "Expert Guidance"].map(
-                (text, i) => (
-                  <div
-                    key={i}
-                    className="bg-white border border-gray-200 rounded-lg p-4 text-center"
-                  >
-                    <div className="text-xl font-bold text-[#a8042b]">
-                      {text.split(" ")[0]}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {text.split(" ").slice(1).join(" ")}
-                    </div>
-                  </div>
-                )
-              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Reusable Input Style */}
       <style jsx>{`
         .input-style {
           width: 100%;

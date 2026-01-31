@@ -1,16 +1,54 @@
 import { useState } from "react";
+import api from "../services/api";
 
 export default function StartupRegistration() {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [pitchDeck, setPitchDeck] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e: any) => {
+    setPitchDeck(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const payload = new FormData();
+
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+          payload.append(key, value as any);
+        }
+      });
+
+      if (pitchDeck) {
+        payload.append("pitch_deck", pitchDeck);
+      }
+
+      await api.post("/api/startups/", payload, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("✅ Startup application submitted successfully!");
+      setFormData({});
+      setPitchDeck(null);
+    } catch (error) {
+      console.error(error);
+      alert("❌ Submission failed. Check backend or console.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 
-            mt-16 sm:mt-10 p-4 sm:p-8">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 mt-16 sm:mt-10 p-4 sm:p-8">
       <div className="w-full bg-white rounded-2xl shadow-xl p-6 sm:p-10">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#223258] mb-8">
           🚀 Startup Registration Form
@@ -18,42 +56,23 @@ export default function StartupRegistration() {
 
         {/* BASIC INFO */}
         <Section title="Basic Startup Information">
-          <Input label="Startup Name" name="startupName" onChange={handleChange} />
+          <Input label="Startup Name" name="startup_name" onChange={handleChange} />
           <Select
             label="Company Incorporation Status"
-            name="incorporationStatus"
+            name="incorporation_status"
             options={["Incorporated", "Not Incorporated"]}
             onChange={handleChange}
           />
           <Select
             label="Type of Entity"
-            name="entityType"
-            options={[
-              "Private Limited",
-              "LLP",
-              "Partnership",
-              "Sole Proprietorship",
-              "Other",
-            ]}
+            name="entity_type"
+            options={["Private Limited", "LLP", "Partnership", "Sole Proprietorship", "Other"]}
             onChange={handleChange}
           />
-          <Input
-            label="Date of Incorporation"
-            type="date"
-            name="incorporationDate"
-            onChange={handleChange}
-          />
+          <Input type="date" label="Date of Incorporation" name="incorporation_date" onChange={handleChange} />
           <Input label="Website" name="website" onChange={handleChange} />
-          <Input
-            label="Startup Description (One Line)"
-            name="description"
-            onChange={handleChange}
-          />
-          <Textarea
-            label="Registered Office Address"
-            name="address"
-            onChange={handleChange}
-          />
+          <Input label="Startup Description (One Line)" name="description" onChange={handleChange} />
+          <Textarea label="Registered Office Address" name="address" onChange={handleChange} />
           <Select
             label="Sector / Industry"
             name="sector"
@@ -75,41 +94,21 @@ export default function StartupRegistration() {
         {/* FOUNDERS */}
         <Section title="Founder Details">
           <Input label="Founder Name(s)" name="founders" onChange={handleChange} />
-          <Input
-            label="Designation(s)"
-            name="designations"
-            onChange={handleChange}
-          />
+          <Input label="Designation(s)" name="designations" onChange={handleChange} />
           <Select
             label="All founders working full-time?"
-            name="fullTime"
+            name="full_time"
             options={["Yes", "No"]}
             onChange={handleChange}
           />
-          <Textarea
-            label="LinkedIn Profile(s)"
-            name="linkedin"
-            onChange={handleChange}
-          />
-          <Textarea
-            label="Prior Startup / Domain Experience (Optional)"
-            name="experience"
-            onChange={handleChange}
-          />
+          <Textarea label="LinkedIn Profile(s)" name="linkedin" onChange={handleChange} />
+          <Textarea label="Prior Startup / Domain Experience" name="experience" onChange={handleChange} />
         </Section>
 
         {/* CONTACT */}
         <Section title="Contact Information">
-          <Input
-            label="Official Email Address"
-            name="email"
-            onChange={handleChange}
-          />
-          <Input
-            label="Contact Number (WhatsApp preferred)"
-            name="phone"
-            onChange={handleChange}
-          />
+          <Input label="Official Email Address" name="email" onChange={handleChange} />
+          <Input label="Contact Number" name="phone" onChange={handleChange} />
         </Section>
 
         {/* STAGE */}
@@ -120,44 +119,19 @@ export default function StartupRegistration() {
             options={["Idea", "MVP", "Early Revenue", "Growth", "Scale"]}
             onChange={handleChange}
           />
-          <Select
-            label="Bootstrapped?"
-            name="bootstrapped"
-            options={["Yes", "No"]}
-            onChange={handleChange}
-          />
-          <Input
-            label="Total Capital Invested (₹)"
-            name="capital"
-            onChange={handleChange}
-          />
-          <Input
-            label="Monthly Revenue (₹)"
-            name="revenue"
-            onChange={handleChange}
-          />
-          <Input
-            label="Monthly Burn Rate (₹)"
-            name="burn"
-            onChange={handleChange}
-          />
-          <Textarea
-            label="Key Traction Metrics (Optional)"
-            name="traction"
-            onChange={handleChange}
-          />
+          <Select label="Bootstrapped?" name="bootstrapped" options={["Yes", "No"]} onChange={handleChange} />
+          <Input label="Total Capital Invested (₹)" name="capital" onChange={handleChange} />
+          <Input label="Monthly Revenue (₹)" name="revenue" onChange={handleChange} />
+          <Input label="Monthly Burn Rate (₹)" name="burn" onChange={handleChange} />
+          <Textarea label="Key Traction Metrics" name="traction" onChange={handleChange} />
         </Section>
 
         {/* FUNDING */}
         <Section title="Fundraising Requirement">
-          <Input
-            label="Amount to Raise (₹)"
-            name="raiseAmount"
-            onChange={handleChange}
-          />
+          <Input label="Amount to Raise (₹)" name="raise_amount" onChange={handleChange} />
           <Select
             label="Funding Stage"
-            name="fundingStage"
+            name="funding_stage"
             options={[
               "Pre-Seed",
               "Seed",
@@ -168,24 +142,22 @@ export default function StartupRegistration() {
             ]}
             onChange={handleChange}
           />
-          <Textarea
-            label="Purpose of Fundraising"
-            name="purpose"
-            onChange={handleChange}
-          />
-          <Input type="file" label="Upload Pitch Deck" name="pitchDeck" />
+          <Textarea label="Purpose of Fundraising" name="purpose" onChange={handleChange} />
+          <Input type="file" label="Upload Pitch Deck" onChange={handleFileChange} />
         </Section>
 
         {/* DECLARATION */}
         <div className="mt-8 p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
-          <p>
-            By submitting this form, you acknowledge that Aurex Ventures provides
-            fundraising advisory services only and does not guarantee funding.
-          </p>
+          By submitting this form, you acknowledge that Aurex Ventures provides fundraising advisory services only.
         </div>
 
-        <button className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#a8042b] to-[#d11c4a] text-white font-semibold text-lg hover:scale-[1.01] transition">
-          Submit Application
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={loading}
+          className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#a8042b] to-[#d11c4a] text-white font-semibold text-lg hover:scale-[1.01] transition disabled:opacity-60"
+        >
+          {loading ? "Submitting..." : "Submit Application"}
         </button>
       </div>
     </div>
@@ -199,17 +171,13 @@ const Section = ({ title, children }: any) => (
     <h2 className="text-lg font-semibold text-[#223258] mb-5 border-l-4 border-[#a8042b] pl-3">
       {title}
     </h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {children}
-    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{children}</div>
   </div>
 );
 
 const Input = ({ label, ...props }: any) => (
   <div className="flex flex-col">
-    <label className="text-xs font-semibold text-slate-600 mb-1">
-      {label}
-    </label>
+    <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <input
       {...props}
       className="border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#223258]"
@@ -219,9 +187,7 @@ const Input = ({ label, ...props }: any) => (
 
 const Textarea = ({ label, ...props }: any) => (
   <div className="flex flex-col col-span-1 md:col-span-2 lg:col-span-3">
-    <label className="text-xs font-semibold text-slate-600 mb-1">
-      {label}
-    </label>
+    <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <textarea
       {...props}
       rows={3}
@@ -232,9 +198,7 @@ const Textarea = ({ label, ...props }: any) => (
 
 const Select = ({ label, options, ...props }: any) => (
   <div className="flex flex-col">
-    <label className="text-xs font-semibold text-slate-600 mb-1">
-      {label}
-    </label>
+    <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <select
       {...props}
       className="border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#223258]"

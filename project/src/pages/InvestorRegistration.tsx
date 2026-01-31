@@ -1,13 +1,15 @@
 import { useState } from "react";
+import api from "../services/api";
 
 export default function InvestorRegistration() {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
-      setFormData((prev: any) => {
+      setFormData((prev) => {
         const arr = prev[name] || [];
         return {
           ...prev,
@@ -17,7 +19,21 @@ export default function InvestorRegistration() {
         };
       });
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      await api.post("/api/investors/", formData);
+      alert("✅ Investor application submitted successfully!");
+      setFormData({});
+    } catch (error) {
+      console.error(error);
+      alert("❌ Submission failed. Check backend.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,7 +46,7 @@ export default function InvestorRegistration() {
 
         {/* INVESTOR INFO */}
         <Section title="Investor Information">
-          <Input label="Full Name" name="fullName" onChange={handleChange} />
+          <Input label="Full Name" name="full_name" onChange={handleChange} />
           <Select
             label="Investor Category"
             name="category"
@@ -43,16 +59,8 @@ export default function InvestorRegistration() {
             ]}
             onChange={handleChange}
           />
-          <Input
-            label="Entity / Fund Name (N/A if individual)"
-            name="entity"
-            onChange={handleChange}
-          />
-          <Input
-            label="Designation / Role"
-            name="designation"
-            onChange={handleChange}
-          />
+          <Input label="Entity / Fund Name" name="entity" onChange={handleChange} />
+          <Input label="Designation / Role" name="designation" onChange={handleChange} />
           <Select
             label="Years of Investment Experience"
             name="experience"
@@ -63,26 +71,10 @@ export default function InvestorRegistration() {
 
         {/* CONTACT */}
         <Section title="Contact Details">
-          <Input
-            label="Official Email Address"
-            name="email"
-            onChange={handleChange}
-          />
-          <Input
-            label="Contact Number (WhatsApp preferred)"
-            name="phone"
-            onChange={handleChange}
-          />
-          <Input
-            label="LinkedIn / Professional Profile"
-            name="linkedin"
-            onChange={handleChange}
-          />
-          <Input
-            label="Preferred City / Geography (Optional)"
-            name="city"
-            onChange={handleChange}
-          />
+          <Input label="Official Email Address" name="email" onChange={handleChange} />
+          <Input label="Contact Number" name="phone" onChange={handleChange} />
+          <Input label="LinkedIn / Profile" name="linkedin" onChange={handleChange} />
+          <Input label="City / Geography" name="city" onChange={handleChange} />
         </Section>
 
         {/* INVESTMENT MANDATE */}
@@ -100,7 +92,6 @@ export default function InvestorRegistration() {
             ]}
             onChange={handleChange}
           />
-
           <CheckboxGroup
             label="Preferred Sectors"
             name="sectors"
@@ -117,7 +108,6 @@ export default function InvestorRegistration() {
             ]}
             onChange={handleChange}
           />
-
           <Select
             label="Preferred Geography"
             name="geography"
@@ -168,12 +158,12 @@ export default function InvestorRegistration() {
             onChange={handleChange}
           />
           <Input
-            label="Approx. Number of Investments (Optional)"
+            label="Approx. Number of Investments"
             name="count"
             onChange={handleChange}
           />
           <Textarea
-            label="Notable Portfolio Companies (Optional)"
+            label="Notable Portfolio Companies"
             name="portfolio"
             onChange={handleChange}
           />
@@ -219,23 +209,22 @@ export default function InvestorRegistration() {
             ]}
             onChange={handleChange}
           />
-          <Textarea
-            label="Impact / ESG Focus (Optional)"
-            name="esg"
-            onChange={handleChange}
-          />
+          <Textarea label="Impact / ESG Focus" name="esg" onChange={handleChange} />
         </Section>
 
         {/* DISCLAIMER */}
         <div className="mt-8 p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
-          <p>
-            This platform is not a SEBI-registered intermediary and does not
-            solicit or advise investments. All decisions are made independently.
-          </p>
+          This platform is not a SEBI-registered intermediary and does not solicit
+          or advise investments.
         </div>
 
-        <button className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#223258] to-[#3a4f7a] text-white font-semibold text-lg hover:scale-[1.01] transition">
-          Submit Investor Application
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={loading}
+          className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#223258] to-[#3a4f7a] text-white font-semibold text-lg hover:scale-[1.01] transition disabled:opacity-60"
+        >
+          {loading ? "Submitting..." : "Submit Investor Application"}
         </button>
       </div>
     </div>
@@ -291,7 +280,9 @@ const Select = ({ label, options, ...props }: any) => (
     >
       <option value="">Select</option>
       {options.map((o: string) => (
-        <option key={o}>{o}</option>
+        <option key={o} value={o}>
+          {o}
+        </option>
       ))}
     </select>
   </div>
