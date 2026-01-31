@@ -1,7 +1,8 @@
 import { Rocket, TrendingUp, Users, Lightbulb, Target, IndianRupee, Network, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { useNavigate } from "../../components/Router";
 export function EventsWhyAttendSection() {
+  const navigate = useNavigate();
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-slate-50 via-white to-slate-50">
       <div className="max-w-6xl mx-auto">
@@ -74,6 +75,7 @@ export function EventsWhyAttendSection() {
                 <button 
                   className="w-full text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                   style={{ backgroundColor: '#223258' }}
+                  onClick={() => navigate("/startup-registration")}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#a8042b'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#223258'}
                 >
@@ -142,6 +144,7 @@ export function EventsWhyAttendSection() {
                 <button 
                   className="w-full text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                   style={{ backgroundColor: '#a8042b' }}
+                  onClick={() => navigate("/investor-registration")}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#223258'}
                   onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#a8042b'}
                 >
