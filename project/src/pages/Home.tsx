@@ -14,17 +14,17 @@ export default function Home() {
     const event = new CustomEvent('openRegisterModal');
     window.dispatchEvent(event);
   };
-  useEffect(() => {
-    const seen = localStorage.getItem('eventPopupSeen');
-    if (seen) return;
+  // useEffect(() => {
+  //   const seen = localStorage.getItem('eventPopupSeen');
+  //   if (seen) return;
   
-    const timer = setTimeout(() => {
-      window.dispatchEvent(new Event('openEventPopup'));
+  //   const timer = setTimeout(() => {
+  //     window.dispatchEvent(new Event('openEventPopup'));
 
-    }, 3000);
+  //   }, 3000);
   
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
     <div className="min-h-screen pt-4">
