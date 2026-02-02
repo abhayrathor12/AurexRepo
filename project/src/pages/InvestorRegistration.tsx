@@ -5,6 +5,14 @@ export default function InvestorRegistration() {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
 
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | "";
+    message: string;
+  }>({
+    type: "",
+    message: "",
+  });
+
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
 
@@ -26,12 +34,29 @@ export default function InvestorRegistration() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      setStatus({ type: "", message: "" });
+
       await api.post("/api/investors/", formData);
-      alert("✅ Investor application submitted successfully!");
+
+      setStatus({
+        type: "success",
+        message:
+          "Investor application submitted successfully. Our team will connect with you shortly.",
+      });
+
+      // CLEAR FORM
       setFormData({});
+
+      // Auto-hide success message
+      setTimeout(() => {
+        setStatus({ type: "", message: "" });
+      }, 5000);
     } catch (error) {
       console.error(error);
-      alert("❌ Submission failed. Check backend.");
+      setStatus({
+        type: "error",
+        message: "Submission failed. Please try again later.",
+      });
     } finally {
       setLoading(false);
     }
@@ -46,10 +71,11 @@ export default function InvestorRegistration() {
 
         {/* INVESTOR INFO */}
         <Section title="Investor Information">
-          <Input label="Full Name" name="full_name" onChange={handleChange} />
+          <Input label="Full Name" name="full_name" value={formData.full_name || ""} onChange={handleChange} />
           <Select
             label="Investor Category"
             name="category"
+            value={formData.category || ""}
             options={[
               "Angel Investor",
               "Venture Capital Fund",
@@ -59,11 +85,12 @@ export default function InvestorRegistration() {
             ]}
             onChange={handleChange}
           />
-          <Input label="Entity / Fund Name" name="entity" onChange={handleChange} />
-          <Input label="Designation / Role" name="designation" onChange={handleChange} />
+          <Input label="Entity / Fund Name" name="entity" value={formData.entity || ""} onChange={handleChange} />
+          <Input label="Designation / Role" name="designation" value={formData.designation || ""} onChange={handleChange} />
           <Select
             label="Years of Investment Experience"
             name="experience"
+            value={formData.experience || ""}
             options={["0–2 years", "2–5 years", "5–10 years", "10+ years"]}
             onChange={handleChange}
           />
@@ -71,10 +98,10 @@ export default function InvestorRegistration() {
 
         {/* CONTACT */}
         <Section title="Contact Details">
-          <Input label="Official Email Address" name="email" onChange={handleChange} />
-          <Input label="Contact Number" name="phone" onChange={handleChange} />
-          <Input label="LinkedIn / Profile" name="linkedin" onChange={handleChange} />
-          <Input label="City / Geography" name="city" onChange={handleChange} />
+          <Input label="Official Email Address" name="email" value={formData.email || ""} onChange={handleChange} />
+          <Input label="Contact Number" name="phone" value={formData.phone || ""} onChange={handleChange} />
+          <Input label="LinkedIn / Profile" name="linkedin" value={formData.linkedin || ""} onChange={handleChange} />
+          <Input label="City / Geography" name="city" value={formData.city || ""} onChange={handleChange} />
         </Section>
 
         {/* INVESTMENT MANDATE */}
@@ -82,14 +109,7 @@ export default function InvestorRegistration() {
           <CheckboxGroup
             label="Preferred Investment Stages"
             name="stages"
-            options={[
-              "Pre-Seed",
-              "Seed",
-              "Pre-Series A",
-              "Series A",
-              "Series B",
-              "Series C",
-            ]}
+            options={["Pre-Seed", "Seed", "Pre-Series A", "Series A", "Series B", "Series C"]}
             onChange={handleChange}
           />
           <CheckboxGroup
@@ -111,6 +131,7 @@ export default function InvestorRegistration() {
           <Select
             label="Preferred Geography"
             name="geography"
+            value={formData.geography || ""}
             options={["India", "Global", "Specific Regions"]}
             onChange={handleChange}
           />
@@ -121,102 +142,39 @@ export default function InvestorRegistration() {
           <Select
             label="Typical Ticket Size"
             name="ticket"
-            options={[
-              "₹5L – ₹25L",
-              "₹25L – ₹50L",
-              "₹50L – ₹1Cr",
-              "₹1Cr – ₹5Cr",
-              "₹5Cr+",
-            ]}
+            value={formData.ticket || ""}
+            options={["₹5L – ₹25L", "₹25L – ₹50L", "₹50L – ₹1Cr", "₹1Cr – ₹5Cr", "₹5Cr+"]}
             onChange={handleChange}
           />
           <Select
             label="Investment Style"
             name="style"
+            value={formData.style || ""}
             options={["One-time cheque", "Tranches", "Both"]}
             onChange={handleChange}
           />
           <Select
             label="Investment Frequency"
             name="frequency"
+            value={formData.frequency || ""}
             options={["Monthly", "Quarterly", "Yearly", "Deal-by-deal"]}
             onChange={handleChange}
           />
-          <Input
-            label="Capital Deployment (Per Year ₹)"
-            name="deployment"
-            onChange={handleChange}
-          />
+          <Input label="Capital Deployment (Per Year ₹)" name="deployment" value={formData.deployment || ""} onChange={handleChange} />
         </Section>
 
-        {/* EXPERIENCE */}
-        <Section title="Investment Experience">
-          <Select
-            label="Previously invested in startups?"
-            name="previous"
-            options={["Yes", "No"]}
-            onChange={handleChange}
-          />
-          <Input
-            label="Approx. Number of Investments"
-            name="count"
-            onChange={handleChange}
-          />
-          <Textarea
-            label="Notable Portfolio Companies"
-            name="portfolio"
-            onChange={handleChange}
-          />
-        </Section>
-
-        {/* ENGAGEMENT */}
-        <Section title="Engagement & Involvement">
-          <CheckboxGroup
-            label="Preferred Engagement Modes"
-            name="engagement"
-            options={[
-              "1:1 Founder Introductions",
-              "Closed-door Pitch Sessions",
-              "Curated Deal Reviews",
-              "Demo Days / Events",
-            ]}
-            onChange={handleChange}
-          />
-          <Select
-            label="Level of Involvement"
-            name="involvement"
-            options={[
-              "Passive",
-              "Strategic Guidance",
-              "Active Mentor",
-              "Board-level",
-            ]}
-            onChange={handleChange}
-          />
-        </Section>
-
-        {/* MOTIVATION */}
-        <Section title="Motivation for Investing">
-          <CheckboxGroup
-            label="Primary Motivation"
-            name="motivation"
-            options={[
-              "Financial Returns",
-              "Founder Support",
-              "Strategic Synergy",
-              "Innovation Exposure",
-              "Impact / ESG",
-            ]}
-            onChange={handleChange}
-          />
-          <Textarea label="Impact / ESG Focus" name="esg" onChange={handleChange} />
-        </Section>
-
-        {/* DISCLAIMER */}
-        <div className="mt-8 p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
-          This platform is not a SEBI-registered intermediary and does not solicit
-          or advise investments.
-        </div>
+        {/* STATUS MESSAGE */}
+        {status.message && (
+          <div
+            className={`mt-6 rounded-xl px-4 py-3 text-sm font-medium ${
+              status.type === "success"
+                ? "bg-green-50 text-green-700 border border-green-200"
+                : "bg-red-50 text-red-700 border border-red-200"
+            }`}
+          >
+            {status.message}
+          </div>
+        )}
 
         <button
           type="button"
@@ -256,19 +214,6 @@ const Input = ({ label, ...props }: any) => (
   </div>
 );
 
-const Textarea = ({ label, ...props }: any) => (
-  <div className="flex flex-col col-span-1 md:col-span-2 lg:col-span-3">
-    <label className="text-xs font-semibold text-slate-600 mb-1">
-      {label}
-    </label>
-    <textarea
-      {...props}
-      rows={3}
-      className="border rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-[#223258]"
-    />
-  </div>
-);
-
 const Select = ({ label, options, ...props }: any) => (
   <div className="flex flex-col">
     <label className="text-xs font-semibold text-slate-600 mb-1">
@@ -296,12 +241,7 @@ const CheckboxGroup = ({ label, name, options, onChange }: any) => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {options.map((o: string) => (
         <label key={o} className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            name={name}
-            value={o}
-            onChange={onChange}
-          />
+          <input type="checkbox" name={name} value={o} onChange={onChange} />
           {o}
         </label>
       ))}

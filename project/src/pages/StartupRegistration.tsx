@@ -12,9 +12,19 @@ export default function StartupRegistration() {
   };
 
   const handleFileChange = (e: any) => {
-    setPitchDeck(e.target.files[0]);
+    const file = e.target.files[0];
+  
+    if (!file) return;
+  
+    if (file.type !== "application/pdf") {
+      alert("❌ Only PDF files are allowed for pitch deck upload.");
+      e.target.value = ""; // reset input
+      return;
+    }
+  
+    setPitchDeck(file);
   };
-
+  
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -143,7 +153,12 @@ export default function StartupRegistration() {
             onChange={handleChange}
           />
           <Textarea label="Purpose of Fundraising" name="purpose" onChange={handleChange} />
-          <Input type="file" label="Upload Pitch Deck" onChange={handleFileChange} />
+          <Input
+  type="file"
+  label="Upload Pitch Deck (PDF only)"
+  accept="application/pdf"
+  onChange={handleFileChange}
+/>
         </Section>
 
         {/* DECLARATION */}

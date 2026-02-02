@@ -20,6 +20,14 @@ export function ContactInfoAndFormSection() {
 
   const [loading, setLoading] = useState(false);
 
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | "";
+    message: string;
+  }>({
+    type: "",
+    message: "",
+  });
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -34,8 +42,14 @@ export function ContactInfoAndFormSection() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+      setStatus({ type: "", message: "" });
+
       await api.post("/api/con/create/", formData);
-      alert("✅ Message sent successfully!");
+
+      setStatus({
+        type: "success",
+        message: "Message sent successfully! We’ll get back to you shortly.",
+      });
 
       setFormData({
         name: "",
@@ -44,9 +58,17 @@ export function ContactInfoAndFormSection() {
         i_am_a: "",
         message: "",
       });
+
+      // Auto hide success message
+      setTimeout(() => {
+        setStatus({ type: "", message: "" });
+      }, 4000);
     } catch (error) {
       console.error(error);
-      alert("❌ Failed to send message. Please try again.");
+      setStatus({
+        type: "error",
+        message: "Failed to send message. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
@@ -57,7 +79,7 @@ export function ContactInfoAndFormSection() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-          {/* LEFT COLUMN (UNCHANGED) */}
+          {/* LEFT COLUMN */}
           <div className="space-y-5">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#223258] mb-2">
@@ -202,6 +224,19 @@ export function ContactInfoAndFormSection() {
                   <Send size={18} />
                   {loading ? "Sending..." : "Send Message"}
                 </button>
+
+                {/* STATUS MESSAGE */}
+                {status.message && (
+                  <div
+                    className={`mt-4 rounded-lg px-4 py-3 text-sm font-medium ${
+                      status.type === "success"
+                        ? "bg-green-50 text-green-700 border border-green-200"
+                        : "bg-red-50 text-red-700 border border-red-200"
+                    }`}
+                  >
+                    {status.message}
+                  </div>
+                )}
               </div>
             </div>
           </div>
