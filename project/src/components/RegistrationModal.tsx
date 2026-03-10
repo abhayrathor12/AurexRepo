@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "./Router"; 
+import { useNavigate } from 'react-router-dom';
 import {
   X,
   Building2,
@@ -92,25 +92,25 @@ export default function RegistrationModal({
 
             {/* INVESTOR */}
             <Card
-  title="Join as Investor"
-  description="Access curated deal flow from vetted startups aligned with your investment thesis."
-  items={[
-    "Pre-screened startups",
-    "Curated deal flow",
-    "Exclusive pitch events",
-    "Confidential process",
-  ]}
-  color="#a8042b"
-  icon={<TrendingUp size={22} />}
-  hovered={hoveredCard === "investor"}
-  onEnter={() => setHoveredCard("investor")}
-  onLeave={() => setHoveredCard(null)}
-  onClick={() => {
-    onClose();
-    navigate("/investor-registration");
-  }}
-  buttonText="Join Network"
-/>
+              title="Join as Investor"
+              description="Access curated deal flow from vetted startups aligned with your investment thesis."
+              items={[
+                "Pre-screened startups",
+                "Curated deal flow",
+                "Exclusive pitch events",
+                "Confidential process",
+              ]}
+              color="#a8042b"
+              icon={<TrendingUp size={22} />}
+              hovered={hoveredCard === "investor"}
+              onEnter={() => setHoveredCard("investor")}
+              onLeave={() => setHoveredCard(null)}
+              onClick={() => {
+                onClose();
+                navigate("/investor-registration");
+              }}
+              buttonText="Join Network"
+            />
 
           </div>
         </div>

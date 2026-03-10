@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, TrendingUp, Building2, Shield, FileText } from 'lucide-react';
 import { AnimatedHeading } from '../AnimtedHeading';
-import { useNavigate } from '../Router';
+import { useNavigate } from 'react-router-dom';
 import funding from '../../public/funding.jpg';
 import grow from '../../public/Grow Business.jpg';
 import business from '../../public/Start Businesses.jpg';
@@ -113,11 +113,10 @@ export function HomeWhatWeEnable() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? "bg-[#223258] text-white shadow-lg scale-105"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${activeTab === tab.id
+                  ? "bg-[#223258] text-white shadow-lg scale-105"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
               >
                 <TabIcon size={18} />
                 <span>{tab.name}</span>
@@ -163,7 +162,7 @@ export function HomeWhatWeEnable() {
                 </div>
 
                 <button
-                  onClick={() => navigate('contact')}
+                  onClick={() => navigate('/contact')}
                   className="inline-flex items-center gap-2 bg-[#a8042b] hover:bg-[#a8042b]/90 text-white px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105 shadow-lg"
                 >
                   {activeContent.buttonText}
@@ -173,16 +172,16 @@ export function HomeWhatWeEnable() {
 
               {/* Image Side */}
               <div className="lg:w-1/2">
-  <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
-    <div className="rounded-2xl  p-1 flex items-center justify-center h-[360px] md:h-[320px] lg:h-[360px] overflow-hidden">
-      <img
-        src={activeContent.image}
-        alt={`${activeContent.name} illustration`}
-        className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
-      />
-    </div>
-  </div>
-</div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-4 border border-white/20">
+                  <div className="rounded-2xl  p-1 flex items-center justify-center h-[360px] md:h-[320px] lg:h-[360px] overflow-hidden">
+                    <img
+                      src={activeContent.image}
+                      alt={`${activeContent.name} illustration`}
+                      className="w-full h-full object-contain transition-transform duration-700 hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -190,13 +189,16 @@ export function HomeWhatWeEnable() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-12">
-          <a
-            href="#services"
+          <button
+            onClick={() => navigate("/services")}
             className="inline-flex items-center gap-2 text-[#a8042b] hover:text-[#a8042b]/80 font-semibold text-lg group"
           >
             View All Services
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-          </a>
+            <ArrowRight
+              size={20}
+              className="group-hover:translate-x-1 transition-transform"
+            />
+          </button>
         </div>
       </div>
     </section>

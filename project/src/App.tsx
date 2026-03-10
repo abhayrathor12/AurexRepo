@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import RegistrationModal from './components/RegistrationModal';
-import { Router } from './components/Router';
-import EventPopup from './components/EventPopup';
+import { useState, useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+
+import Router from "./components/Router";
+import RegistrationModal from "./components/RegistrationModal";
+import EventPopup from "./components/EventPopup";
 
 function App() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -18,36 +18,33 @@ function App() {
       setIsEventPopupOpen(true);
     };
 
-    window.addEventListener('openRegisterModal', handleOpenRegisterModal);
-    window.addEventListener('openEventPopup', handleOpenEventPopup);
+    window.addEventListener("openRegisterModal", handleOpenRegisterModal);
+    window.addEventListener("openEventPopup", handleOpenEventPopup);
 
     return () => {
-      window.removeEventListener('openRegisterModal', handleOpenRegisterModal);
-      window.removeEventListener('openEventPopup', handleOpenEventPopup);
+      window.removeEventListener("openRegisterModal", handleOpenRegisterModal);
+      window.removeEventListener("openEventPopup", handleOpenEventPopup);
     };
   }, []);
 
   return (
-    <div className="min-h-screen bg-aurex-background text-slate-800">
-      <Header onRegisterClick={() => setIsRegisterModalOpen(true)} />
+    <BrowserRouter>
+      <div className="min-h-screen bg-aurex-background text-slate-800">
 
-      {/* 🔥 Handles scroll + hash navigation */}
-      <Router />
+        <Router />
 
-      <Footer />
+        <EventPopup
+          isOpen={isEventPopupOpen}
+          onClose={() => setIsEventPopupOpen(false)}
+        />
 
-      {/* 🔔 Event Popup */}
-      <EventPopup
-        isOpen={isEventPopupOpen}
-        onClose={() => setIsEventPopupOpen(false)}
-      />
+        <RegistrationModal
+          isOpen={isRegisterModalOpen}
+          onClose={() => setIsRegisterModalOpen(false)}
+        />
 
-      {/* 📝 Registration Modal */}
-      <RegistrationModal
-        isOpen={isRegisterModalOpen}
-        onClose={() => setIsRegisterModalOpen(false)}
-      />
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

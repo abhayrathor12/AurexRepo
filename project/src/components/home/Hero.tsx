@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, Building2, Shield, FileText, ArrowRight, Sparkles } from 'lucide-react';
-
+import { useNavigate } from "react-router-dom";
 interface HeroProps {
   onRegisterClick: () => void;
 }
@@ -8,7 +8,7 @@ interface HeroProps {
 export function HomeHero({ onRegisterClick }: HeroProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setIsVisible(true);
     const interval = setInterval(() => {
@@ -18,7 +18,7 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
   }, []);
 
   const scrollToContact = () => {
-    window.location.hash = 'contact';
+    navigate("/contact");
   };
 
   const features = [
@@ -65,51 +65,51 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
 
 
             <p className="text-lg text-[#223258]/80 mb-8 leading-relaxed">
-            Aurex Ventures is an Investment Banking advisory firm supporting early-stage and growth-stage startups with capital raising, transaction structuring, and end-to-end execution.
+              Aurex Ventures is an Investment Banking advisory firm supporting early-stage and growth-stage startups with capital raising, transaction structuring, and end-to-end execution.
 
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-            <button
-  onClick={scrollToContact}
-  className="group relative bg-[#a8042b] text-white px-8 py-4 rounded-lg font-semibold text-base overflow-hidden transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#a8042b]/30"
->
-  <span className="relative z-10 flex items-center justify-center gap-2">
-    Get Started with Aurex
-    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-  </span>
-  <div className="absolute inset-0 bg-[#8a0323] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</button>
+              <button
+                onClick={scrollToContact}
+                className="group relative bg-[#a8042b] text-white px-8 py-4 rounded-lg font-semibold text-base overflow-hidden transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#a8042b]/30"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  Get Started with Aurex
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 bg-[#8a0323] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </button>
 
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-[#223258]/10">
-  <div>
-    <div className="text-base font-semibold text-[#a8042b] mb-1">
-      Capital Advisory
-    </div>
-    <div className="text-sm text-[#223258]/60">
-      Equity & debt fundraising support
-    </div>
-  </div>
-  <div>
-    <div className="text-base font-semibold text-[#a8042b] mb-1">
-      Investor Outreach
-    </div>
-    <div className="text-sm text-[#223258]/60">
-      Angels, VCs & institutions
-    </div>
-  </div>
-  <div>
-    <div className="text-base font-semibold text-[#a8042b] mb-1">
-      Deal Execution
-    </div>
-    <div className="text-sm text-[#223258]/60">
-      Structuring to transaction closure
-    </div>
-  </div>
-</div>
+              <div>
+                <div className="text-base font-semibold text-[#a8042b] mb-1">
+                  Capital Advisory
+                </div>
+                <div className="text-sm text-[#223258]/60">
+                  Equity & debt fundraising support
+                </div>
+              </div>
+              <div>
+                <div className="text-base font-semibold text-[#a8042b] mb-1">
+                  Investor Outreach
+                </div>
+                <div className="text-sm text-[#223258]/60">
+                  Angels, VCs & institutions
+                </div>
+              </div>
+              <div>
+                <div className="text-base font-semibold text-[#a8042b] mb-1">
+                  Deal Execution
+                </div>
+                <div className="text-sm text-[#223258]/60">
+                  Structuring to transaction closure
+                </div>
+              </div>
+            </div>
 
           </div>
 
@@ -118,7 +118,7 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
             <div className="relative">
               {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#a8042b] to-[#223258] rounded-3xl blur-3xl opacity-20"></div>
-              
+
               {/* Main card container */}
               <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-[#223258]/10 shadow-xl">
                 <div className="grid grid-cols-2 gap-5">
@@ -128,29 +128,24 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
                     return (
                       <div
                         key={index}
-                        className={`relative group cursor-pointer transition-all duration-500 ${
-                          isActive ? 'scale-105 z-10' : 'scale-100'
-                        }`}
+                        className={`relative group cursor-pointer transition-all duration-500 ${isActive ? 'scale-105 z-10' : 'scale-100'
+                          }`}
                         onMouseEnter={() => setActiveCard(index)}
                       >
-                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 ${
-                          isActive ? 'opacity-25' : ''
-                        }`}></div>
-                        
-                        <div className={`relative bg-white p-6 rounded-xl border transition-all duration-500 ${
-                          isActive 
-                            ? 'border-[#a8042b]/30 shadow-lg' 
-                            : 'border-[#223258]/10 hover:border-[#223258]/20'
-                        }`}>
-                          <div className={`bg-gradient-to-br ${feature.color} p-2.5 rounded-lg inline-block mb-3 transform transition-transform duration-500 ${
-                            isActive ? 'scale-110 rotate-2' : 'group-hover:scale-105'
+                        <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} rounded-xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 ${isActive ? 'opacity-25' : ''
+                          }`}></div>
+
+                        <div className={`relative bg-white p-6 rounded-xl border transition-all duration-500 ${isActive
+                          ? 'border-[#a8042b]/30 shadow-lg'
+                          : 'border-[#223258]/10 hover:border-[#223258]/20'
                           }`}>
+                          <div className={`bg-gradient-to-br ${feature.color} p-2.5 rounded-lg inline-block mb-3 transform transition-transform duration-500 ${isActive ? 'scale-110 rotate-2' : 'group-hover:scale-105'
+                            }`}>
                             <Icon className="text-white" size={24} />
                           </div>
                           <p className="text-base font-bold text-[#223258]">{feature.label}</p>
-                          <div className={`h-0.5 bg-gradient-to-r ${feature.color} rounded-full mt-2 transition-all duration-500 ${
-                            isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                          }`}></div>
+                          <div className={`h-0.5 bg-gradient-to-r ${feature.color} rounded-full mt-2 transition-all duration-500 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                            }`}></div>
                         </div>
                       </div>
                     );
@@ -167,7 +162,7 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
       </div>
 
       {/* Custom animations */}
-      <style jsx>{`
+      <style >{`
         @keyframes blob {
           0%, 100% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(20px, -30px) scale(1.05); }

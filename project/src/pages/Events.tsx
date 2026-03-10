@@ -13,15 +13,30 @@ export interface Event {
   location: string;
   image_url: string | null;
 }
+
 const EVENTS_DATA: Event[] = [
+  // ── Upcoming ──────────────────────────────────────────────────────────────
+  {
+    id: '2',
+    slug: 'udbhav-2026',
+    title: 'Udbhav – Investor & Founder Meet 2026',
+    description:
+      'A curated gathering of startups, investors, and ecosystem leaders built for real conversations and real opportunities. Featuring live pitch sessions, panel discussions, and focused networking.',
+    event_date: '2026-04-11',
+    location: 'To Be Announced',
+    image_url: null,
+  },
+
+  // ── Previous ──────────────────────────────────────────────────────────────
   {
     id: '1',
-    slug: 'funding-tathastu-jan-2026', // ✅ MUST MATCH previousEventsData key
+    slug: 'funding-tathastu-jan-2026',
     title: 'Founder–Investor Meetup',
     description: 'Exclusive networking with VCs and founders.',
     event_date: '2026-01-30',
     location: 'HARTRON | IAMAI | NASSCOM',
-    image_url: "https://lh3.googleusercontent.com/pw/AP1GczPNLrZobmCthDzwG1CnCjr_yApqThBtZuhjqO6X6iqqiE77CUOfuy1fxAmJHsJ32i4hK28EpQVjmAVbqNxM6It3bZXtpzMibRSn58DLfF6L0yKSa-KCaQp1QhmXRAkbz_2DY_edpfs68ZCPYRHixkYEOQ=w1079-h607-s-no-gm?authuser=0",
+    image_url:
+      'https://lh3.googleusercontent.com/pw/AP1GczPNLrZobmCthDzwG1CnCjr_yApqThBtZuhjqO6X6iqqiE77CUOfuy1fxAmJHsJ32i4hK28EpQVjmAVbqNxM6It3bZXtpzMibRSn58DLfF6L0yKSa-KCaQp1QhmXRAkbz_2DY_edpfs68ZCPYRHixkYEOQ=w1079-h607-s-no-gm?authuser=0',
   },
 ];
 
@@ -31,22 +46,13 @@ export default function Events() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  /* ✅ Auto split by date */
   const upcomingEvents = EVENTS_DATA
     .filter(e => new Date(e.event_date) >= today)
-    .sort(
-      (a, b) =>
-        new Date(a.event_date).getTime() -
-        new Date(b.event_date).getTime()
-    );
+    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
 
   const previousEvents = EVENTS_DATA
     .filter(e => new Date(e.event_date) < today)
-    .sort(
-      (a, b) =>
-        new Date(b.event_date).getTime() -
-        new Date(a.event_date).getTime()
-    );
+    .sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime());
 
   const openRegister = () => {
     window.dispatchEvent(new CustomEvent('openRegisterModal'));

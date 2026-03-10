@@ -2,12 +2,13 @@ import { ArrowUpRight, Linkedin, Twitter, Globe } from "lucide-react";
 import prernaJain from "../../public/1.png";
 import kapilSir from "../../public/2.png";
 import { AnimatedHeading } from '../AnimtedHeading';
-import { useNavigate } from "../Router";
+import { useNavigate } from 'react-router-dom';
 export function HomeTeamPreview() {
   const navigate = useNavigate();
   const teamMembers = [
-    
-    {id: "kapil-khurana",
+
+    {
+      id: "kapil-khurana",
       name: "Kapil Khurana",
       role: "Senior Advisor & Mentor",
       description:
@@ -23,13 +24,13 @@ export function HomeTeamPreview() {
       image: prernaJain,
     }
   ];
-  
-  
+
+
 
   return (
     <section className="py-10 px-4 bg-slate-50">
       <div className="max-w-7xl mx-auto">
-      <AnimatedHeading
+        <AnimatedHeading
           title=" Meet Our Team"
           subtitle="Experienced professionals dedicated to your success"
         />
@@ -37,7 +38,7 @@ export function HomeTeamPreview() {
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto mt-12">
           {teamMembers.map((member, index) => (
             <div key={index} className="group relative overflow-hidden">
-              
+
               {/* IMAGE (always clean) */}
               <img
                 src={member.image}
@@ -67,7 +68,7 @@ export function HomeTeamPreview() {
                     </div>
 
                     <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white flex items-center justify-center transition">
-                      <ArrowUpRight  onClick={() => navigate('team')} className="w-5 h-5 text-white hover:text-slate-900" />
+                      <ArrowUpRight onClick={() => navigate('team')} className="w-5 h-5 text-white hover:text-slate-900" />
                     </button>
                   </div>
 

@@ -1,7 +1,7 @@
 import { ArrowRight, TrendingUp, Building2, CheckCircle, Rocket, LineChart, Users, Sparkles, Target, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { AnimatedHeading } from '../AnimtedHeading';
-import { useNavigate } from "../../components/Router";
+import { useNavigate } from 'react-router-dom';
 export default function ModernJoinSection() {
   const [hoveredStartup, setHoveredStartup] = useState(false);
   const [hoveredInvestor, setHoveredInvestor] = useState(false);
@@ -24,7 +24,7 @@ export default function ModernJoinSection() {
         />
 
         {/* Startup Section */}
-        <div 
+        <div
           className="-mb-12 relative overflow-hidden"
           onMouseEnter={() => setHoveredStartup(true)}
           onMouseLeave={() => setHoveredStartup(false)}
@@ -36,11 +36,11 @@ export default function ModernJoinSection() {
                 <Building2 size={20} />
                 <span>For Startups</span>
               </div>
-              
+
               <h3 className="text-4xl font-bold text-slate-900 mb-6">
                 Scale Your Vision
               </h3>
-              
+
               <p className="text-lg text-slate-600 mb-8">
                 From pitch refinement to investor connections, we provide everything you need to secure funding and grow.
               </p>
@@ -99,7 +99,7 @@ export default function ModernJoinSection() {
             {/* Animation - Right */}
             <div className="relative h-96 flex items-center justify-center">
               <div className="absolute inset-0 bg-gradient-to-br from-aurex-primary/5 to-aurex-primary/10 rounded-3xl" />
-              
+
               {/* Animated Elements */}
               <div className={`absolute transition-all duration-700 ${hoveredStartup ? 'scale-110' : 'scale-100'}`}>
                 {/* Center Rocket */}
@@ -107,20 +107,20 @@ export default function ModernJoinSection() {
                   <div className={`bg-gradient-to-br from-aurex-primary to-aurex-primarySoft w-32 h-32 rounded-2xl flex items-center justify-center shadow-2xl transition-transform duration-700 ${hoveredStartup ? 'rotate-12' : 'rotate-0'}`}>
                     <Rocket className="text-white" size={64} />
                   </div>
-                  
+
                   {/* Orbiting Icons */}
                   <div className={`absolute -top-8 -right-8 bg-white p-4 rounded-xl shadow-lg transition-all duration-500 ${hoveredStartup ? 'translate-x-4 -translate-y-4' : ''}`}>
                     <Target className="text-aurex-primary" size={24} />
                   </div>
-                  
+
                   <div className={`absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg transition-all duration-700 ${hoveredStartup ? '-translate-x-4 translate-y-4' : ''}`}>
                     <Sparkles className="text-aurex-accent" size={24} />
                   </div>
-                  
+
                   <div className={`absolute top-1/2 -right-16 bg-white p-3 rounded-xl shadow-lg transition-all duration-500 delay-100 ${hoveredStartup ? 'translate-x-8' : ''}`}>
                     <Zap className="text-yellow-500" size={20} />
                   </div>
-                  
+
                   <div className={`absolute top-1/2 -left-16 bg-white p-3 rounded-xl shadow-lg transition-all duration-500 delay-150 ${hoveredStartup ? '-translate-x-8' : ''}`}>
                     <Users className="text-blue-500" size={20} />
                   </div>
@@ -147,7 +147,7 @@ export default function ModernJoinSection() {
         </div>
 
         {/* Investor Section */}
-        <div 
+        <div
           className="relative overflow-hidden"
           onMouseEnter={() => setHoveredInvestor(true)}
           onMouseLeave={() => setHoveredInvestor(false)}
@@ -156,7 +156,7 @@ export default function ModernJoinSection() {
             {/* Animation - Left */}
             <div className="relative h-96 flex items-center justify-center order-2 md:order-1">
               <div className="absolute inset-0 bg-gradient-to-br from-aurex-accent/5 to-aurex-accent/10 rounded-3xl" />
-              
+
               {/* Animated Elements */}
               <div className={`absolute transition-all duration-700 ${hoveredInvestor ? 'scale-110' : 'scale-100'}`}>
                 {/* Center Chart */}
@@ -164,20 +164,20 @@ export default function ModernJoinSection() {
                   <div className={`bg-gradient-to-br from-aurex-accent to-aurex-accentSoft w-32 h-32 rounded-2xl flex items-center justify-center shadow-2xl transition-transform duration-700 ${hoveredInvestor ? '-rotate-12' : 'rotate-0'}`}>
                     <LineChart className="text-white" size={64} />
                   </div>
-                  
+
                   {/* Orbiting Icons */}
                   <div className={`absolute -top-8 -left-8 bg-white p-4 rounded-xl shadow-lg transition-all duration-500 ${hoveredInvestor ? '-translate-x-4 -translate-y-4' : ''}`}>
                     <TrendingUp className="text-green-500" size={24} />
                   </div>
-                  
+
                   <div className={`absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg transition-all duration-700 ${hoveredInvestor ? 'translate-x-4 translate-y-4' : ''}`}>
                     <Building2 className="text-aurex-primary" size={24} />
                   </div>
-                  
+
                   <div className={`absolute top-1/2 -left-16 bg-white p-3 rounded-xl shadow-lg transition-all duration-500 delay-100 ${hoveredInvestor ? '-translate-x-8' : ''}`}>
                     <Target className="text-purple-500" size={20} />
                   </div>
-                  
+
                   <div className={`absolute top-1/2 -right-16 bg-white p-3 rounded-xl shadow-lg transition-all duration-500 delay-150 ${hoveredInvestor ? 'translate-x-8' : ''}`}>
                     <Sparkles className="text-yellow-500" size={20} />
                   </div>
@@ -199,11 +199,11 @@ export default function ModernJoinSection() {
                 <TrendingUp size={20} />
                 <span>For Investors</span>
               </div>
-              
+
               <h3 className="text-4xl font-bold text-slate-900 mb-6">
                 Discover Tomorrow's Leaders
               </h3>
-              
+
               <p className="text-lg text-slate-600 mb-8">
                 Access pre-screened, high-potential startups and exclusive deal flow tailored to your investment thesis.
               </p>
