@@ -98,10 +98,10 @@ export function HomeProcess() {
               >
                 <div
                   className={`bg-white rounded-2xl p-7 shadow-lg transition-all duration-500 border h-full cursor-pointer ${isActive
-                      ? 'shadow-2xl -translate-y-3 border-[#a8042b] scale-105'
-                      : isPassed
-                        ? 'border-[#223258] shadow-md'
-                        : 'border-slate-100/80 hover:shadow-xl hover:-translate-y-2'
+                    ? 'shadow-2xl -translate-y-3 border-[#a8042b] scale-105'
+                    : isPassed
+                      ? 'border-[#223258] shadow-md'
+                      : 'border-slate-100/80 hover:shadow-xl hover:-translate-y-2'
                     }`}
                 >
                   {/* Active glow effect */}
@@ -114,10 +114,10 @@ export function HomeProcess() {
                     <div className="relative mb-6">
                       <div
                         className={`w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center transform transition-all duration-500 shadow-md ${isActive
-                            ? 'bg-[#a8042b] scale-110 rotate-6'
-                            : isPassed
-                              ? 'bg-[#223258]'
-                              : 'bg-[#223258] group-hover:scale-105'
+                          ? 'bg-[#a8042b] scale-110 rotate-6'
+                          : isPassed
+                            ? 'bg-[#223258]'
+                            : 'bg-[#223258] group-hover:scale-105'
                           }`}
                       >
                         <Icon
@@ -128,10 +128,10 @@ export function HomeProcess() {
                       </div>
                       <div
                         className={`absolute -top-2 -right-2 w-9 h-9 rounded-full shadow border flex items-center justify-center font-bold text-sm transition-all duration-300 ${isActive
-                            ? 'bg-[#a8042b] text-white border-[#a8042b] scale-125'
-                            : isPassed
-                              ? 'bg-[#223258] text-white border-[#223258]'
-                              : 'bg-white text-[#223258] border-slate-200'
+                          ? 'bg-[#a8042b] text-white border-[#a8042b] scale-125'
+                          : isPassed
+                            ? 'bg-[#223258] text-white border-[#223258]'
+                            : 'bg-white text-[#223258] border-slate-200'
                           }`}
                       >
                         {isPassed ? '✓' : item.step}
@@ -165,8 +165,8 @@ export function HomeProcess() {
                   <div className="hidden md:flex absolute top-[6.5rem] -right-5 transform -translate-y-1/2 z-20 items-center justify-center">
                     <div
                       className={`w-8 h-8 rounded-full shadow border flex items-center justify-center transition-all duration-500 ${isPassed
-                          ? 'bg-[#223258] border-[#223258]'
-                          : 'bg-white border-slate-200'
+                        ? 'bg-[#223258] border-[#223258]'
+                        : 'bg-white border-slate-200'
                         }`}
                     >
                       <ArrowRight
@@ -189,10 +189,10 @@ export function HomeProcess() {
               key={idx}
               onClick={() => setCurrentStep(idx)}
               className={`transition-all duration-300 rounded-full ${idx === currentStep
-                  ? 'w-12 h-3 bg-[#a8042b]'
-                  : idx < currentStep
-                    ? 'w-3 h-3 bg-[#223258]'
-                    : 'w-3 h-3 bg-slate-300 hover:bg-slate-400'
+                ? 'w-12 h-3 bg-[#a8042b]'
+                : idx < currentStep
+                  ? 'w-3 h-3 bg-[#223258]'
+                  : 'w-3 h-3 bg-slate-300 hover:bg-slate-400'
                 }`}
             />
           ))}
@@ -206,7 +206,7 @@ export function HomeProcess() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style >{`
         @keyframes pulse-glow {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 0.8; }

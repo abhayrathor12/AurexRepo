@@ -3,7 +3,7 @@ import {
     Rocket, IndianRupee, Users, Target, ChevronRight,
     Upload, Link, CheckCircle, AlertCircle, Zap, Building2,
     MapPin, Phone, Mail, User, FileText, TrendingUp, Briefcase,
-    CalendarDays, ArrowRight, Sparkles, Star, Globe
+    CalendarDays, ArrowRight, Sparkles, Star, Globe, X
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "../../services/api";
@@ -196,9 +196,55 @@ export default function StartupRegistrationPage() {
         pass_type: "",
     });
 
-    const [submitted, setSubmitted] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [fileLabel, setFileLabel] = useState("Upload pitch deck (PDF, max 10 MB)");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const openPayment = () => {
+        const anchor = document.querySelector(
+            "#razorpay-form .razorpay-payment-button a"
+        ) as HTMLAnchorElement;
 
+        if (anchor) {
+            anchor.click();
+        } else {
+            console.error("Razorpay not loaded yet");
+        }
+    };
+
+    const [toast, setToast] = useState<string | null>(null);
+    const showToast = (msg: string) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 3500);
+    };
+
+    const Toast = () => (
+        <AnimatePresence>
+            {toast && (
+                <motion.div
+                    initial={{ opacity: 0, x: 60, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: 60, scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className="fixed top-6 right-6 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-2xl"
+                    style={{
+                        background: `linear-gradient(135deg, ${NAVY} 0%, #1e3a8a 100%)`,
+                        border: `1px solid rgba(255,255,255,0.12)`,
+                        minWidth: "280px",
+                        maxWidth: "90vw",
+                    }}
+                >
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{ background: `rgba(192,3,47,0.25)` }}>
+                        <AlertCircle size={15} style={{ color: "#fca5a5" }} />
+                    </div>
+                    <p className="text-white text-sm font-medium flex-1">{toast}</p>
+                    <button onClick={() => setToast(null)} className="text-slate-400 hover:text-white transition-colors ml-1">
+                        <X size={15} />
+                    </button>
+                </motion.div>
+            )}
+        </AnimatePresence>
+    );
     const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
         setForm(f => ({ ...f, [field]: e.target.value }));
 
@@ -208,14 +254,58 @@ export default function StartupRegistrationPage() {
         setFileLabel(file ? file.name : "Upload pitch deck (PDF, max 10 MB)");
     };
 
-    const handleSubmit = async () => {
-        try {
+    const resetForm = () => {
+        setForm({
+            name: "",
+            email: "",
+            contact_number: "",
+            organization_name: "",
+            city: "",
+            registering_as: "",
+            startup_stage: "",
+            industry: "",
+            startup_brief: "",
+            bootstrapped: "",
+            total_capital_invested: "",
+            monthly_revenue: "",
+            monthly_burn_rate: "",
+            amount_to_raise: "",
+            funding_stage: "",
+            interested_in_pitching: "",
+            pitch_deck_link: "",
+            pitch_deck_file: null,
+            pass_type: "",
+        });
+        setFileLabel("Upload pitch deck (PDF, max 10 MB)");
+    };
 
+    const handleSubmit = async () => {
+        if (isSubmitting) return;
+
+        const requiredFields: (keyof FormData)[] = [
+            "name", "email", "contact_number", "organization_name", "city",
+            "registering_as", "startup_stage", "industry", "startup_brief",
+            "bootstrapped", "total_capital_invested", "monthly_revenue",
+            "monthly_burn_rate", "amount_to_raise", "funding_stage",
+            "interested_in_pitching", "pass_type"
+        ];
+
+        const missing = requiredFields.filter(field => !form[field]);
+        if (missing.length > 0) {
+            showToast("Please fill in all required fields before submitting.");
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
             const formData = new FormData();
 
             Object.entries(form).forEach(([key, value]) => {
                 if (value !== null && value !== "") {
-                    formData.append(key, value as string);
+                    if (key !== "pitch_deck_file") {
+                        formData.append(key, value as string);
+                    }
                 }
             });
 
@@ -228,50 +318,84 @@ export default function StartupRegistrationPage() {
                     "Content-Type": "multipart/form-data",
                 },
             });
-
-            setSubmitted(true);
-
+            openPayment();
+            resetForm();
+            setShowSuccessModal(true);
         } catch (error) {
             console.error(error);
-            alert("Registration failed");
+            alert("Registration failed. Please check your connection and try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
-    if (submitted) {
-        return (
-            <div className="min-h-screen flex items-center justify-center px-4"
-                style={{ background: `linear-gradient(135deg, #f5f7fc 0%, #fff 60%, #fdf2f5 100%)` }}>
-                <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-                    className="text-center max-w-sm w-full">
-                    <div className="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center"
-                        style={{ background: `linear-gradient(135deg, ${NAVY}, ${CRIMSON})` }}>
-                        <CheckCircle size={42} className="text-white" />
-                    </div>
-                    <div className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: CRIMSON }}>
-                        Registration Confirmed
-                    </div>
-                    <h2 className="text-4xl font-black mb-2" style={{ color: NAVY, fontFamily: "'Georgia', serif" }}>
-                        You're In.
-                    </h2>
-                    <p className="text-slate-500 text-sm mb-6">
-                        We'll reach out with all the details as we get closer to the event.
-                    </p>
-                    <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5 mb-8 text-sm text-slate-600 space-y-1">
-                        <p className="font-semibold" style={{ color: NAVY }}>Udbhav 2026</p>
-                        <p>📅 April 11, 2026</p>
-
-                    </div>
-                    <button
-                        onClick={() => setSubmitted(false)}
-                        className="w-full py-3.5 rounded-xl font-bold text-sm text-white transition-all"
-                        style={{ background: `linear-gradient(135deg, ${NAVY}, ${CRIMSON})` }}
+    const SuccessModal = () => (
+        <AnimatePresence>
+            {showSuccessModal && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+                    onClick={() => setShowSuccessModal(false)}
+                >
+                    <motion.div
+                        initial={{ scale: 0.88, opacity: 0, y: 20 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.88, opacity: 0, y: 20 }}
+                        className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden relative"
+                        onClick={e => e.stopPropagation()}
                     >
-                        Back to Form
-                    </button>
+                        <button
+                            onClick={() => setShowSuccessModal(false)}
+                            className="absolute top-4 right-4 text-slate-500 hover:text-slate-800 transition-colors"
+                        >
+                            <X size={24} />
+                        </button>
+
+                        <div className="px-8 pt-10 pb-8 text-center">
+                            <div
+                                className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center"
+                                style={{ background: `linear-gradient(135deg, ${NAVY}, ${CRIMSON})` }}
+                            >
+                                <CheckCircle size={40} className="text-white" />
+                            </div>
+
+                            <h3
+                                className="text-3xl font-black mb-3"
+                                style={{ color: NAVY, fontFamily: "'Georgia', serif" }}
+                            >
+                                Thank You!
+                            </h3>
+
+                            <p className="text-slate-600 mb-6 leading-relaxed">
+                                Your registration for <strong>Udbhav 2026</strong> has been successfully received.<br />
+                                We'll reach out soon with confirmation and further details.
+                            </p>
+
+                            <div className="bg-slate-50 rounded-xl p-5 mb-8 text-left text-sm border border-slate-200">
+                                <p className="font-semibold mb-2" style={{ color: NAVY }}>Event Snapshot</p>
+                                <p className="text-slate-700">
+                                    📅 <strong>April 11, 2026</strong><br />
+                                    📍 India
+                                </p>
+                            </div>
+
+                            <button
+                                onClick={() => setShowSuccessModal(false)}
+                                className="w-full py-4 rounded-xl font-bold text-white text-lg transition-all"
+                                style={{
+                                    background: `linear-gradient(135deg, ${NAVY}, ${CRIMSON})`,
+                                }}
+                            >
+                                Got it
+                            </button>
+                        </div>
+                    </motion.div>
                 </motion.div>
-            </div>
-        );
-    }
+            )}
+        </AnimatePresence>
+    );
 
     return (
         <div className="flex min-h-screen" style={{ background: "#f4f6fb", fontFamily: "'system-ui', sans-serif" }}>
@@ -288,7 +412,6 @@ export default function StartupRegistrationPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-[0.06] blur-3xl" style={{ background: "white" }} />
 
                 <div className="relative flex flex-col h-full px-8 py-8" style={{ gap: 0 }}>
-                    {/* logo + badge */}
                     <div className="flex items-center justify-between mb-4 flex-shrink-0">
                         <img src={logo} alt="Udbhav" className="w-24 h-14 object-contain" />
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 text-[10px] font-semibold tracking-widest uppercase"
@@ -298,7 +421,6 @@ export default function StartupRegistrationPage() {
                         </div>
                     </div>
 
-                    {/* title */}
                     <div className="mb-4 flex-shrink-0">
                         <h1 className="text-6xl font-black leading-none mb-2"
                             style={{
@@ -322,7 +444,6 @@ export default function StartupRegistrationPage() {
                         </p>
                     </div>
 
-                    {/* date & location */}
                     <div className="flex items-center gap-3 mb-5 flex-shrink-0">
                         <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg border border-white/12 text-xs font-semibold text-white"
                             style={{ background: "rgba(255,255,255,0.07)" }}>
@@ -335,7 +456,6 @@ export default function StartupRegistrationPage() {
                         </div>
                     </div>
 
-                    {/* highlights */}
                     <div className="flex-1 flex flex-col min-h-0 mb-4">
                         <div className="text-[9px] font-bold uppercase tracking-widest text-slate-500 mb-3 flex-shrink-0">What to expect</div>
                         <div className="grid grid-cols-2 gap-2.5 flex-1">
@@ -353,7 +473,6 @@ export default function StartupRegistrationPage() {
                         </div>
                     </div>
 
-                    {/* note */}
                     <div className="rounded-xl border border-amber-500/20 px-3.5 py-3 flex items-start gap-2.5 flex-shrink-0"
                         style={{ background: "rgba(232,160,32,0.08)" }}>
                         <AlertCircle size={12} className="flex-shrink-0 mt-0.5" style={{ color: GOLD }} />
@@ -365,7 +484,7 @@ export default function StartupRegistrationPage() {
             </div>
 
             {/* RIGHT PANEL — Form */}
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2 relative">
                 {/* Mobile header */}
                 <div className="lg:hidden" style={{ background: `linear-gradient(135deg, ${NAVY}, #2a0b1a)` }}>
                     <div className="px-4 pt-5 pb-4">
@@ -432,7 +551,6 @@ export default function StartupRegistrationPage() {
                     </div>
 
                     <div className="space-y-6 sm:space-y-8">
-                        {/* Personal Information */}
                         <div>
                             <SectionDivider label="Personal Information" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -444,7 +562,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Organization Details */}
                         <div>
                             <SectionDivider label="Organization Details" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -456,7 +573,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Startup Details */}
                         <div>
                             <SectionDivider label="Startup Details" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -487,7 +603,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Financial Information */}
                         <div>
                             <SectionDivider label="Financial Information" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-4">
@@ -501,7 +616,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Pitch Details */}
                         <div>
                             <SectionDivider label="Pitch Details" />
                             <div className="mt-4 space-y-4">
@@ -534,10 +648,8 @@ export default function StartupRegistrationPage() {
                                             <div>
                                                 <Label>Upload Pitch Deck</Label>
                                                 <label
-                                                    className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border-2 border-dashed cursor-pointer transition-all text-sm"
+                                                    className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border-2 border-dashed cursor-pointer transition-all text-sm hover:border-blue-600"
                                                     style={{ borderColor: "#cbd5e1" }}
-                                                    onMouseEnter={e => (e.currentTarget.style.borderColor = NAVY)}
-                                                    onMouseLeave={e => (e.currentTarget.style.borderColor = "#cbd5e1")}
                                                 >
                                                     <Upload size={14} className="text-slate-400 flex-shrink-0" />
                                                     <span className="text-slate-500 text-xs truncate">{fileLabel}</span>
@@ -550,7 +662,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Pass Selection */}
                         <div>
                             <SectionDivider label="Select Your Pass" />
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
@@ -561,7 +672,7 @@ export default function StartupRegistrationPage() {
                                             key={pass.value}
                                             type="button"
                                             onClick={() => setForm(f => ({ ...f, pass_type: pass.value }))}
-                                            className="relative text-left rounded-xl border-2 p-4 transition-all duration-200"
+                                            className="relative text-left rounded-xl border-2 p-4 transition-all duration-200 hover:shadow-md"
                                             style={{
                                                 borderColor: active ? pass.accent : "#dde3ef",
                                                 background: active ? (pass.accent === NAVY ? "#f0f4ff" : "#fff5f7") : "white",
@@ -601,29 +712,32 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
 
-                        {/* Submit Button */}
-                        <div className="pt-2 pb-10 sm:pb-12">
+                        <div className="pt-4 pb-12">
                             <motion.button
-                                whileHover={{ scale: 1.01 }}
+                                whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 type="button"
+                                disabled={isSubmitting}
                                 onClick={handleSubmit}
-                                className="w-full py-4 rounded-xl text-white font-bold text-base flex items-center justify-center gap-3 transition-all duration-200"
+                                className="w-full py-4 rounded-xl text-white font-bold text-base flex items-center justify-center gap-3 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                                 style={{
                                     background: `linear-gradient(135deg, ${NAVY} 0%, #1e3a8a 40%, ${CRIMSON} 100%)`,
                                     boxShadow: `0 8px 32px rgba(15,31,69,0.25)`
                                 }}
                             >
                                 <Rocket size={18} />
-                                Register for Udbhav 2026
-                                <ArrowRight size={16} />
+                                {isSubmitting ? "Submitting..." : "Register for Udbhav 2026"}
+                                {!isSubmitting && <ArrowRight size={16} />}
                             </motion.button>
-                            <p className="text-[11px] text-center text-slate-400 mt-3">
+                            <p className="text-[11px] text-center text-slate-400 mt-4">
                                 By registering, you agree to our terms. Pitching spots are limited and subject to screening.
                             </p>
                         </div>
                     </div>
                 </div>
+
+                <SuccessModal />
+                <Toast />
             </div>
         </div>
     );
