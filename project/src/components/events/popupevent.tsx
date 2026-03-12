@@ -323,7 +323,7 @@ export default function StartupRegistrationPage() {
             setShowSuccessModal(true);
         } catch (error) {
             console.error(error);
-            alert("Registration failed. Please check your connection and try again.");
+            showToast("Registration failed. Please check your connection and try again.");
         } finally {
             setIsSubmitting(false);
         }
@@ -627,7 +627,14 @@ export default function StartupRegistrationPage() {
                                         { value: "false", label: "Not this time" },
                                     ]}
                                     value={form.interested_in_pitching}
-                                    onChange={v => setForm(f => ({ ...f, interested_in_pitching: v }))}
+                                    onChange={v => {
+                                        setForm(f => ({
+                                            ...f,
+                                            interested_in_pitching: v,
+                                            ...(v === "false" && { pitch_deck_link: "", pitch_deck_file: null })
+                                        }));
+                                        if (v === "false") setFileLabel("Upload pitch deck (PDF, max 10 MB)");
+                                    }}
                                 />
 
                                 <AnimatePresence>
