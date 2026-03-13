@@ -302,7 +302,7 @@ export function EventsListsSection({
                       {/* CTA */}
                       {isUdbhav && (
                         <button
-                          onClick={() => navigate('event-registration')}
+                          onClick={() => navigate('/event-registration')}
                           className="mt-auto flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
                           style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${CRIMSON} 100%)` }}
                         >
