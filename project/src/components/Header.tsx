@@ -145,16 +145,7 @@ export default function Header() {
               Event Registration
             </button>
 
-            {/* Pay Now – Mobile */}
-            <button
-              onClick={() => {
-                openPayment();
-                setIsMenuOpen(false);
-              }}
-              className="mt-2 mx-4 bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition-colors font-medium"
-            >
-              Pay Now
-            </button>
+
 
             <button
               onClick={() => {
