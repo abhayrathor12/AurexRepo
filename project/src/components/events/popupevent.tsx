@@ -4,7 +4,8 @@ import {
     Upload, Link, CheckCircle, AlertCircle, Zap, Building2,
     MapPin, Phone, Mail, User, FileText, TrendingUp, Briefcase,
     CalendarDays, ArrowRight, Sparkles, Star, Globe, X,
-    Award, Eye, Handshake, Coffee, Network, MessageSquare, Shield
+    Award, Eye, Handshake, Coffee, Network, MessageSquare, Shield,
+    Download   // ← added for the poster button
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "../../services/api";
@@ -13,7 +14,7 @@ import logo from "../../public/aurex2.png";
 import logo1 from "../../public/aurex.png";
 import logo2 from "../../public/vastav.png";
 import logo3 from "../../public/logo1.png";
-
+import brochure from "../../public/posters/aurexpdf.pdf";
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type FormData = {
     name: string;
@@ -187,7 +188,6 @@ const RadioPill = ({ label, required, options, value, onChange }: {
 const StepIndicator = ({ currentStep }: { currentStep: number }) => (
     <div className="mb-8">
         <div className="flex items-center justify-between relative">
-            {/* Progress line */}
             <div className="absolute top-4 left-0 right-0 h-0.5 bg-slate-100 z-0" />
             <div
                 className="absolute top-4 left-0 h-0.5 z-0 transition-all duration-500"
@@ -254,7 +254,6 @@ export default function StartupRegistrationPage() {
         pitch_deck_file: null,
         pass_type: "",
     });
-
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [fileLabel, setFileLabel] = useState("Upload pitch deck (PDF, max 10 MB)");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -323,7 +322,6 @@ export default function StartupRegistrationPage() {
         setCurrentStep(1);
     };
 
-    // Step validation
     const validateStep = (step: number): boolean => {
         switch (step) {
             case 1:
@@ -378,7 +376,6 @@ export default function StartupRegistrationPage() {
     const handleSubmit = async () => {
         if (isSubmitting) return;
         if (!validateStep(6)) return;
-
         setIsSubmitting(true);
         try {
             const formData = new FormData();
@@ -388,7 +385,6 @@ export default function StartupRegistrationPage() {
                 }
             });
             if (form.pitch_deck_file) formData.append("pitch_deck_file", form.pitch_deck_file);
-
             await api.post("/api/register/", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
@@ -451,7 +447,7 @@ export default function StartupRegistrationPage() {
         </AnimatePresence>
     );
 
-    // Step content renderer
+    // Step content renderer (only showing case 1 as example — the rest remains unchanged)
     const renderStep = () => {
         switch (currentStep) {
             case 1:
@@ -641,19 +637,14 @@ export default function StartupRegistrationPage() {
     return (
         <div className="flex min-h-screen" style={{ background: "#ffffff", fontFamily: "'system-ui', sans-serif" }}>
             {/* LEFT PANEL */}
-
             <div className="hidden lg:flex w-1/2 flex-col flex-shrink-0 sticky top-0 h-screen overflow-y-auto hide-scrollbar"
                 style={{ background: "#cce8f0", borderRight: "1px solid #b0d8e8" }}>
-
                 <div className="flex flex-col px-3 py-3">
-                    {/* 3 Logos Row — left / center / right */}
                     <div className="flex items-center justify-between mb-5 pb-2" style={{ borderBottom: `1px solid #b0d8e8` }}>
                         <img src={logo1} alt="Logo 1" className="w-40 h-16 object-contain" />
                         <img src={logo3} alt="Logo 2" className="w-40 h-18 object-contain " />
                         <img src={logo2} alt="Logo 3" className="w-44 h-18 object-contain" />
                     </div>
-
-                    {/* Badge */}
                     <div className="flex justify-center mb-2">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-semibold tracking-widest uppercase border"
                             style={{ color: CRIMSON, borderColor: `${CRIMSON}30`, background: `${CRIMSON}08` }}>
@@ -661,8 +652,6 @@ export default function StartupRegistrationPage() {
                             Investor & Founder Meet · 2026
                         </div>
                     </div>
-
-                    {/* Title block */}
                     <div className="mb-2 text-center">
                         <h1 className="text-6xl font-black leading-none mb-2"
                             style={{
@@ -677,14 +666,10 @@ export default function StartupRegistrationPage() {
                             <span className="text-xs italic font-light" style={{ color: "#4a6a80" }}>From Thought to Action</span>
                             <div className="h-px flex-1" style={{ background: `${CRIMSON}30` }} />
                         </div>
-
-                        {/* Tagline */}
                         <p className="text-sm leading-relaxed mb-4" style={{ color: "#2a4a5a" }}>
                             A curated gathering of builders, investors, and ecosystem architects —{" "}
                             <span style={{ color: NAVY }} className="font-semibold">where real conversations meet real capital.</span>
                         </p>
-
-                        {/* Date + Location */}
                         <div className="flex items-center justify-center gap-3">
                             <div className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold border"
                                 style={{ background: `rgba(255,255,255,0.5)`, borderColor: `${NAVY}20`, color: NAVY }}>
@@ -697,11 +682,7 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Section label */}
                     <div className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: "#5a7a8a" }}>What You Get</div>
-
-                    {/* Features Grid — 2 columns */}
                     <div className="grid grid-cols-2 gap-2 mb-5">
                         {EVENT_FEATURES.map((f, i) => (
                             <div key={i}
@@ -715,8 +696,6 @@ export default function StartupRegistrationPage() {
                             </div>
                         ))}
                     </div>
-
-                    {/* Disclaimer */}
                     <div className="rounded-xl border px-3.5 py-3 flex items-start gap-2.5"
                         style={{ background: `rgba(192,3,47,0.06)`, borderColor: `${CRIMSON}25` }}>
                         <AlertCircle size={12} className="flex-shrink-0 mt-0.5" style={{ color: CRIMSON }} />
@@ -727,20 +706,16 @@ export default function StartupRegistrationPage() {
                 </div>
             </div>
 
-            {/* RIGHT PANEL — Multi-step Form */}
+            {/* RIGHT PANEL — Form Area */}
             <div className="w-full lg:w-1/2 relative lg:h-screen lg:flex lg:flex-col lg:overflow-hidden">
-
                 {/* Mobile header */}
                 <div className="lg:hidden" style={{ background: "#cce8f0", borderBottom: "1px solid #b0d8e8" }}>
                     <div className="px-5 pt-6 pb-5">
-                        {/* 3 Logos Row */}
                         <div className="flex items-center justify-between mb-4 pb-4" style={{ borderBottom: "1px solid #b0d8e8" }}>
                             <img src={logo1} alt="Logo 1" className="w-28 h-12 object-contain" />
                             <img src={logo3} alt="Logo 2" className="w-28 h-12 object-contain" />
                             <img src={logo2} alt="Logo 3" className="w-28 h-12 object-contain" />
                         </div>
-
-                        {/* Badge */}
                         <div className="flex justify-center mb-4">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-semibold tracking-widest uppercase border"
                                 style={{ color: CRIMSON, borderColor: `${CRIMSON}30`, background: `${CRIMSON}08` }}>
@@ -748,8 +723,6 @@ export default function StartupRegistrationPage() {
                                 Investor & Founder Meet · 2026
                             </div>
                         </div>
-
-                        {/* Title */}
                         <div className="text-center mb-4">
                             <h1 className="text-5xl font-black leading-none mb-2"
                                 style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-2px", color: NAVY }}>
@@ -772,8 +745,6 @@ export default function StartupRegistrationPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Features grid */}
                         <div className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "#5a7a8a" }}>What You Get</div>
                         <div className="grid grid-cols-2 gap-2 mb-4">
                             {EVENT_FEATURES.slice(0, 7).map((f, i) => (
@@ -788,8 +759,6 @@ export default function StartupRegistrationPage() {
                                 </div>
                             ))}
                         </div>
-
-                        {/* Disclaimer */}
                         <div className="rounded-xl border px-3.5 py-3 flex items-start gap-2.5"
                             style={{ background: `rgba(192,3,47,0.06)`, borderColor: `${CRIMSON}25` }}>
                             <AlertCircle size={12} className="flex-shrink-0 mt-0.5" style={{ color: CRIMSON }} />
@@ -802,25 +771,41 @@ export default function StartupRegistrationPage() {
 
                 {/* Form Content */}
                 <div className="px-4 sm:px-6 md:px-10 xl:px-14 py-5 sm:py-7 max-w-2xl mx-auto w-full lg:flex-1 lg:flex lg:flex-col lg:overflow-hidden">
-                    <div className="mb-4">
-                        <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: CRIMSON }}>Register Now</p>
-                        <h2 className="text-2xl sm:text-3xl font-black mb-1" style={{ color: NAVY, fontFamily: "'Georgia', serif" }}>
-                            Secure Your Spot
-                        </h2>
-                        <p className="text-slate-500 text-xs">All fields marked with * are required.</p>
+                    <div className="mb-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
+                        <div>
+                            <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: CRIMSON }}>
+                                Register Now
+                            </p>
+                            <h2 className="text-2xl sm:text-3xl font-black mb-1" style={{ color: NAVY, fontFamily: "'Georgia', serif" }}>
+                                Secure Your Spot
+                            </h2>
+                            <p className="text-slate-500 text-xs">All fields marked with * are required.</p>
+                        </div>
+
+                        {/* DOWNLOAD POSTER BUTTON */}
+                        <a
+                            href={brochure}         // ← IMPORTANT: replace with your actual PDF file path or URL
+                            download="Udbhav_2026_Event_Poster.pdf"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm border-2 transition-all hover:shadow-md whitespace-nowrap hover:bg-red-50 active:bg-red-100"
+                            style={{
+                                borderColor: CRIMSON,
+                                color: CRIMSON,
+                                backgroundColor: "white",
+                            }}
+                        >
+                            <Download size={16} />
+                            Download Event brochure
+                        </a>
                     </div>
 
-                    {/* Step Indicator */}
                     <StepIndicator currentStep={currentStep} />
 
-                    {/* Step Content — scrollable area */}
                     <div className="lg:flex-1 lg:overflow-y-auto lg:pr-1" style={{ minHeight: "200px" }}>
                         <AnimatePresence mode="wait">
                             {renderStep()}
                         </AnimatePresence>
                     </div>
 
-                    {/* Navigation Buttons — always visible */}
                     <div className="mt-5 flex justify-between items-center lg:flex-shrink-0">
                         <div>
                             {currentStep > 1 && (
@@ -837,7 +822,6 @@ export default function StartupRegistrationPage() {
                                 </motion.button>
                             )}
                         </div>
-
                         <div className="flex-1 flex justify-end">
                             {currentStep < 6 ? (
                                 <motion.button
