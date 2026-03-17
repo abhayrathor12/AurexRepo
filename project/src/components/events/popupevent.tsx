@@ -5,7 +5,7 @@ import {
     MapPin, Phone, Mail, User, FileText, TrendingUp, Briefcase,
     CalendarDays, ArrowRight, Sparkles, Star, Globe, X,
     Award, Eye, Handshake, Coffee, Network, MessageSquare, Shield,
-    Download   // ← added for the poster button
+    Download
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "../../services/api";
@@ -15,6 +15,7 @@ import logo1 from "../../public/aurex.png";
 import logo2 from "../../public/vastav.png";
 import logo3 from "../../public/logo1.png";
 import brochure from "../../public/posters/aurexpdf.pdf";
+
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type FormData = {
     name: string;
@@ -447,7 +448,6 @@ export default function StartupRegistrationPage() {
         </AnimatePresence>
     );
 
-    // Step content renderer (only showing case 1 as example — the rest remains unchanged)
     const renderStep = () => {
         switch (currentStep) {
             case 1:
@@ -636,7 +636,7 @@ export default function StartupRegistrationPage() {
 
     return (
         <div className="flex min-h-screen" style={{ background: "#ffffff", fontFamily: "'system-ui', sans-serif" }}>
-            {/* LEFT PANEL */}
+            {/* LEFT PANEL — Desktop only */}
             <div className="hidden lg:flex w-1/2 flex-col flex-shrink-0 sticky top-0 h-screen overflow-y-auto hide-scrollbar"
                 style={{ background: "#cce8f0", borderRight: "1px solid #b0d8e8" }}>
                 <div className="flex flex-col px-3 py-3">
@@ -682,7 +682,80 @@ export default function StartupRegistrationPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: "#5a7a8a" }}>What You Get</div>
+
+                    <div className="mt-5 mb-5 px-1">
+                        <div
+                            className="text-[9px] font-bold uppercase tracking-widest mb-2 text-center lg:text-left"
+                            style={{ color: "#5a7a8a" }}
+                        >
+                            Available Passes
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            {PASS_TYPES.map((pass) => (
+                                <div
+                                    key={pass.value}
+                                    className="rounded-lg border p-3 bg-white/70 backdrop-blur-sm transition-all hover:shadow-md"
+                                    style={{
+                                        borderColor: `${pass.accent}40`,
+                                        borderWidth: "1px",
+                                    }}
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div
+                                            className="w-8 h-8 rounded-md flex items-center justify-center text-white flex-shrink-0"
+                                            style={{ background: pass.accent }}
+                                        >
+                                            {pass.icon}
+                                        </div>
+
+                                        <div>
+                                            <p
+                                                className="font-semibold text-sm tracking-tight"
+                                                style={{ color: "#1e293b" }}
+                                            >
+                                                {pass.label}
+                                            </p>
+
+                                            <p
+                                                className="text-xl font-black leading-none mt-0.5"
+                                                style={{ color: pass.accent }}
+                                            >
+                                                {pass.price}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <ul className="space-y-1 text-xs">
+                                        {pass.perks.map((perk, i) => (
+                                            <li
+                                                key={i}
+                                                className="flex items-start gap-2 text-slate-600"
+                                            >
+                                                <CheckCircle
+                                                    size={12}
+                                                    className="mt-[2px] flex-shrink-0"
+                                                    style={{ color: pass.accent }}
+                                                />
+                                                <span>{perk}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+
+                        <p
+                            className="mt-3 text-[10px] text-center italic opacity-80"
+                            style={{ color: "#64748b" }}
+                        >
+                            Pitching Pass includes application screening + chance for pitch slot
+                        </p>
+                    </div>
+
+                    <div className="text-[9px] font-bold uppercase tracking-widest mb-3" style={{ color: "#5a7a8a" }}>
+                        What You Get
+                    </div>
                     <div className="grid grid-cols-2 gap-2 mb-5">
                         {EVENT_FEATURES.map((f, i) => (
                             <div key={i}
@@ -745,7 +818,71 @@ export default function StartupRegistrationPage() {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "#5a7a8a" }}>What You Get</div>
+
+                        {/* ─── AVAILABLE PASSES SECTION (MOBILE) ───────────────────────────────── */}
+                        <div className="mt-5 mb-5 px-2">
+                            <div
+                                className="text-[9px] font-bold uppercase tracking-widest mb-2 text-center"
+                                style={{ color: "#5a7a8a" }}
+                            >
+                                Available Passes
+                            </div>
+
+                            <div className="flex flex-col gap-3 max-w-md mx-auto">
+                                {PASS_TYPES.map((pass) => (
+                                    <div
+                                        key={pass.value}
+                                        className="rounded-lg border p-3 bg-white/80 shadow-sm"
+                                        style={{
+                                            borderColor: `${pass.accent}40`,
+                                            borderWidth: "1px",
+                                        }}
+                                    >
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div
+                                                className="w-8 h-8 rounded-md flex items-center justify-center text-white"
+                                                style={{ background: pass.accent }}
+                                            >
+                                                {pass.icon}
+                                            </div>
+
+                                            <div>
+                                                <p
+                                                    className="font-semibold text-sm"
+                                                    style={{ color: "#1e293b" }}
+                                                >
+                                                    {pass.label}
+                                                </p>
+
+                                                <p
+                                                    className="text-xl font-black mt-0.5"
+                                                    style={{ color: pass.accent }}
+                                                >
+                                                    {pass.price}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <ul className="space-y-1 text-xs text-slate-600">
+                                            {pass.perks.map((perk, i) => (
+                                                <li key={i} className="flex items-start gap-2">
+                                                    <CheckCircle
+                                                        size={12}
+                                                        className="mt-[2px] flex-shrink-0"
+                                                        style={{ color: pass.accent }}
+                                                    />
+                                                    <span>{perk}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: "#5a7a8a" }}>
+                            What You Get
+                        </div>
                         <div className="grid grid-cols-2 gap-2 mb-4">
                             {EVENT_FEATURES.slice(0, 7).map((f, i) => (
                                 <div key={i}
@@ -782,9 +919,8 @@ export default function StartupRegistrationPage() {
                             <p className="text-slate-500 text-xs">All fields marked with * are required.</p>
                         </div>
 
-                        {/* DOWNLOAD POSTER BUTTON */}
                         <a
-                            href={brochure}         // ← IMPORTANT: replace with your actual PDF file path or URL
+                            href={brochure}
                             download="Udbhav_2026_Event_Poster.pdf"
                             className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm border-2 transition-all hover:shadow-md whitespace-nowrap hover:bg-red-50 active:bg-red-100"
                             style={{
@@ -845,7 +981,7 @@ export default function StartupRegistrationPage() {
                                     type="button"
                                     disabled={isSubmitting}
                                     onClick={handleSubmit}
-                                    className="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-bold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className="flex items-center gap-1.5 px-3 sm:px-6 py-3 rounded-xl text-white font-bold text-xs sm:text-base transition-all disabled:opacity-60 disabled:cursor-not-allowed max-w-[200px] sm:max-w-xs justify-center"
                                     style={{
                                         background: `linear-gradient(135deg, ${NAVY} 0%, #1e3a8a 40%, ${CRIMSON} 100%)`,
                                         boxShadow: `0 8px 32px rgba(32,63,120,0.25)`
