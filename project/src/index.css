@@ -127,3 +127,21 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+
+.poster-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.poster-panel {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge */
+}
+
+@media (min-width:1024px){
+  .xl\:px-16,
+  .md\:px-12{
+    padding-left:1rem !important;
+    padding-right:1rem !important;
+  }
+}
