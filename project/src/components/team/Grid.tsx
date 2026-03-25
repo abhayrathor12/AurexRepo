@@ -1,4 +1,4 @@
-import { Users, Linkedin, Facebook, Target, TrendingUp, Shield } from 'lucide-react';
+import { Users, Linkedin, Facebook, Instagram, Target, TrendingUp, Shield } from 'lucide-react';
 
 export interface TeamGridMember {
   id?: string;
@@ -11,6 +11,7 @@ export interface TeamGridMember {
   image_url?: string | null;
   linkedin_url?: string | null;
   facebook_url?: string | null;
+  instagram_url?: string | null;
 }
 
 interface TeamGridProps {
@@ -45,12 +46,18 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
               className="relative group rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
             >
               {/* Background Image - Hidden on mobile, visible on tablet+ */}
-              <div className="absolute inset-0 hidden md:block">
+              <div className="absolute inset-0 hidden md:block overflow-hidden">
                 {member.image_url ? (
                   <img
                     src={member.image_url}
                     alt={member.name}
-                    className="w-full h-full object-contain md:object-contain"
+                    className="absolute h-full w-auto"
+                    style={{
+                      right: isEven ? '15%' : 'auto',
+                      left: isEven ? 'auto' : '10%',
+                      top: '50%',
+                      transform: 'translateY(-50%)'
+                    }}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-gray-100">
@@ -64,42 +71,42 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
                 className={`
                   absolute inset-0 bg-gradient-to-r hidden md:block
                   ${isEven
-                    ? 'from-white/95 via-white/30 via-40% to-[#a8042b]/70'
-                    : 'from-[#a8042b]/70 via-white/30 via-40% to-white/95'}
+                    ? 'from-white/0 via-white/10 via-75% to-[#223258]/70'
+                    : 'from-[#223258]/70 via-white/10 via-25% to-white/0'}
                 `}
               />
 
               {/* Social Icons */}
-<div
-  className={`
+              <div
+                className={`
     absolute z-30 flex gap-3 md:flex-col md:gap-4
     top-3 left-3
     md:top-1/2 md:-translate-y-1/2
     ${isEven ? 'md:right-6 md:left-auto' : 'md:left-6'}
   `}
->
-  {/* LinkedIn */}
-  <a
-    href={member.linkedin_url ?? '#'}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-white/90 hover:bg-white text-[#0A66C2] p-3 rounded-full shadow-lg hover:scale-110 transition"
-    aria-label="LinkedIn"
-  >
-    <Linkedin size={20} />
-  </a>
+              >
+                {/* LinkedIn */}
+                <a
+                  href={member.linkedin_url ?? '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/90 hover:bg-white text-[#0A66C2] p-3 rounded-full shadow-lg hover:scale-110 transition"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={20} />
+                </a>
 
-  {/* Facebook */}
-  <a
-    href={member.facebook_url ?? '#'}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-white/90 hover:bg-white text-[#1877F2] p-3 rounded-full shadow-lg hover:scale-110 transition"
-    aria-label="Facebook"
-  >
-    <Facebook size={20} />
-  </a>
-</div>
+                {/* Instagram */}
+                <a
+                  href={member.instagram_url ?? '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/90 hover:bg-white text-[#1877F2] p-3 rounded-full shadow-lg hover:scale-110 transition"
+                  aria-label="instagram"
+                >
+                  <Instagram size={20} />
+                </a>
+              </div>
 
 
               {/* Mobile Image */}
@@ -135,7 +142,7 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
                   {member.name}
                 </h3>
 
-                <p className="text-[#223258] text-sm sm:text-base md:text-lg lg:text-xl font-medium mb-4 md:mb-0 md:order-last">
+                <p className="text-[#223258] text-sm sm:text-base md:text-lg lg:text-lg font-medium mb-4 md:mb-0 md:order-last">
                   {member.title}
                 </p>
 
@@ -147,9 +154,8 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
 
                 {member.expertise && member.expertise.length > 0 && (
                   <div
-                    className={`flex flex-wrap gap-2 mb-4 md:mb-6 ${
-                      isEven ? 'justify-start' : 'justify-start md:justify-end'
-                    }`}
+                    className={`flex flex-wrap gap-2 mb-4 md:mb-6 ${isEven ? 'justify-start' : 'justify-start md:justify-end'
+                      }`}
                   >
                     {member.expertise.slice(0, 2).map((skill, i) => (
                       <span
@@ -163,16 +169,14 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
                 )}
 
                 <div
-                  className={`w-16 sm:w-24 md:w-32 h-1 bg-[#a8042b] mb-4 md:mb-6 rounded-full ${
-                    isEven ? '' : 'md:ml-auto'
-                  }`}
+                  className={`w-16 sm:w-24 md:w-32 h-1 bg-[#a8042b] mb-4 md:mb-6 rounded-full ${isEven ? '' : 'md:ml-auto'
+                    }`}
                 />
 
                 {member.highlights && member.highlights.length > 0 && (
                   <ul
-                    className={`text-gray-700 text-xs sm:text-sm md:text-base mb-4 md:mb-6 space-y-1 ${
-                      isEven ? 'text-left' : 'text-left md:text-right'
-                    }`}
+                    className={`text-gray-700 text-xs sm:text-sm md:text-base mb-4 md:mb-6 space-y-1 ${isEven ? 'text-left' : 'text-left md:text-right'
+                      }`}
                   >
                     {member.highlights.map((point, i) => (
                       <li key={i}>• {point}</li>
@@ -182,9 +186,8 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
 
                 {member.credentials && member.credentials.length > 0 && (
                   <div
-                    className={`flex flex-wrap gap-2 mb-4 md:mb-6 ${
-                      isEven ? 'justify-start' : 'justify-start md:justify-end'
-                    }`}
+                    className={`flex flex-wrap gap-2 mb-4 md:mb-6 ${isEven ? 'justify-start' : 'justify-start md:justify-end'
+                      }`}
                   >
                     {member.credentials.map((cred, i) => (
                       <span
@@ -206,7 +209,7 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
           {/* Background decorative elements */}
           <div className="absolute top-0 left-0 w-72 h-72 bg-[#223258]/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
           <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#a8042b]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
-          
+
           <div className="relative z-10 max-w-6xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12 md:mb-16">
@@ -226,7 +229,7 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
               <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-8">
                 <span className="font-bold text-[#223258]">Aurex Ventures</span> is an investment banking advisory firm specializing in capital raising and transaction support for early-stage and growth-stage startups.
               </p>
-              
+
               <p className="text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed text-center max-w-3xl mx-auto">
                 We operate as a single-point fundraising and transaction partner, guiding founders through the complete investment lifecycle—from investor readiness and strategic positioning to deal execution and closure.
               </p>

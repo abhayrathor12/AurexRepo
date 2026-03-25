@@ -11,7 +11,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen pt-2">
+    <div className="min-h-screen ">
       <ContactHero />
       <ContactInfoAndFormSection />
       {/* <ContactRegisterCardsSection onRegisterClick={openRegister} /> */}

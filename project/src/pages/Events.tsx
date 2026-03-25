@@ -66,7 +66,7 @@ export default function Events() {
     });
 
   return (
-    <div className="min-h-screen pt-6">
+    <div className="min-h-screen">
       <EventsHero />
       <EventsTypesOverview />
 

@@ -17,17 +17,17 @@ export default function Home() {
   // useEffect(() => {
   //   const seen = localStorage.getItem('eventPopupSeen');
   //   if (seen) return;
-  
+
   //   const timer = setTimeout(() => {
   //     window.dispatchEvent(new Event('openEventPopup'));
 
   //   }, 3000);
-  
+
   //   return () => clearTimeout(timer);
   // }, []);
 
   return (
-    <div className="min-h-screen pt-4">
+    <div className="min-h-screen ">
       <HomeHero onRegisterClick={openRegister} />
 
       <HomeWhatWeEnable />
@@ -37,10 +37,10 @@ export default function Home() {
       <HomeAbout />
 
       <HomeTeamPreview />
-      <ModernJoinSection/>
-      <MissonValue/>
+      <ModernJoinSection />
+      <MissonValue />
 
-      
+
       <HomeEventsPreview />
       <HomeContactCTA onRegisterClick={openRegister} />
     </div>
