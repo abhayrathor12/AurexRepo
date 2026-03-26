@@ -240,70 +240,61 @@ export function TeamGridSection({ loading, members }: TeamGridProps) {
               <div className="h-px flex-1 max-w-xs bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
             </div>
 
-            {/* Value Proposition - IMPROVED VERSION */}
-
-
             {/* Three Pillars */}
             <div className="grid md:grid-cols-3 gap-6 md:gap-8">
               {/* Capital */}
               <div className="group relative">
-                <div className="flex items-start gap-5 mb-5">
-                  <div className="relative">
+                <div className="flex flex-col items-center mb-5">
+                  <div className="relative mb-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#223258] to-[#223258]/70 flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
                       <Target className="text-white" size={28} strokeWidth={2} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#a8042b] rounded-lg opacity-80" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#223258]">
-                      Capital
-                    </h3>
-                    <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2" />
-                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#223258] text-center">
+                    Capital
+                  </h3>
+                  <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2 mx-auto" />
                 </div>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
                   Strategic fundraising guidance connecting startups with the right investors
                 </p>
               </div>
 
               {/* Compliance */}
               <div className="group relative">
-                <div className="flex items-start gap-5 mb-5">
-                  <div className="relative">
+                <div className="flex flex-col items-center mb-5">
+                  <div className="relative mb-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#a8042b] to-[#a8042b]/70 flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
                       <Shield className="text-white" size={28} strokeWidth={2} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#223258] rounded-lg opacity-80" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#223258]">
-                      Compliance
-                    </h3>
-                    <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2" />
-                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#223258] text-center">
+                    Compliance
+                  </h3>
+                  <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2 mx-auto" />
                 </div>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
                   Ensuring regulatory adherence and structured deal execution
                 </p>
               </div>
 
               {/* Growth */}
               <div className="group relative">
-                <div className="flex items-start gap-5 mb-5">
-                  <div className="relative">
+                <div className="flex flex-col items-center mb-5">
+                  <div className="relative mb-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#223258] via-[#223258] to-[#a8042b] flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
                       <TrendingUp className="text-white" size={28} strokeWidth={2} />
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#a8042b] rounded-lg opacity-80 animate-pulse" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#223258]">
-                      Growth
-                    </h3>
-                    <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2" />
-                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#223258] text-center">
+                    Growth
+                  </h3>
+                  <div className="h-1 w-12 bg-gradient-to-r from-[#a8042b] to-transparent rounded-full mt-2 mx-auto" />
                 </div>
-                <p className="text-gray-600 text-base md:text-lg leading-relaxed">
+                <p className="text-gray-600 text-base md:text-lg leading-relaxed text-center">
                   Building scalable businesses through strategic partnerships
                 </p>
               </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, Heart, Lightbulb, Target, TrendingUp, Award } from 'lucide-react';
+import { Users, Heart, Lightbulb, Target, Zap, DollarSign, TrendingUp, Award } from 'lucide-react';
 
 export function TeamHero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,20 +22,20 @@ export function TeamHero() {
   }, []);
 
   const teamMembers = [
-    { name: 'Strategy', icon: Lightbulb, color: '#a8042b' },
-    { name: 'Design', icon: Heart, color: '#223258' },
-    { name: 'Development', icon: Target, color: '#a8042b' },
-    { name: 'Marketing', icon: TrendingUp, color: '#223258' },
-    { name: 'Product', icon: Award, color: '#a8042b' },
-    { name: 'Sales', icon: Users, color: '#223258' },
-    { name: 'Support', icon: Heart, color: '#a8042b' },
-    { name: 'Analytics', icon: Target, color: '#223258' },
+    { name: 'Due Diligence', icon: Lightbulb, color: '#a8042b' },
+    { name: 'Execution', icon: Zap, color: '#223258' },
+    { name: 'Strategy', icon: Target, color: '#a8042b' },
+    { name: 'Valuation', icon: TrendingUp, color: '#223258' },
+    { name: 'Capital Access', icon: Award, color: '#a8042b' },
+    { name: 'Investor Alignment', icon: Users, color: '#223258' },
+    { name: 'Fundrasing', icon: DollarSign, color: '#a8042b' },
+    { name: 'Deal Structuring', icon: Target, color: '#223258' },
   ];
 
-  const radius = isMobile ? 110 : 160;
+  const radius = isMobile ? 95 : 120;
 
   return (
-    <section className="relative bg-white py-12 px-4 sm:py-16 md:py-8 overflow-hidden">
+    <section className="relative bg-white py-4 px-4 sm:py-6 md:py-4 overflow-hidden">
       {/* Subtle animated background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -49,7 +49,7 @@ export function TeamHero() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8 items-center">
 
           {/* Left - Text content */}
           <div
@@ -57,7 +57,7 @@ export function TeamHero() {
               }`}
           >
             <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 lg:mb-8 leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-3 lg:mb-4 leading-tight"
               style={{ color: '#223258' }}
             >
               Visionaries
@@ -67,7 +67,7 @@ export function TeamHero() {
             </h1>
 
             <p
-              className="text-lg sm:text-xl mb-8 leading-relaxed"
+              className="text-lg sm:text-xl mb-4 leading-relaxed"
               style={{ color: '#223258', opacity: 0.8 }}
             >
               A collective of seasoned experts, innovative thinkers, and passionate problem-solvers committed to
@@ -75,20 +75,20 @@ export function TeamHero() {
             </p>
 
             {/* Tag line - wraps gracefully on mobile, single line on desktop */}
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 pt-2">
               {[
                 { icon: Users, title: 'Founder-Focused Team', color: '#223258' },
                 { icon: Target, title: 'Execution-Driven', color: '#a8042b' },
                 { icon: Lightbulb, title: 'Expert-Led Guidance', color: '#223258' },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2">
+                <div key={i} className="flex items-center gap-2 flex-shrink-0">
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                    className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{ backgroundColor: `rgba(${item.color === '#223258' ? '34, 50, 88' : '168, 4, 43'}, 0.1)` }}
                   >
-                    <item.icon className="w-4 h-4" style={{ color: item.color }} />
+                    <item.icon className="w-3.5 h-3.5" style={{ color: item.color }} />
                   </div>
-                  <span className="text-sm sm:text-base font-semibold" style={{ color: '#223258' }}>
+                  <span className="text-xs sm:text-sm font-semibold whitespace-nowrap" style={{ color: '#223258' }}>
                     {item.title}
                   </span>
                 </div>
@@ -105,16 +105,16 @@ export function TeamHero() {
               className="relative mx-auto"
               style={
                 isMobile
-                  ? { width: '300px', height: '300px' }
-                  : { width: '100%', aspectRatio: '1 / 1', maxWidth: '520px' }
+                  ? { width: '260px', height: '260px' }
+                  : { width: '100%', aspectRatio: '1 / 1', maxWidth: '320px' }
               }
             >
               {/* Central hub */}
               <div
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center z-20 shadow-xl"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center z-20 shadow-xl"
                 style={{ backgroundColor: '#a8042b' }}
               >
-                <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white" />
+                <Users className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
               </div>
 
               {/* Team members */}
@@ -167,7 +167,7 @@ export function TeamHero() {
                         )}
 
                         <div
-                          className="w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-md transition-all duration-500 relative"
+                          className="w-9 h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center shadow-md transition-all duration-500 relative"
                           style={{
                             backgroundColor: isActive ? member.color : 'white',
                             borderWidth: '3px',
@@ -175,7 +175,7 @@ export function TeamHero() {
                           }}
                         >
                           <Icon
-                            className="w-6 h-6 sm:w-7 sm:h-7 transition-colors duration-500"
+                            className="w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-500"
                             style={{ color: isActive ? 'white' : member.color }}
                           />
                         </div>
@@ -211,7 +211,7 @@ export function TeamHero() {
                 <circle
                   cx="50%"
                   cy="50%"
-                  r={isMobile ? 65 : 100}
+                  r={isMobile ? 50 : 70}
                   fill="none"
                   stroke="#a8042b"
                   strokeWidth="1"

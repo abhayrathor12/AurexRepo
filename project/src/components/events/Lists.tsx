@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 import { previousEventsData } from "./previousEventsData";
 import { PreviousEventDetail } from "./PreviousEventDetail";
 import { useNavigate } from 'react-router-dom';
-
+import brochure from "../../public/posters/aurexpdf.pdf";
 interface Event {
   id: string;
   title: string;
@@ -151,7 +151,7 @@ export function EventsListsSection({
                 </div>
               </div>
 
-              <div className="grid grid-cols-7 gap-0.5 max-w-[320px] mx-auto">
+              <div className="grid grid-cols-7 gap-0.5">
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, idx) => (
                   <div key={`${d}-${idx}`} className="text-center text-[10px] text-slate-500 py-1">
                     {d}
@@ -191,7 +191,7 @@ export function EventsListsSection({
               </div>
 
               {/* Legend */}
-              <div className="flex items-center gap-4 mt-4 pt-3 border-t border-slate-100 max-w-[320px] mx-auto">
+              <div className="flex items-center gap-4 mt-4 pt-3 border-t border-slate-100 ">
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded" style={{ backgroundColor: NAVY }} />
                   <span className="text-[10px] text-slate-500">Event day</span>
@@ -301,15 +301,40 @@ export function EventsListsSection({
 
                       {/* CTA */}
                       {isUdbhav && (
-                        <button
-                          onClick={() => navigate('/event-registration')}
-                          className="mt-auto flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
-                          style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${CRIMSON} 100%)` }}
-                        >
-                          <Rocket size={15} />
-                          Register for Udbhav 2026
-                          <ArrowRight size={14} />
-                        </button>
+                        <div className="mt-auto flex gap-2">
+                          <button
+                            onClick={() => navigate('/event-registration')}
+                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+                            style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${CRIMSON} 100%)` }}
+                          >
+                            <Rocket size={15} />
+                            Register for Udbhav 2026
+                            <ArrowRight size={14} />
+                          </button>
+                          <a
+                            href={brochure}
+                            download
+                            className="flex-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg whitespace-nowrap"
+                            style={{
+                              border: `2px solid ${NAVY}`,
+                              color: NAVY,
+                              backgroundColor: 'white',
+                            }}
+                            onMouseEnter={e => {
+                              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = `${NAVY}10`;
+                            }}
+                            onMouseLeave={e => {
+                              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'white';
+                            }}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                              <polyline points="7 10 12 15 17 10" />
+                              <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Brochure
+                          </a>
+                        </div>
                       )}
                     </div>
                   </motion.div>
