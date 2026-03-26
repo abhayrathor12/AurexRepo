@@ -23,7 +23,7 @@ const EVENTS_DATA: Event[] = [
     description:
       'A curated gathering of startups, investors, and ecosystem leaders built for real conversations and real opportunities. Featuring live pitch sessions, panel discussions, and focused networking.',
     event_date: '2026-04-18',
-    location: 'To Be Announced',
+    location: 'Delhi, NCR',
     image_url: null,
   },
 

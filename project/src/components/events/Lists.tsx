@@ -153,7 +153,7 @@ export function EventsListsSection({
 
               <div className="grid grid-cols-7 gap-0.5">
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, idx) => (
-                  <div key={`${d}-${idx}`} className="text-center text-[10px] text-slate-500 py-1">
+                  <div key={`${d}-${idx}`} className="text-center text-[15px] text-slate-500 py-1">
                     {d}
                   </div>
                 ))}
@@ -172,7 +172,7 @@ export function EventsListsSection({
                     <button
                       key={day}
                       onClick={() => event && setSelectedEvent(event)}
-                      className={`aspect-square rounded flex items-center justify-center text-xs font-medium transition-all relative
+                      className={`aspect-square rounded flex items-center justify-center text-base font-semibold transition-all relative
                         ${event
                           ? isSelected
                             ? 'text-white scale-105 shadow'
