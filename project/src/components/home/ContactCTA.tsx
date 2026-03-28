@@ -9,16 +9,16 @@ import mail from '../../public/mail.png';
 
 export function HomeContactCTA({ onRegisterClick }: ContactCTAProps) {
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-4 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Content - Compact */}
           <div>
-            
-<AnimatedHeading
-          title="Start the Conversation"
-          subtitle="Ready to grow your startup?"
-        />
+
+            <AnimatedHeading
+              title="Start the Conversation"
+              subtitle="Ready to grow your startup?"
+            />
 
             <div className="space-y-4 mb-8">
               <div className="flex items-center gap-4 bg-gray-50 rounded-xl p-5 hover:shadow-md transition-shadow">
@@ -26,8 +26,8 @@ export function HomeContactCTA({ onRegisterClick }: ContactCTAProps) {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Phone</p>
-                  <p className="font-semibold text-[#223258] text-sm">
+                  <p className="text-md text-gray-500">Phone</p>
+                  <p className="font-semibold text-[#223258] text-lg">
                     +91 96259 15947 • +91 99997 65380
                   </p>
                 </div>
@@ -38,8 +38,8 @@ export function HomeContactCTA({ onRegisterClick }: ContactCTAProps) {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Email</p>
-                  <p className="font-semibold text-[#223258] text-sm break-all">
+                  <p className="text-md text-gray-500">Email</p>
+                  <p className="font-semibold text-[#223258] text-lg break-all">
                     aurexventures@zohomail.in
                   </p>
                 </div>
@@ -50,8 +50,8 @@ export function HomeContactCTA({ onRegisterClick }: ContactCTAProps) {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Location</p>
-                  <p className="font-semibold text-[#223258] text-sm">
+                  <p className="text-md text-gray-500">Location</p>
+                  <p className="font-semibold text-[#223258] text-lg">
                     Paras Trade Centre, Gurgaon
                   </p>
                 </div>
@@ -69,7 +69,7 @@ export function HomeContactCTA({ onRegisterClick }: ContactCTAProps) {
           {/* Right Animation - Bigger envelope */}
           <div className="relative flex items-center justify-center min-h-[420px] lg:min-h-[480px] overflow-hidden">
 
-          <div className="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] scale-100 sm:scale-110 lg:scale-125">
+            <div className="relative w-[320px] h-[320px] sm:w-[420px] sm:h-[420px] scale-100 sm:scale-110 lg:scale-125">
 
 
               {/* Bigger base envelope */}

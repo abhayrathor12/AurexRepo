@@ -18,25 +18,25 @@ export function HomeProcess() {
     {
       step: '01',
       title: 'Register & Submit',
-      desc: 'Share basic details about your startup and funding requirements',
+      desc: 'Share your startup details and capital requirements to get started by answering our client questionnaire',
       icon: FileText,
     },
     {
       step: '02',
       title: 'Internal Screening',
-      desc: 'Our team evaluates readiness and verifies your documents',
+      desc: 'We assess your readiness accross compliance structuring and investment preparedness',
       icon: CheckCircle2,
     },
     {
       step: '03',
       title: 'Investor Access',
-      desc: 'Connect with curated investors & attend exclusive pitch events',
+      desc: 'Get access to curated investors and aligned funding oppportunities',
       icon: Users,
     },
     {
       step: '04',
       title: 'Ongoing Support',
-      desc: 'Deal structuring, compliance help & post-funding guidance',
+      desc: 'Support accross deal structuring, compliance and post funding execution',
       icon: TrendingUp,
     }
   ];
@@ -50,13 +50,13 @@ export function HomeProcess() {
   }, []);
 
   return (
-    <section className="py-16 px-4 bg-white relative overflow-hidden">
+    <section className="py-2 px-4 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50/40 via-white to-slate-50/30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedHeading
           title="How It Works"
-          subtitle="From registration to growth — clear, fast and reliable"
+          subtitle="From Onboarding to capital access - structured and execution driven"
         />
 
         <div className="grid md:grid-cols-4 gap-6 lg:gap-8 relative mt-12">
@@ -114,7 +114,7 @@ export function HomeProcess() {
                     <div className="relative mb-6">
                       <div
                         className={`w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center transform transition-all duration-500 shadow-md ${isActive
-                          ? 'bg-[#a8042b] scale-110 rotate-6'
+                          ? 'bg-[#a8042b] scale-110 '
                           : isPassed
                             ? 'bg-[#223258]'
                             : 'bg-[#223258] group-hover:scale-105'
@@ -150,12 +150,12 @@ export function HomeProcess() {
                     </p>
 
                     <div className="mt-5 flex items-center text-slate-600 group-hover:text-slate-700 transition-colors">
-                      <span className="text-sm font-medium mr-1.5">Learn more</span>
+                      {/* <span className="text-sm font-medium mr-1.5">Learn more</span>
                       <ArrowRight
                         size={15}
                         className={`transition-transform duration-300 ${isActive ? 'text-[#a8042b] translate-x-1' : 'text-[#a8042b] group-hover:translate-x-1'
                           }`}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
@@ -198,8 +198,8 @@ export function HomeProcess() {
           ))}
         </div>
 
-        <div className="text-center mt-12 md:mt-16">
-          <button onClick={() => navigate('contact')} className="px-8 py-4 bg-[#a8042b] hover:bg-[#8f0324] text-white font-semibold rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 shadow-lg group">
+        <div className="text-center mt-6 md:mt-8">
+          <button onClick={() => navigate('contact')} className="px-6 py-3 bg-[#a8042b] hover:bg-[#8f0324] text-white font-semibold rounded-full hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 shadow-lg group">
             <span>Start Your Journey</span>
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
           </button>

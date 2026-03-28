@@ -3,9 +3,9 @@ import { Calendar, Users, FileText, ArrowRight } from 'lucide-react';
 import { AnimatedHeading } from '../AnimtedHeading';
 export function HomeEventsPreview() {
   return (
-    <section className="py-20 px-4 bg-white">
+    <section className="py-6 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
-      <AnimatedHeading
+        <AnimatedHeading
           title="Exclusive Founder–Investor Events"
           subtitle="Connect with the right people at the right time"
         />
@@ -40,7 +40,7 @@ export function HomeEventsPreview() {
           }
         `}</style>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-3 gap-8 mt-4">
           <Card
             title="Pitch Sessions"
             subtitle="Present your startup to curated angel and VC audiences"
@@ -61,9 +61,9 @@ export function HomeEventsPreview() {
           />
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-6">
           <a
-            href="#events"
+            href="/events"
             className="inline-flex items-center gap-2 text-[#a8042b] hover:text-[#223258] font-semibold text-lg transition-colors duration-300"
           >
             View Events Calendar <ArrowRight size={20} />

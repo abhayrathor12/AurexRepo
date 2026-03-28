@@ -1,7 +1,8 @@
 import aurexLogo from '../public/aurex2.png';
+import { Instagram } from "lucide-react";
 export default function Footer() {
   return (
-    <footer className="relative bg-[#223258] text-white mt-16 overflow-hidden">
+    <footer className="relative bg-[#223258] text-white mt-6 overflow-hidden">
       {/* Accent top border */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#a8042b] via-[#a8042b] to-transparent"></div>
 
@@ -13,9 +14,9 @@ export default function Footer() {
         }}></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Main content grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-1">
           {/* Brand section */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-4">
@@ -45,15 +46,15 @@ export default function Footer() {
                 href="https://www.instagram.com/aurex.ventures/"
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#a8042b] transition-colors duration-300 flex items-center justify-center group"
               >
-                <span className="text-sm">IG</span>
+                <Instagram size={16} />
               </a>
 
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#a8042b] transition-colors duration-300 flex items-center justify-center group"
+              {/* <a
+                href="mailto:aurexventures.zohomail.in"
+                className="text-slate-300 hover:text-white text-sm flex items-center transition-colors"
               >
-                <span className="text-sm">✉</span>
-              </a>
+                mailto:aurexventures.zohomail.in
+              </a> */}
             </div>
           </div>
 
@@ -93,15 +94,15 @@ export default function Footer() {
                 Ready to accelerate your startup journey?
               </p>
               <a
-                href="#services"
+                href="/services"
                 className="inline-block bg-[#a8042b] hover:bg-[#8a0323] text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#a8042b]/30"
               >
                 Register Now
               </a>
               <div className="pt-2">
-                <a href="#contact" className="text-slate-300 hover:text-white text-sm flex items-center gap-2 transition-colors">
+                <a href="/contact" className="text-slate-300 hover:text-white text-sm flex items-center gap-2 transition-colors">
                   <span>📧</span>
-                  <span>contact@aurexventures.com</span>
+                  <span>aurexventures@zohomail.in</span>
                 </a>
               </div>
             </div>
@@ -109,10 +110,10 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8"></div>
+        <div className="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-2"></div>
 
         {/* Bottom section */}
-        <div className="space-y-4">
+        <div className="space-y-1">
           <p className="text-slate-400 text-xs text-center max-w-3xl mx-auto leading-relaxed">
             Disclaimer: Aurex Ventures does not guarantee funding outcomes. All services are subject to eligibility and regulatory approvals. Please consult with appropriate advisors for your specific situation.
           </p>

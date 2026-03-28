@@ -15,7 +15,7 @@ export default function ModernJoinSection() {
   };
 
   return (
-    <section className="py-10 px-4 bg-gradient-to-b from-white to-slate-50">
+    <section className="py-5 px-4 bg-gradient-to-b from-white to-slate-50">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <AnimatedHeading
@@ -31,21 +31,21 @@ export default function ModernJoinSection() {
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Content - Left */}
-            <div className="relative z-10 p-8">
-              <div className="inline-flex items-center gap-2 bg-aurex-primary/10 text-aurex-primary px-4 py-2 rounded-full mb-6 font-semibold">
+            <div className="relative z-10 p-8 pt-2">
+              <div className="inline-flex items-center gap-2 bg-aurex-primary/10 text-aurex-primary px-4 py-2 rounded-full mb-2 font-semibold">
                 <Building2 size={20} />
                 <span>For Startups</span>
               </div>
 
-              <h3 className="text-4xl font-bold text-slate-900 mb-6">
+              <h3 className="text-4xl font-bold text-slate-900 mb-3">
                 Scale Your Vision
               </h3>
 
-              <p className="text-lg text-slate-600 mb-8">
+              <p className="text-lg text-slate-600 mb-4">
                 From pitch refinement to investor connections, we provide everything you need to secure funding and grow.
               </p>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-4 mb-5">
                 <div className="flex items-start gap-3 group">
                   <div className="bg-aurex-primary/10 p-2 rounded-lg group-hover:bg-aurex-primary/20 transition-colors">
                     <CheckCircle className="text-aurex-primary" size={20} />
@@ -194,21 +194,21 @@ export default function ModernJoinSection() {
             </div>
 
             {/* Content - Right */}
-            <div className="relative z-10 p-8 order-1 md:order-2">
-              <div className="inline-flex items-center gap-2 bg-aurex-accent/10 text-aurex-accent px-4 py-2 rounded-full mb-6 font-semibold">
+            <div className="relative z-10 p-8 pt-2 order-1 md:order-2">
+              <div className="inline-flex items-center gap-2 bg-aurex-accent/10 text-aurex-accent px-4 py-2 rounded-full mb-2 font-semibold">
                 <TrendingUp size={20} />
                 <span>For Investors</span>
               </div>
 
-              <h3 className="text-4xl font-bold text-slate-900 mb-6">
+              <h3 className="text-4xl font-bold text-slate-900 mb-3">
                 Discover Tomorrow's Leaders
               </h3>
 
-              <p className="text-lg text-slate-600 mb-8">
+              <p className="text-lg text-slate-600 mb-4">
                 Access pre-screened, high-potential startups and exclusive deal flow tailored to your investment thesis.
               </p>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-4 mb-5">
                 <div className="flex items-start gap-3 group">
                   <div className="bg-aurex-accent/10 p-2 rounded-lg group-hover:bg-aurex-accent/20 transition-colors">
                     <CheckCircle className="text-aurex-accent" size={20} />

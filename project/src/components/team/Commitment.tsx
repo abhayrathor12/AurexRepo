@@ -46,9 +46,8 @@ export function TeamCommitmentSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* === ANIMATION SIDE === */}
           <div
-            className={`transform transition-all duration-1000 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            } lg:translate-x-0 lg:translate-y-0`}
+            className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              } lg:translate-x-0 lg:translate-y-0`}
           >
             <div className="relative h-[340px] sm:h-[380px] lg:h-[420px] flex items-center justify-center">
               {/* Partnership rings */}
@@ -131,9 +130,8 @@ export function TeamCommitmentSection() {
                     key={i}
                     className="absolute top-1/2 left-1/2 transition-all duration-600 z-20"
                     style={{
-                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) ${
-                        handshakeActive ? 'scale(1.12)' : 'scale(1)'
-                      }`,
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) ${handshakeActive ? 'scale(1.12)' : 'scale(1)'
+                        }`,
                       transitionDelay: `${i * 120}ms`,
                     }}
                   >
@@ -159,9 +157,8 @@ export function TeamCommitmentSection() {
 
           {/* === TEXT SIDE === */}
           <div
-            className={`transform transition-all duration-1000 delay-200 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-            } lg:translate-x-0 lg:translate-y-0`}
+            className={`transform transition-all duration-1000 delay-200 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              } lg:translate-x-0 lg:translate-y-0`}
           >
             <div className="inline-block mb-5">
               <span
@@ -180,7 +177,7 @@ export function TeamCommitmentSection() {
             </h2>
 
             <p className="text-base sm:text-lg text-white opacity-90 leading-relaxed mb-8 max-w-xl">
-              We combine legal expertise, financial acumen, and real startup experience to support founders at every stage. 
+              We combine legal expertise, financial acumen, and real startup experience to support founders at every stage.
               With empaneled professionals, we handle compliance so you can focus on building your vision.
             </p>
 
@@ -206,7 +203,7 @@ export function TeamCommitmentSection() {
               </div>
 
               <a
-                href="#contact"
+                href="/contact"
                 className="group inline-flex items-center justify-center sm:justify-start gap-2 px-7 py-3 rounded-lg font-semibold text-base transition-all duration-300 shadow-lg hover:shadow-xl bg-[#a8042b] text-white hover:bg-[#8a0323] sm:ml-4"
               >
                 Get in Touch

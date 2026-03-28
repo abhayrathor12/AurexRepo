@@ -14,6 +14,7 @@ export function HomeTeamPreview() {
       description:
         "Strategic advisor with strong expertise in business leadership and operational excellence.",
       image: kapilSir,
+      linkedin_url: "https://www.linkedin.com/in/kapilkhuranatechnovizautomation/",
     },
     {
       id: "prerna-jain",
@@ -22,20 +23,21 @@ export function HomeTeamPreview() {
       description:
         "Practicing Company Secretary specializing in corporate compliance, governance, and regulatory advisory for startups and growing enterprises.",
       image: prernaJain,
+      linkedin_url: "https://www.linkedin.com/in/pcs-prerna-jain-2890311b3/",
     }
   ];
 
 
 
   return (
-    <section className="py-10 px-4 bg-slate-50">
+    <section className="py-5 px-4 bg-slate-50">
       <div className="max-w-7xl mx-auto">
         <AnimatedHeading
           title=" Meet Our Team"
           subtitle="Experienced professionals dedicated to your success"
         />
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto mt-12">
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto mt-6">
           {teamMembers.map((member, index) => (
             <div key={index} className="group relative overflow-hidden">
 
@@ -77,15 +79,11 @@ export function HomeTeamPreview() {
                   </p>
 
                   <div className="flex gap-3">
-                    <a className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition">
-                      <Twitter className="w-4 h-4 text-white hover:text-slate-900" />
-                    </a>
-                    <a className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition">
+
+                    <a href={member.linkedin_url ?? '#'} className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition">
                       <Linkedin className="w-4 h-4 text-white hover:text-blue-600" />
                     </a>
-                    <a className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition">
-                      <Globe className="w-4 h-4 text-white hover:text-slate-900" />
-                    </a>
+
                   </div>
                 </div>
               </div>
