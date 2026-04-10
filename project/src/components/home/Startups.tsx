@@ -139,7 +139,7 @@ export default function ModernJoinSection() {
         </div>
 
         {/* Divider */}
-        <div className="relative h-24 flex items-center justify-center -mb-10">
+        <div className="relative h-24 flex items-center justify-center -mb-6">
           <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
           <div className="absolute bg-white px-6 py-2 rounded-full border-2 border-slate-200 text-slate-400 font-semibold">
             OR
@@ -194,7 +194,7 @@ export default function ModernJoinSection() {
             </div>
 
             {/* Content - Right */}
-            <div className="relative z-10 p-8 pt-2 order-1 md:order-2">
+            <div className="relative z-10 p-8 pt-2 md:pt-8 order-1 md:order-2">
               <div className="inline-flex items-center gap-2 bg-aurex-accent/10 text-aurex-accent px-4 py-2 rounded-full mb-2 font-semibold">
                 <TrendingUp size={20} />
                 <span>For Investors</span>

@@ -1,10 +1,133 @@
 import { useState } from "react";
 import api from "../services/api";
 
+/* ---------------- Toast Notification System ---------------- */
+
+type ToastType = "success" | "error";
+
+interface Toast {
+  id: number;
+  message: string;
+  type: ToastType;
+}
+
+let toastId = 0;
+
+function useToast() {
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = (message: string, type: ToastType) => {
+    const id = ++toastId;
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  };
+
+  const removeToast = (id: number) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  return { toasts, showToast, removeToast };
+}
+
+function ToastContainer({
+  toasts,
+  onRemove,
+}: {
+  toasts: Toast[];
+  onRemove: (id: number) => void;
+}) {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: "24px",
+        right: "24px",
+        zIndex: 9999,
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        pointerEvents: "none",
+      }}
+    >
+      {toasts.map((toast) => (
+        <div
+          key={toast.id}
+          onClick={() => onRemove(toast.id)}
+          style={{
+            pointerEvents: "auto",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            padding: "14px 18px",
+            borderRadius: "14px",
+            minWidth: "280px",
+            maxWidth: "380px",
+            boxShadow:
+              "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
+            background: toast.type === "success" ? "#ffffff" : "#ffffff",
+            borderLeft: `4px solid ${toast.type === "success" ? "#16a34a" : "#dc2626"
+              }`,
+            animation: "slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          }}
+        >
+          {/* Icon */}
+          <span style={{ fontSize: "20px", flexShrink: 0 }}>
+            {toast.type === "success" ? "✅" : "❌"}
+          </span>
+
+          {/* Message */}
+          <span
+            style={{
+              fontSize: "14px",
+              fontWeight: 500,
+              color: "#1e293b",
+              lineHeight: 1.4,
+              flex: 1,
+            }}
+          >
+            {toast.message}
+          </span>
+
+          {/* Close button */}
+          <span
+            style={{
+              fontSize: "16px",
+              color: "#94a3b8",
+              flexShrink: 0,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </span>
+        </div>
+      ))}
+
+      <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(60px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+/* ---------------- Main Component ---------------- */
+
 export default function StartupRegistration() {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [pitchDeck, setPitchDeck] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const { toasts, showToast, removeToast } = useToast();
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -13,18 +136,18 @@ export default function StartupRegistration() {
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
-  
+
     if (!file) return;
-  
+
     if (file.type !== "application/pdf") {
-      alert("❌ Only PDF files are allowed for pitch deck upload.");
-      e.target.value = ""; // reset input
+      showToast("Only PDF files are allowed for pitch deck upload.", "error");
+      e.target.value = "";
       return;
     }
-  
+
     setPitchDeck(file);
   };
-  
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -46,136 +169,136 @@ export default function StartupRegistration() {
         },
       });
 
-      alert("✅ Startup application submitted successfully!");
+      showToast("Startup application submitted successfully!", "success");
       setFormData({});
       setPitchDeck(null);
-    } catch (error) {
-      console.error(error);
-      alert("❌ Submission failed. Check backend or console.");
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        showToast("⚠️ Please fill all required fields.", "error");
+      } else {
+        showToast("Something went wrong.", "error");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 mt-16 sm:mt-10 p-4 sm:p-8">
-      <div className="w-full bg-white rounded-2xl shadow-xl p-6 sm:p-10">
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#223258] mb-8">
-          🚀 Startup Registration Form
-        </h1>
+    <>
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
 
-        {/* BASIC INFO */}
-        <Section title="Basic Startup Information">
-          <Input label="Startup Name" name="startup_name" onChange={handleChange} />
-          <Select
-            label="Company Incorporation Status"
-            name="incorporation_status"
-            options={["Incorporated", "Not Incorporated"]}
-            onChange={handleChange}
-          />
-          <Select
-            label="Type of Entity"
-            name="entity_type"
-            options={["Private Limited", "LLP", "Partnership", "Sole Proprietorship", "Other"]}
-            onChange={handleChange}
-          />
-          <Input type="date" label="Date of Incorporation" name="incorporation_date" onChange={handleChange} />
-          <Input label="Website" name="website" onChange={handleChange} />
-          <Input label="Startup Description (One Line)" name="description" onChange={handleChange} />
-          <Textarea label="Registered Office Address" name="address" onChange={handleChange} />
-          <Select
-            label="Sector / Industry"
-            name="sector"
-            options={[
-              "SaaS",
-              "Fintech",
-              "Healthtech",
-              "D2C",
-              "AI / Deeptech",
-              "Climate / CleanTech",
-              "EdTech",
-              "Web3 / Blockchain",
-              "Other",
-            ]}
-            onChange={handleChange}
-          />
-        </Section>
+      <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 to-slate-100 mt-16 sm:mt-10 p-4 sm:p-8">
+        <div className="w-full bg-white rounded-2xl shadow-xl p-6 sm:p-10">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#223258] mb-8">
+            🚀 Startup Registration Form
+          </h1>
 
-        {/* FOUNDERS */}
-        <Section title="Founder Details">
-          <Input label="Founder Name(s)" name="founders" onChange={handleChange} />
-          <Input label="Designation(s)" name="designations" onChange={handleChange} />
-          <Select
-            label="All founders working full-time?"
-            name="full_time"
-            options={["Yes", "No"]}
-            onChange={handleChange}
-          />
-          <Textarea label="LinkedIn Profile(s)" name="linkedin" onChange={handleChange} />
-          <Textarea label="Prior Startup / Domain Experience" name="experience" onChange={handleChange} />
-        </Section>
+          {/* BASIC INFO */}
+          <Section title="Basic Startup Information">
+            <Input label="Startup Name" name="startup_name" onChange={handleChange} />
+            <Select
+              label="Company Incorporation Status"
+              name="incorporation_status"
+              options={["Incorporated", "Not Incorporated"]}
+              onChange={handleChange}
+            />
+            <Select
+              label="Type of Entity"
+              name="entity_type"
+              options={["Private Limited", "LLP", "Partnership", "Sole Proprietorship", "Other"]}
+              onChange={handleChange}
+            />
+            <Input type="date" label="Date of Incorporation" name="incorporation_date" onChange={handleChange} />
+            <Input label="Website" name="website" onChange={handleChange} />
+            <Input label="Startup Description (One Line)" name="description" onChange={handleChange} />
+            <Textarea label="Registered Office Address" name="address" onChange={handleChange} />
+            <Select
+              label="Sector / Industry"
+              name="sector"
+              options={[
+                "SaaS",
+                "Fintech",
+                "Healthtech",
+                "D2C",
+                "AI / Deeptech",
+                "Climate / CleanTech",
+                "EdTech",
+                "Web3 / Blockchain",
+                "Other",
+              ]}
+              onChange={handleChange}
+            />
+          </Section>
 
-        {/* CONTACT */}
-        <Section title="Contact Information">
-          <Input label="Official Email Address" name="email" onChange={handleChange} />
-          <Input label="Contact Number" name="phone" onChange={handleChange} />
-        </Section>
+          {/* FOUNDERS */}
+          <Section title="Founder Details">
+            <Input label="Founder Name(s)" name="founders" onChange={handleChange} />
+            <Input label="Designation(s)" name="designations" onChange={handleChange} />
+            <Select
+              label="All founders working full-time?"
+              name="full_time"
+              options={["Yes", "No"]}
+              onChange={handleChange}
+            />
+            <Textarea label="LinkedIn Profile(s)" name="linkedin" onChange={handleChange} />
+            <Textarea label="Prior Startup / Domain Experience" name="experience" onChange={handleChange} />
+          </Section>
 
-        {/* STAGE */}
-        <Section title="Business Stage & Traction">
-          <Select
-            label="Current Startup Stage"
-            name="stage"
-            options={["Idea", "MVP", "Early Revenue", "Growth", "Scale"]}
-            onChange={handleChange}
-          />
-          <Select label="Bootstrapped?" name="bootstrapped" options={["Yes", "No"]} onChange={handleChange} />
-          <Input label="Total Capital Invested (₹)" name="capital" onChange={handleChange} />
-          <Input label="Monthly Revenue (₹)" name="revenue" onChange={handleChange} />
-          <Input label="Monthly Burn Rate (₹)" name="burn" onChange={handleChange} />
-          <Textarea label="Key Traction Metrics" name="traction" onChange={handleChange} />
-        </Section>
+          {/* CONTACT */}
+          <Section title="Contact Information">
+            <Input label="Official Email Address" name="email" onChange={handleChange} />
+            <Input label="Contact Number" name="phone" onChange={handleChange} />
+          </Section>
 
-        {/* FUNDING */}
-        <Section title="Fundraising Requirement">
-          <Input label="Amount to Raise (₹)" name="raise_amount" onChange={handleChange} />
-          <Select
-            label="Funding Stage"
-            name="funding_stage"
-            options={[
-              "Pre-Seed",
-              "Seed",
-              "Bridge",
-              "Pre-Series A",
-              "Series A",
-              "Series B+",
-            ]}
-            onChange={handleChange}
-          />
-          <Textarea label="Purpose of Fundraising" name="purpose" onChange={handleChange} />
-          <Input
-  type="file"
-  label="Upload Pitch Deck (PDF only)"
-  accept="application/pdf"
-  onChange={handleFileChange}
-/>
-        </Section>
+          {/* STAGE */}
+          <Section title="Business Stage & Traction">
+            <Select
+              label="Current Startup Stage"
+              name="stage"
+              options={["Idea", "MVP", "Early Revenue", "Growth", "Scale"]}
+              onChange={handleChange}
+            />
+            <Select label="Bootstrapped?" name="bootstrapped" options={["Yes", "No"]} onChange={handleChange} />
+            <Input label="Total Capital Invested (₹)" name="capital" onChange={handleChange} />
+            <Input label="Monthly Revenue (₹)" name="revenue" onChange={handleChange} />
+            <Input label="Monthly Burn Rate (₹)" name="burn" onChange={handleChange} />
+            <Textarea label="Key Traction Metrics" name="traction" onChange={handleChange} />
+          </Section>
 
-        {/* DECLARATION */}
-        <div className="mt-8 p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
-          By submitting this form, you acknowledge that Aurex Ventures provides fundraising advisory services only.
+          {/* FUNDING */}
+          <Section title="Fundraising Requirement">
+            <Input label="Amount to Raise (₹)" name="raise_amount" onChange={handleChange} />
+            <Select
+              label="Funding Stage"
+              name="funding_stage"
+              options={["Pre-Seed", "Seed", "Bridge", "Pre-Series A", "Series A", "Series B+"]}
+              onChange={handleChange}
+            />
+            <Textarea label="Purpose of Fundraising" name="purpose" onChange={handleChange} />
+            <Input
+              type="file"
+              label="Upload Pitch Deck (PDF only)"
+              accept="application/pdf"
+              onChange={handleFileChange}
+            />
+          </Section>
+
+          {/* DECLARATION */}
+          <div className="mt-8 p-4 rounded-xl bg-slate-100 text-sm text-slate-700">
+            By submitting this form, you acknowledge that Aurex Ventures provides fundraising advisory services only.
+          </div>
+
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={loading}
+            className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#a8042b] to-[#d11c4a] text-white font-semibold text-lg hover:scale-[1.01] transition disabled:opacity-60"
+          >
+            {loading ? "Submitting..." : "Submit Application"}
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={loading}
-          className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#a8042b] to-[#d11c4a] text-white font-semibold text-lg hover:scale-[1.01] transition disabled:opacity-60"
-        >
-          {loading ? "Submitting..." : "Submit Application"}
-        </button>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import aurexLogo from '../../public/aurexshort.png';
+
 export function HomeAbout() {
   const [currentWord, setCurrentWord] = useState(0);
+  const [radius, setRadius] = useState(150);
+  const boxRef = useRef<HTMLDivElement>(null);
   const words = ['Growth', 'Funding', 'Capital', 'Compliance'];
 
   useEffect(() => {
@@ -9,6 +12,20 @@ export function HomeAbout() {
       setCurrentWord((prev) => (prev + 1) % words.length);
     }, 2000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Dynamically compute orbit radius from box size
+  useEffect(() => {
+    const updateRadius = () => {
+      if (boxRef.current) {
+        const size = boxRef.current.offsetWidth;
+        // Orbit radius = ~38% of box width, clamped between 90px and 150px
+        setRadius(Math.min(150, Math.max(90, size * 0.38)));
+      }
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
   }, []);
 
   return (
@@ -32,23 +49,32 @@ export function HomeAbout() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
-          {/* LEFT - Smaller animated box */}
+          {/* LEFT - Animated box */}
           <div className="order-2 md:order-1">
-            <div className="aspect-[4/5] md:aspect-square rounded-xl overflow-hidden shadow-xl relative bg-gradient-to-br from-[#223258] to-[#1a2544] flex items-center justify-center p-8 max-h-[450px]">
-              {/* Central hub */}
-              <div className="w-30 h-30 md:w-44 md:h-44 rounded-full bg-white shadow-2xl shadow-black/20 z-10 overflow-hidden border border-gray-200/70">
+            <div
+              ref={boxRef}
+              className="rounded-xl overflow-hidden shadow-xl relative bg-gradient-to-br from-[#223258] to-[#1a2544] flex items-center justify-center p-8 w-full"
+              style={{ aspectRatio: '1 / 1', maxHeight: '450px' }}
+            >
+              {/* Central hub — responsive size via clamp */}
+              <div
+                className="rounded-full bg-white shadow-2xl shadow-black/20 z-10 overflow-hidden border border-gray-200/70 flex-shrink-0"
+                style={{
+                  width: 'clamp(80px, 22vw, 176px)',
+                  height: 'clamp(80px, 22vw, 176px)',
+                }}
+              >
                 <img
                   src={aurexLogo}
                   alt="Aurex Ventures Logo"
-                  className="w-full h-full object-contain p-2.5"  // ← padding prevents edge touching
+                  className="w-full h-full object-contain p-2.5"
                 />
               </div>
 
-              {/* Orbiting elements */}
+              {/* Orbiting pills */}
               {words.map((word, index) => {
                 const angle = (index * 360) / words.length;
                 const isActive = currentWord === index;
-                const radius = 150; // Distance from center
 
                 return (
                   <div
@@ -58,34 +84,38 @@ export function HomeAbout() {
                       left: '50%',
                       top: '50%',
                       transform: `
-                        translate(-50%, -50%) 
-                        rotate(${angle + (currentWord * 90)}deg) 
-                        translateY(-${radius}px) 
-                        rotate(-${angle + (currentWord * 90)}deg)
+                        translate(-50%, -50%)
+                        rotate(${angle + currentWord * 90}deg)
+                        translateY(-${radius}px)
+                        rotate(-${angle + currentWord * 90}deg)
                         scale(${isActive ? 1.1 : 0.85})
                       `,
                       opacity: isActive ? 1 : 0.4,
                     }}
                   >
-                    <div className={`
-                      px-4 py-2 md:px-6 md:py-3 rounded-full 
-                      ${isActive
-                        ? 'bg-white text-[#223258] shadow-2xl'
-                        : 'bg-white/10 text-white/70 backdrop-blur-sm'
-                      }
-                      transition-all duration-700
-                    `}>
-                      <span className="text-sm md:text-base font-bold whitespace-nowrap">
-                        {word}
-                      </span>
+                    <div
+                      className={`
+                        rounded-full transition-all duration-700 whitespace-nowrap
+                        ${isActive
+                          ? 'bg-white text-[#223258] shadow-2xl'
+                          : 'bg-white/10 text-white/70 backdrop-blur-sm'
+                        }
+                      `}
+                      style={{
+                        padding: 'clamp(4px, 1.2vw, 12px) clamp(10px, 2.5vw, 24px)',
+                        fontSize: 'clamp(10px, 2.2vw, 16px)',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {word}
                     </div>
                   </div>
                 );
               })}
 
-              {/* Animated connecting lines */}
+              {/* Connecting lines */}
               {words.map((_, index) => {
-                const angle = (index * 360) / words.length + (currentWord * 90);
+                const angle = (index * 360) / words.length + currentWord * 90;
                 const isActive = currentWord === index;
 
                 return (
@@ -93,7 +123,7 @@ export function HomeAbout() {
                     key={`line-${index}`}
                     className="absolute left-1/2 top-1/2 origin-left transition-all duration-700"
                     style={{
-                      width: '125px',
+                      width: `${radius * 0.83}px`,
                       height: '2px',
                       transform: `rotate(${angle}deg)`,
                       background: isActive
@@ -104,15 +134,24 @@ export function HomeAbout() {
                 );
               })}
 
-              {/* Pulsing rings */}
+              {/* Pulsing rings — responsive sizes */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
-                  className="w-40 h-40 md:w-52 md:h-52 rounded-full border-2 border-white/20 animate-pulse"
-                  style={{ animationDuration: '3s' }}
+                  className="rounded-full border-2 border-white/20 animate-pulse"
+                  style={{
+                    width: `${radius * 1.07}px`,
+                    height: `${radius * 1.07}px`,
+                    animationDuration: '3s',
+                  }}
                 />
                 <div
-                  className="absolute w-56 h-56 md:w-72 md:h-72 rounded-full border border-white/10 animate-pulse"
-                  style={{ animationDuration: '4s', animationDelay: '1s' }}
+                  className="absolute rounded-full border border-white/10 animate-pulse"
+                  style={{
+                    width: `${radius * 1.5}px`,
+                    height: `${radius * 1.5}px`,
+                    animationDuration: '4s',
+                    animationDelay: '1s',
+                  }}
                 />
               </div>
 
@@ -122,8 +161,6 @@ export function HomeAbout() {
               <div className="absolute top-20 left-8 w-1 h-1 bg-white/30 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
           </div>
-
-
 
           {/* RIGHT - Text content */}
           <div className="order-1 md:order-2 space-y-5 md:space-y-6">
@@ -148,14 +185,12 @@ export function HomeAbout() {
               <span className="font-semibold">execution-driven support</span>.
             </p>
 
-            {/* Positioning line */}
             <div className="pt-3">
               <p className="font-semibold text-[#223258] text-base md:text-lg">
                 A single-point advisory partner — so founders can focus on building and scaling.
               </p>
             </div>
 
-            {/* Disclaimer */}
             <div className="mt-6 p-4 bg-gray-50/70 rounded-lg border border-gray-100">
               <p className="text-sm text-slate-500 italic">
                 <span className="font-semibold text-[#a8042b]">Important:</span> Aurex Ventures provides
@@ -164,8 +199,6 @@ export function HomeAbout() {
               </p>
             </div>
           </div>
-
-
         </div>
       </div>
     </section>

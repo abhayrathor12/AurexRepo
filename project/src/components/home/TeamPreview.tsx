@@ -69,8 +69,11 @@ export function HomeTeamPreview() {
                       </p>
                     </div>
 
-                    <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white flex items-center justify-center transition">
-                      <ArrowUpRight onClick={() => navigate('team')} className="w-5 h-5 text-white hover:text-slate-900" />
+                    <button
+                      onClick={() => navigate('team')}
+                      className="w-10 h-10 rounded-full bg-white/20 hover:bg-white flex items-center justify-center transition group/btn"
+                    >
+                      <ArrowUpRight className="w-5 h-5 text-white group-hover/btn:text-slate-900" />
                     </button>
                   </div>
 
@@ -80,8 +83,10 @@ export function HomeTeamPreview() {
 
                   <div className="flex gap-3">
 
-                    <a href={member.linkedin_url ?? '#'} className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition">
-                      <Linkedin className="w-4 h-4 text-white hover:text-blue-600" />
+                    <a href={member.linkedin_url ?? '#'}
+                      className="w-9 h-9 bg-white/20 hover:bg-white rounded-lg flex items-center justify-center transition group/link"
+                    >
+                      <Linkedin className="w-4 h-4 text-white group-hover/link:text-blue-600" />
                     </a>
 
                   </div>

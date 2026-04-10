@@ -2,7 +2,7 @@ import { Target, Eye, HeartHandshake, Sparkles, ArrowRight, Zap, Users, Trending
 
 export function HomeMissionVisionValues() {
   return (
-    <section className="py-12 md:py-16 px-5 md:px-8 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-12 md:py-2 px-5 md:px-8 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 bg-[#223258]/5 rounded-full blur-3xl animate-blob" />
@@ -15,7 +15,7 @@ export function HomeMissionVisionValues() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Compact Header */}
-        <div className="text-center mb-12 md:mb-10">
+        <div className="text-center mb-12 md:mb-5">
           <div className="inline-flex items-center gap-3 mb-3 animate-fade-in-down">
             <Sparkles className="text-[#a8042b] animate-pulse" size={18} />
             <span className="text-xs font-bold text-[#a8042b] tracking-[0.25em] uppercase">Foundation</span>
@@ -103,7 +103,7 @@ export function HomeMissionVisionValues() {
                 </div>
 
                 <p className="text-[15px] md:text-base text-gray-700 leading-relaxed">
-                  To become <span className="font-semibold text-[#a8042b]">one of India's most trusted</span> startup fundraising platforms—where founders access the right capital and investors discover <span className="font-semibold text-[#223258]">high-potential opportunities</span>.
+                  To become <span className="font-semibold text-[#a8042b]">one of India's most trusted</span> platforms where founders access capital and investors discover <span className="font-semibold text-[#223258]">high-potential opportunities</span>.
                 </p>
 
                 <div className="mt-5 flex items-center gap-2 text-xs text-gray-500">
