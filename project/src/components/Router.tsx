@@ -13,6 +13,7 @@ import Contact from "../pages/Contact";
 import StartupRegistration from "../pages/StartupRegistration";
 import InvestorRegistration from "../pages/InvestorRegistration";
 import StartupRegistrationPage from "./events/popupevent";
+import WebinarRegistrationPage from "../pages/Webinar";
 
 export default function Router() {
   return (
@@ -37,7 +38,12 @@ export default function Router() {
             path="/event-registration"
             element={<StartupRegistrationPage />}
           />
+          <Route
+            path="/Webinar-Registration"
+            element={<WebinarRegistrationPage />}
+          />
         </Route>
+
       </Routes>
     </>
   );

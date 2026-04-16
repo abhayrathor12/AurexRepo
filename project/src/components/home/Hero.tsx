@@ -19,8 +19,8 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToContact = () => {
-    navigate("/contact");
+  const openRegisterModal = () => {
+    window.dispatchEvent(new Event("openRegisterModal"));
   };
 
   const features = [
@@ -63,7 +63,7 @@ export function HomeHero({ onRegisterClick }: HeroProps) {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button
-                onClick={scrollToContact}
+                onClick={openRegisterModal}
                 className="group relative bg-[#a8042b] text-white px-7 py-3.5 rounded-lg font-semibold text-sm overflow-hidden transition-all hover:scale-105 hover:shadow-xl hover:shadow-[#a8042b]/30"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">

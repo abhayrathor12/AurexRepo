@@ -87,10 +87,10 @@ export default function Header() {
 
             {/* Register */}
             <button
-              onClick={openRegisterModal}
-              className="bg-aurex-primary text-white px-6 py-2 rounded-lg hover:bg-aurex-primarySoft transition-colors font-medium"
+              onClick={() => goTo("/Webinar-Registration")}
+              className="bg-[#a8042b] text-white px-4 py-1.5 rounded-lg hover:bg-[#8a0323] transition-all font-medium"
             >
-              Register
+              Register for Webinar
             </button>
           </div>
 
@@ -148,13 +148,10 @@ export default function Header() {
 
 
             <button
-              onClick={() => {
-                openRegisterModal();
-                setIsMenuOpen(false);
-              }}
-              className="mt-4 mx-4 bg-aurex-primary text-white px-6 py-2 rounded-lg hover:bg-aurex-primarySoft transition-colors font-medium"
+              onClick={() => goTo("/Webinar-Registration")}
+              className="mt-2 mx-4 bg-[#a8042b] text-white px-4 py-2 rounded-lg hover:bg-[#8a0323] transition-all font-medium"
             >
-              Register
+              Register for Webinar
             </button>
           </div>
         )}
