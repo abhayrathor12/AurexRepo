@@ -26,7 +26,16 @@ const EVENTS_DATA: Event[] = [
     location: 'Delhi, NCR',
     image_url: null,
   },
-
+  {
+    id: '3',
+    slug: 'fundraising-webinar-2026',
+    title: 'Fundraising 101: From Idea to First Investor',
+    description:
+      'A focused and practical free webinar designed to help early-stage founders navigate the realities of raising capital — from investor readiness to identifying the right investors and closing your first round.',
+    event_date: '2026-04-24',
+    location: 'Online (Zoom)',
+    image_url: null,
+  },
   // ── Previous ──────────────────────────────────────────────────────────────
   {
     id: '1',
@@ -69,7 +78,6 @@ export default function Events() {
     <div className="min-h-screen">
       <EventsHero />
       <EventsTypesOverview />
-
       <EventsListsSection
         loading={loading}
         upcomingEvents={upcomingEvents}
@@ -77,7 +85,6 @@ export default function Events() {
         formatDate={formatDate}
         onRegisterClick={openRegister}
       />
-
       <EventsWhyAttendSection />
     </div>
   );

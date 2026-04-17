@@ -9,6 +9,7 @@ import {
   Users,
   Zap,
   Mic,
+  Clock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -16,6 +17,7 @@ import { previousEventsData } from "./previousEventsData";
 import { PreviousEventDetail } from "./PreviousEventDetail";
 import { useNavigate } from 'react-router-dom';
 import brochure from "../../public/posters/aurexpdf.pdf";
+import webinarpdf from "../../public/posters/Webinar Brochure.pdf";
 interface Event {
   id: string;
   title: string;
@@ -112,6 +114,8 @@ export function EventsListsSection({
   });
 
   const isUdbhav = selectedEvent?.slug === 'udbhav-2026';
+
+  const isWebinar = selectedEvent?.slug === 'fundraising-webinar-2026';
 
   return (
     <section className="py-12 px-4 bg-gradient-to-b from-slate-50 to-white">
@@ -217,126 +221,179 @@ export function EventsListsSection({
                     exit={{ opacity: 0, x: -20 }}
                     className="flex flex-col flex-1 h-full"
                   >
-                    {/* Top dark strip */}
-                    {isUdbhav && (
-                      <div
-                        className="px-6 py-3 flex items-center gap-2"
-                        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #1a2844 100%)` }}
-                      >
-                        <Zap size={12} style={{ color: '#fca5a5' }} />
-                        <span className="text-xs font-semibold tracking-wide" style={{ color: '#fca5a5' }}>
-                          Investor &amp; Founder Meet · April 11, 2026
-                        </span>
-                      </div>
-                    )}
+                    {/* Top strip */}
+{isUdbhav && (
+  <div className="px-6 py-3 flex items-center gap-2"
+    style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #1a2844 100%)` }}>
+    <Zap size={12} style={{ color: '#fca5a5' }} />
+    <span className="text-xs font-semibold tracking-wide" style={{ color: '#fca5a5' }}>
+      Investor &amp; Founder Meet · April 18, 2026
+    </span>
+  </div>
+)}
+{isWebinar && (
+  <div className="px-5 py-2.5 flex items-center gap-2" style={{ background: '#1a2c52' }}>
+    <span className="w-2 h-2 rounded-full bg-green-300 flex-shrink-0" />
+    <span className="text-xs font-semibold tracking-wide text-green-300">
+      Free Webinar · April 24, 2026
+    </span>
+  </div>
+)}
 
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className="text-2xl font-bold mb-2 leading-tight" style={{ color: NAVY }}>
-                        {selectedEvent.title}
-                      </h3>
+<div className="p-6 flex flex-col flex-1">
 
-                      <p className="text-slate-600 text-sm leading-relaxed mb-5">
-                        {selectedEvent.description}
-                      </p>
+  {/* Free badge — webinar only */}
+  {isWebinar && (
+    <span className="inline-flex items-center gap-1.5 bg-green-50 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3 self-start border border-green-200">
+      ✓ Free to attend
+    </span>
+  )}
 
-                      {/* Meta row */}
-                      <div className="space-y-2.5 mb-5">
-                        <div className="flex items-center gap-2.5 text-sm text-slate-700">
-                          <div
-                            className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-                            style={{ backgroundColor: `${NAVY}15` }}
-                          >
-                            <Calendar size={13} style={{ color: NAVY }} />
-                          </div>
-                          <span className="font-medium">{formatDate(selectedEvent.event_date)}</span>
-                        </div>
-                        <div className="flex items-center gap-2.5 text-sm text-slate-700">
-                          <div
-                            className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-                            style={{ backgroundColor: `${CRIMSON}15` }}
-                          >
-                            <MapPin size={13} style={{ color: CRIMSON }} />
-                          </div>
-                          <span className="font-medium">{selectedEvent.location}</span>
-                        </div>
-                      </div>
+  <h3 className="text-2xl font-bold mb-2 leading-tight" style={{ color: NAVY }}>
+    {selectedEvent.title}
+  </h3>
+  <p className="text-slate-600 text-sm leading-relaxed mb-4">
+    {selectedEvent.description}
+  </p>
 
-                      {/* Udbhav highlight pills */}
-                      {isUdbhav && (
-                        <div className="grid grid-cols-4 gap-2 mb-6">
-                          {UDBHAV_HIGHLIGHTS.map((item) => (
-                            <div
-                              key={item.label}
-                              className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl text-center"
-                              style={{ backgroundColor: `${NAVY}08`, border: `1px solid ${NAVY}15` }}
-                            >
-                              <span style={{ color: NAVY }}>{item.icon}</span>
-                              <span className="text-[10px] font-semibold text-slate-600 leading-tight">
-                                {item.label}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+  {/* Meta rows */}
+  <div className="space-y-2.5 mb-4">
+    <div className="flex items-center gap-2.5 text-sm text-slate-700">
+      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: `${NAVY}15` }}>
+        <Calendar size={13} style={{ color: NAVY }} />
+      </div>
+      <span className="font-medium">{formatDate(selectedEvent.event_date)}</span>
+    </div>
+    {isWebinar && (
+      <div className="flex items-center gap-2.5 text-sm text-slate-700">
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-yellow-50">
+          <Clock size={13} className="text-yellow-700" />
+        </div>
+        <span className="font-medium">7:00 – 8:30 pm</span>
+      </div>
+    )}
+    <div className="flex items-center gap-2.5 text-sm text-slate-700">
+      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+        style={{ backgroundColor: `${CRIMSON}15` }}>
+        <MapPin size={13} style={{ color: CRIMSON }} />
+      </div>
+      <span className="font-medium">{selectedEvent.location}</span>
+    </div>
+  </div>
 
-                      {/* Pass info strip for Udbhav */}
-                      {isUdbhav && (
-                        <div
-                          className="flex items-center justify-between px-4 py-3 rounded-xl mb-5 text-sm"
-                          style={{ backgroundColor: `${CRIMSON}08`, border: `1px solid ${CRIMSON}20` }}
-                        >
-                          <div>
-                            <p className="font-semibold" style={{ color: NAVY }}>Event Pass</p>
-                            <p className="text-xs text-slate-500">General attendance</p>
-                          </div>
-                          <p className="text-lg font-black" style={{ color: CRIMSON }}>₹699</p>
-                          <div className="w-px h-8 bg-slate-200" />
-                          <div>
-                            <p className="font-semibold" style={{ color: NAVY }}>Pitch Pass</p>
-                            <p className="text-xs text-slate-500">Includes pitch slot</p>
-                          </div>
-                          <p className="text-lg font-black" style={{ color: CRIMSON }}>₹1,499</p>
-                        </div>
-                      )}
+  {/* ── Udbhav-specific blocks ── */}
+  {isUdbhav && (
+    <div className="grid grid-cols-4 gap-2 mb-6">
+      {UDBHAV_HIGHLIGHTS.map((item) => (
+        <div key={item.label}
+          className="flex flex-col items-center gap-1.5 py-3 px-1 rounded-xl text-center"
+          style={{ backgroundColor: `${NAVY}08`, border: `1px solid ${NAVY}15` }}>
+          <span style={{ color: NAVY }}>{item.icon}</span>
+          <span className="text-[10px] font-semibold text-slate-600 leading-tight">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  )}
+  {isUdbhav && (
+    <div className="flex items-center justify-between px-4 py-3 rounded-xl mb-5 text-sm"
+      style={{ backgroundColor: `${CRIMSON}08`, border: `1px solid ${CRIMSON}20` }}>
+      <div>
+        <p className="font-semibold" style={{ color: NAVY }}>Event Pass</p>
+        <p className="text-xs text-slate-500">General attendance</p>
+      </div>
+      <p className="text-lg font-black" style={{ color: CRIMSON }}>₹699</p>
+      <div className="w-px h-8 bg-slate-200" />
+      <div>
+        <p className="font-semibold" style={{ color: NAVY }}>Pitch Pass</p>
+        <p className="text-xs text-slate-500">Includes pitch slot</p>
+      </div>
+      <p className="text-lg font-black" style={{ color: CRIMSON }}>₹1,499</p>
+    </div>
+  )}
 
-                      {/* CTA */}
-                      {isUdbhav && (
-                        <div className="mt-auto flex gap-2">
-                          <button
-                            onClick={() => navigate('/event-registration')}
-                            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
-                            style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${CRIMSON} 100%)` }}
-                          >
-                            <Rocket size={15} />
-                            Register for Udbhav 2026
-                            <ArrowRight size={14} />
-                          </button>
-                          <a
-                            href={brochure}
-                            download
-                            className="flex-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg whitespace-nowrap"
-                            style={{
-                              border: `2px solid ${NAVY}`,
-                              color: NAVY,
-                              backgroundColor: 'white',
-                            }}
-                            onMouseEnter={e => {
-                              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = `${NAVY}10`;
-                            }}
-                            onMouseLeave={e => {
-                              (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'white';
-                            }}
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                              <polyline points="7 10 12 15 17 10" />
-                              <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                            Brochure
-                          </a>
-                        </div>
-                      )}
-                    </div>
+  {/* ── Webinar-specific blocks ── */}
+  {isWebinar && (
+    <div className="flex items-center gap-3 p-3 rounded-xl mb-4"
+      style={{ backgroundColor: `${NAVY}08`, border: `1px solid ${NAVY}15` }}>
+      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+        style={{ backgroundColor: NAVY }}>
+        KG
+      </div>
+      <div>
+        <p className="text-sm font-semibold" style={{ color: NAVY }}>Kailash Tulsi Gajara</p>
+        <p className="text-xs text-slate-500 leading-tight">
+          Founder & CEO – Atulsia Technologies<br />
+          Founder & CEO – Megastores.com
+        </p>
+      </div>
+    </div>
+  )}
+  {isWebinar && (
+    <div className="flex flex-wrap gap-1.5 mb-5">
+      {[
+        'Investor readiness', 'Beyond the pitch deck', 'Right investor targeting',
+        'End-to-end process', 'Common mistakes', 'Building confidence',
+      ].map(t => (
+        <span key={t}
+          className="text-xs px-2.5 py-1 rounded-full border border-slate-200 text-slate-500 bg-white">
+          {t}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {/* ── CTAs ── */}
+  {isUdbhav && (
+    <div className="mt-auto flex gap-2">
+      <button onClick={() => navigate('/event-registration')}
+        className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+        style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${CRIMSON} 100%)` }}>
+        <Rocket size={15} />
+        Register for Udbhav 2026
+        <ArrowRight size={14} />
+      </button>
+      <a href={brochure} download
+        className="flex-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg whitespace-nowrap"
+        style={{ border: `2px solid ${NAVY}`, color: NAVY, backgroundColor: 'white' }}>
+        ↓ Brochure
+      </a>
+    </div>
+  )}
+ {isWebinar && (
+  <div className="mt-auto flex gap-2">
+    <button
+      onClick={() => navigate('/Webinar-Registration')}
+      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+      style={{ backgroundColor: NAVY }}
+    >
+      Register for free
+      <ArrowRight size={14} />
+    </button>
+    <a
+      href={webinarpdf}
+      download
+      className="flex-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 hover:shadow-lg whitespace-nowrap"
+      style={{ border: `2px solid ${NAVY}`, color: NAVY, backgroundColor: 'white' }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = `${NAVY}10`;
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'white';
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" strokeWidth="2.5"
+        strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
+      </svg>
+      Brochure
+    </a>
+  </div>
+)}
+</div>
                   </motion.div>
                 ) : (
                   <motion.div
