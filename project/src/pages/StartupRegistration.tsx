@@ -2,7 +2,6 @@ import { useState } from "react";
 import api from "../services/api";
 
 /* ---------------- Toast Notification System ---------------- */
-
 type ToastType = "success" | "error";
 
 interface Toast {
@@ -65,20 +64,15 @@ function ToastContainer({
             borderRadius: "14px",
             minWidth: "280px",
             maxWidth: "380px",
-            boxShadow:
-              "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
-            background: toast.type === "success" ? "#ffffff" : "#ffffff",
-            borderLeft: `4px solid ${toast.type === "success" ? "#16a34a" : "#dc2626"
-              }`,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
+            background: "#ffffff",
+            borderLeft: `4px solid ${toast.type === "success" ? "#16a34a" : "#dc2626"}`,
             animation: "slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
           }}
         >
-          {/* Icon */}
           <span style={{ fontSize: "20px", flexShrink: 0 }}>
             {toast.type === "success" ? "✅" : "❌"}
           </span>
-
-          {/* Message */}
           <span
             style={{
               fontSize: "14px",
@@ -90,8 +84,6 @@ function ToastContainer({
           >
             {toast.message}
           </span>
-
-          {/* Close button */}
           <span
             style={{
               fontSize: "16px",
@@ -104,17 +96,10 @@ function ToastContainer({
           </span>
         </div>
       ))}
-
       <style>{`
         @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(60px) scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-          }
+          from { opacity: 0; transform: translateX(60px) scale(0.9); }
+          to { opacity: 1; transform: translateX(0) scale(1); }
         }
       `}</style>
     </div>
@@ -122,21 +107,21 @@ function ToastContainer({
 }
 
 /* ---------------- Main Component ---------------- */
-
 export default function StartupRegistration() {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [pitchDeck, setPitchDeck] = useState<File | null>(null);
+  const [fileKey, setFileKey] = useState(0); // For resetting file input
   const [loading, setLoading] = useState(false);
+
   const { toasts, showToast, removeToast } = useToast();
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e: any) => {
-    const file = e.target.files[0];
-
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
     if (file.type !== "application/pdf") {
@@ -151,11 +136,11 @@ export default function StartupRegistration() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const payload = new FormData();
 
+      const payload = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== "") {
-          payload.append(key, value as any);
+          payload.append(key, value);
         }
       });
 
@@ -164,19 +149,20 @@ export default function StartupRegistration() {
       }
 
       await api.post("/api/startups/", payload, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       showToast("Startup application submitted successfully!", "success");
+
+      // Reset form
       setFormData({});
       setPitchDeck(null);
+      setFileKey((prev) => prev + 1); // Reset file input
     } catch (error: any) {
-      if (error.response && error.response.status === 400) {
+      if (error.response?.status === 400) {
         showToast("⚠️ Please fill all required fields.", "error");
       } else {
-        showToast("Something went wrong.", "error");
+        showToast("Something went wrong. Please try again.", "error");
       }
     } finally {
       setLoading(false);
@@ -195,36 +181,32 @@ export default function StartupRegistration() {
 
           {/* BASIC INFO */}
           <Section title="Basic Startup Information">
-            <Input label="Startup Name" name="startup_name" onChange={handleChange} />
+            <Input label="Startup Name" name="startup_name" value={formData.startup_name} onChange={handleChange} />
             <Select
               label="Company Incorporation Status"
               name="incorporation_status"
+              value={formData.incorporation_status}
               options={["Incorporated", "Not Incorporated"]}
               onChange={handleChange}
             />
             <Select
               label="Type of Entity"
               name="entity_type"
+              value={formData.entity_type}
               options={["Private Limited", "LLP", "Partnership", "Sole Proprietorship", "Other"]}
               onChange={handleChange}
             />
-            <Input type="date" label="Date of Incorporation" name="incorporation_date" onChange={handleChange} />
-            <Input label="Website" name="website" onChange={handleChange} />
-            <Input label="Startup Description (One Line)" name="description" onChange={handleChange} />
-            <Textarea label="Registered Office Address" name="address" onChange={handleChange} />
+            <Input type="date" label="Date of Incorporation" name="incorporation_date" value={formData.incorporation_date} onChange={handleChange} />
+            <Input label="Website" name="website" value={formData.website} onChange={handleChange} />
+            <Input label="Startup Description (One Line)" name="description" value={formData.description} onChange={handleChange} />
+            <Textarea label="Registered Office Address" name="address" value={formData.address} onChange={handleChange} />
             <Select
               label="Sector / Industry"
               name="sector"
+              value={formData.sector}
               options={[
-                "SaaS",
-                "Fintech",
-                "Healthtech",
-                "D2C",
-                "AI / Deeptech",
-                "Climate / CleanTech",
-                "EdTech",
-                "Web3 / Blockchain",
-                "Other",
+                "SaaS", "Fintech", "Healthtech", "D2C", "AI / Deeptech",
+                "Climate / CleanTech", "EdTech", "Web3 / Blockchain", "Other"
               ]}
               onChange={handleChange}
             />
@@ -232,22 +214,23 @@ export default function StartupRegistration() {
 
           {/* FOUNDERS */}
           <Section title="Founder Details">
-            <Input label="Founder Name(s)" name="founders" onChange={handleChange} />
-            <Input label="Designation(s)" name="designations" onChange={handleChange} />
+            <Input label="Founder Name(s)" name="founders" value={formData.founders} onChange={handleChange} />
+            <Input label="Designation(s)" name="designations" value={formData.designations} onChange={handleChange} />
             <Select
               label="All founders working full-time?"
               name="full_time"
+              value={formData.full_time}
               options={["Yes", "No"]}
               onChange={handleChange}
             />
-            <Textarea label="LinkedIn Profile(s)" name="linkedin" onChange={handleChange} />
-            <Textarea label="Prior Startup / Domain Experience" name="experience" onChange={handleChange} />
+            <Textarea label="LinkedIn Profile(s)" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+            <Textarea label="Prior Startup / Domain Experience" name="experience" value={formData.experience} onChange={handleChange} />
           </Section>
 
           {/* CONTACT */}
           <Section title="Contact Information">
-            <Input label="Official Email Address" name="email" onChange={handleChange} />
-            <Input label="Contact Number" name="phone" onChange={handleChange} />
+            <Input label="Official Email Address" name="email" value={formData.email} onChange={handleChange} />
+            <Input label="Contact Number" name="phone" value={formData.phone} onChange={handleChange} />
           </Section>
 
           {/* STAGE */}
@@ -255,27 +238,31 @@ export default function StartupRegistration() {
             <Select
               label="Current Startup Stage"
               name="stage"
+              value={formData.stage}
               options={["Idea", "MVP", "Early Revenue", "Growth", "Scale"]}
               onChange={handleChange}
             />
-            <Select label="Bootstrapped?" name="bootstrapped" options={["Yes", "No"]} onChange={handleChange} />
-            <Input label="Total Capital Invested (₹)" name="capital" onChange={handleChange} />
-            <Input label="Monthly Revenue (₹)" name="revenue" onChange={handleChange} />
-            <Input label="Monthly Burn Rate (₹)" name="burn" onChange={handleChange} />
-            <Textarea label="Key Traction Metrics" name="traction" onChange={handleChange} />
+            <Select label="Bootstrapped?" name="bootstrapped" value={formData.bootstrapped} options={["Yes", "No"]} onChange={handleChange} />
+            <Input label="Total Capital Invested (₹)" name="capital" value={formData.capital} onChange={handleChange} />
+            <Input label="Monthly Revenue (₹)" name="revenue" value={formData.revenue} onChange={handleChange} />
+            <Input label="Monthly Burn Rate (₹)" name="burn" value={formData.burn} onChange={handleChange} />
+            <Textarea label="Key Traction Metrics" name="traction" value={formData.traction} onChange={handleChange} />
           </Section>
 
           {/* FUNDING */}
           <Section title="Fundraising Requirement">
-            <Input label="Amount to Raise (₹)" name="raise_amount" onChange={handleChange} />
+            <Input label="Amount to Raise (₹)" name="raise_amount" value={formData.raise_amount} onChange={handleChange} />
             <Select
               label="Funding Stage"
               name="funding_stage"
+              value={formData.funding_stage}
               options={["Pre-Seed", "Seed", "Bridge", "Pre-Series A", "Series A", "Series B+"]}
               onChange={handleChange}
             />
-            <Textarea label="Purpose of Fundraising" name="purpose" onChange={handleChange} />
+            <Textarea label="Purpose of Fundraising" name="purpose" value={formData.purpose} onChange={handleChange} />
+
             <Input
+              key={fileKey}
               type="file"
               label="Upload Pitch Deck (PDF only)"
               accept="application/pdf"
@@ -303,7 +290,6 @@ export default function StartupRegistration() {
 }
 
 /* ---------------- Reusable Components ---------------- */
-
 const Section = ({ title, children }: any) => (
   <div className="mb-10">
     <h2 className="text-lg font-semibold text-[#223258] mb-5 border-l-4 border-[#a8042b] pl-3">
@@ -313,31 +299,40 @@ const Section = ({ title, children }: any) => (
   </div>
 );
 
-const Input = ({ label, ...props }: any) => (
+const Input = ({ label, name, value, onChange, ...props }: any) => (
   <div className="flex flex-col">
     <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <input
+      name={name}
+      value={value || ""}
+      onChange={onChange}
       {...props}
       className="border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#223258]"
     />
   </div>
 );
 
-const Textarea = ({ label, ...props }: any) => (
+const Textarea = ({ label, name, value, onChange, ...props }: any) => (
   <div className="flex flex-col col-span-1 md:col-span-2 lg:col-span-3">
     <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <textarea
-      {...props}
+      name={name}
+      value={value || ""}
+      onChange={onChange}
       rows={3}
+      {...props}
       className="border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#223258]"
     />
   </div>
 );
 
-const Select = ({ label, options, ...props }: any) => (
+const Select = ({ label, name, value, options, onChange, ...props }: any) => (
   <div className="flex flex-col">
     <label className="text-xs font-semibold text-slate-600 mb-1">{label}</label>
     <select
+      name={name}
+      value={value || ""}
+      onChange={onChange}
       {...props}
       className="border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#223258]"
     >

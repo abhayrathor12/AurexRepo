@@ -2,7 +2,6 @@ import { useState } from "react";
 import api from "../services/api";
 
 /* ---------------- Toast Notification System ---------------- */
-
 type ToastType = "success" | "error";
 
 interface Toast {
@@ -65,11 +64,9 @@ function ToastContainer({
             borderRadius: "14px",
             minWidth: "280px",
             maxWidth: "380px",
-            boxShadow:
-              "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)",
             background: "#ffffff",
-            borderLeft: `4px solid ${toast.type === "success" ? "#16a34a" : "#dc2626"
-              }`,
+            borderLeft: `4px solid ${toast.type === "success" ? "#16a34a" : "#dc2626"}`,
             animation: "slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
           }}
         >
@@ -99,7 +96,6 @@ function ToastContainer({
           </span>
         </div>
       ))}
-
       <style>{`
         @keyframes slideIn {
           from {
@@ -117,7 +113,6 @@ function ToastContainer({
 }
 
 /* ---------------- Main Component ---------------- */
-
 export default function InvestorRegistration() {
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
@@ -125,6 +120,7 @@ export default function InvestorRegistration() {
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
+
     if (type === "checkbox") {
       setFormData((prev) => {
         const arr = prev[name] || [];
@@ -143,15 +139,9 @@ export default function InvestorRegistration() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-
       await api.post("/api/investors/", formData);
-
-      showToast(
-        "Investor application submitted successfully.",
-        "success"
-      );
-
-      setFormData({});
+      showToast("Investor application submitted successfully.", "success");
+      setFormData({}); // Clear form
     } catch (error: any) {
       if (error.response && error.response.status === 400) {
         showToast("⚠️ Please fill all required fields.", "error");
@@ -180,13 +170,7 @@ export default function InvestorRegistration() {
               label="Investor Category"
               name="category"
               value={formData.category || ""}
-              options={[
-                "Angel Investor",
-                "Venture Capital Fund",
-                "Family Office",
-                "Corporate / Strategic Investor",
-                "HNI",
-              ]}
+              options={["Angel Investor", "Venture Capital Fund", "Family Office", "Corporate / Strategic Investor", "HNI"]}
               onChange={handleChange}
             />
             <Input label="Entity / Fund Name" name="entity" value={formData.entity || ""} onChange={handleChange} />
@@ -228,22 +212,17 @@ export default function InvestorRegistration() {
               label="Preferred Investment Stages"
               name="stages"
               options={["Pre-Seed", "Seed", "Pre-Series A", "Series A", "Series B", "Series C"]}
+              value={formData.stages || []}
               onChange={handleChange}
             />
             <CheckboxGroup
               label="Preferred Sectors"
               name="sectors"
               options={[
-                "SaaS",
-                "Fintech",
-                "Healthtech",
-                "D2C / Consumer",
-                "AI / DeepTech",
-                "Climate / Sustainability",
-                "EdTech",
-                "Web3 / Blockchain",
-                "Other",
+                "SaaS", "Fintech", "Healthtech", "D2C / Consumer", "AI / DeepTech",
+                "Climate / Sustainability", "EdTech", "Web3 / Blockchain", "Other"
               ]}
+              value={formData.sectors || []}
               onChange={handleChange}
             />
             <Select
@@ -260,12 +239,8 @@ export default function InvestorRegistration() {
             <CheckboxGroup
               label="Engagement Preferences"
               name="engagement"
-              options={[
-                "Mentorship",
-                "Board Participation",
-                "Networking",
-                "Strategic Guidance",
-              ]}
+              options={["Mentorship", "Board Participation", "Networking", "Strategic Guidance"]}
+              value={formData.engagement || []}
               onChange={handleChange}
             />
           </Section>
@@ -311,7 +286,6 @@ export default function InvestorRegistration() {
 }
 
 /* ---------------- Reusable Components ---------------- */
-
 const Section = ({ title, children }: any) => (
   <div className="mb-10">
     <h2 className="text-lg font-semibold text-[#223258] mb-5 border-l-4 border-[#3a4f7a] pl-3">
@@ -350,13 +324,20 @@ const Select = ({ label, options, ...props }: any) => (
   </div>
 );
 
-const CheckboxGroup = ({ label, name, options, onChange }: any) => (
+/* ✅ Updated CheckboxGroup with controlled value */
+const CheckboxGroup = ({ label, name, options, value = [], onChange }: any) => (
   <div className="flex flex-col col-span-1 md:col-span-2 lg:col-span-3">
     <label className="text-xs font-semibold text-slate-600 mb-2">{label}</label>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {options.map((o: string) => (
-        <label key={o} className="flex items-center gap-2 text-sm">
-          <input type="checkbox" name={name} value={o} onChange={onChange} />
+        <label key={o} className="flex items-center gap-2 text-sm cursor-pointer">
+          <input
+            type="checkbox"
+            name={name}
+            value={o}
+            checked={value.includes(o)}
+            onChange={onChange}
+          />
           {o}
         </label>
       ))}
