@@ -16,6 +16,7 @@ export interface Event {
 
 const EVENTS_DATA: Event[] = [
   // ── Upcoming ──────────────────────────────────────────────────────────────
+
   {
     id: '2',
     slug: 'udbhav-2026',
@@ -33,6 +34,16 @@ const EVENTS_DATA: Event[] = [
     description:
       'A focused and practical free webinar designed to help early-stage founders navigate the realities of raising capital — from investor readiness to identifying the right investors and closing your first round.',
     event_date: '2026-04-24',
+    location: 'Online (Zoom)',
+    image_url: null,
+  },
+  {
+    id: '4',
+    slug: 'Deal-Smart-2026',
+    title: 'Deal Smart: Master Valuation, Dilution & Term Sheets Like an Investor',
+    description:
+      'An exclusive business webinar designed to help founders understand startup valuation, dilution, funding rounds, and investor term sheets from a practical investor perspective. Learn how investment deals work, identify red flags, and confidently prepare for fundraising with real-world examples and actionable insights.',
+    event_date: '2026-05-15',
     location: 'Online (Zoom)',
     image_url: null,
   },

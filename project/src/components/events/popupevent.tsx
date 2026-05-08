@@ -43,6 +43,7 @@ type FormData = {
 const NAVY = "#203f78";
 const CRIMSON = "#c0032f";
 const GOLD = "#e8a020";
+const EVENT_DATE = new Date("2026-04-15");
 
 const REGISTERING_AS = [
     { value: "founder", label: "Startup Founder" },
@@ -633,6 +634,40 @@ export default function StartupRegistrationPage() {
                 return null;
         }
     };
+    if (new Date() >= EVENT_DATE) {
+        return (
+            <div
+                className="min-h-screen flex items-center justify-center px-4"
+                style={{ background: "#f8fafc", fontFamily: "'system-ui', sans-serif" }}
+            >
+                <div className="text-center max-w-md">
+                    <div
+                        className="w-20 h-20 rounded-full mx-auto mb-6 flex items-center justify-center"
+                        style={{ background: `linear-gradient(135deg, #203f78, #c0032f)` }}
+                    >
+                        <CalendarDays size={36} className="text-white" />
+                    </div>
+                    <h2
+                        className="text-3xl font-black mb-3"
+                        style={{ color: "#203f78", fontFamily: "'Georgia', serif" }}
+                    >
+                        Event Concluded
+                    </h2>
+                    <p className="text-slate-500 leading-relaxed mb-6">
+                        <strong>Udbhav 2026</strong> has concluded. Thank you to everyone
+                        who participated. Stay tuned for the next edition!
+                    </p>
+                    <button
+                        onClick={() => window.location.href = "/events"}
+                        className="px-6 py-3 rounded-xl text-white font-bold text-sm"
+                        style={{ background: `linear-gradient(135deg, #203f78, #c0032f)` }}
+                    >
+                        View All Events
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex min-h-screen" style={{ background: "#ffffff", fontFamily: "'system-ui', sans-serif" }}>

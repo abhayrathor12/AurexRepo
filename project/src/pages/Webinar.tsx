@@ -131,9 +131,26 @@ const WebinarPage: React.FC = () => {
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="flex justify-center mb-1"
                     >
-                        <span className="bg-[#a8042b] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow">
-                            FREE Webinar
-                        </span>
+                        <div
+                            className="flex items-center gap-3 px-4 py-2 rounded-full shadow"
+                            style={{
+                                background: "linear-gradient(135deg, #a8042b 0%, #8b0323 100%)",
+                            }}
+                        >
+                            <span className="text-white text-xs font-bold uppercase tracking-wider">
+                                Registration Fee
+                            </span>
+
+                            <div className="w-px h-4 bg-white/30" />
+
+                            <span className="text-white text-sm font-black">
+                                ₹499
+                            </span>
+
+                            <span className="bg-white/15 border border-white/20 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap">
+                                Early Bird ₹299 · till 12 May
+                            </span>
+                        </div>
                     </motion.div>
 
                     {/* ── HEADING ── */}
@@ -145,7 +162,7 @@ const WebinarPage: React.FC = () => {
                     >
                         Register for{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a8042b] to-[#d4215a]">
-                            Fundraising 101
+                            Deal Smart
                         </span>
                     </motion.h1>
 
@@ -155,7 +172,7 @@ const WebinarPage: React.FC = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-center text-[#223258]/70 text-sm sm:text-base mb-6 sm:mb-2"
                     >
-                        From Idea to First Investor
+                        Master Valuation, Dilution & Term Sheets Like an Investor
                     </motion.p>
 
                     {/* ── EVENT META PILLS ── */}
@@ -166,7 +183,7 @@ const WebinarPage: React.FC = () => {
                         className="flex flex-wrap justify-center gap-3 mb-3"
                     >
                         {[
-                            { icon: "📅", text: "24th April 2026" },
+                            { icon: "📅", text: "15th May 2026" },
                             { icon: "⏰", text: "7:00 – 8:30 PM" },
                             { icon: "🎤", text: "Kailash Tulsi Gajara" },
                         ].map((item) => (
@@ -231,23 +248,23 @@ const WebinarPage: React.FC = () => {
                                 </h3>
 
                                 <p className="text-sm text-white/90 mb-4 leading-relaxed">
-                                    Join us for a focused and practical FREE webinar on{" "}
+                                    Join us for a practical and insight-driven webinar on{" "}
                                     <span className="font-semibold">
-                                        Fundraising 101: From Idea to First Investor
+                                        Deal Smart: Master Valuation, Dilution & Term Sheets Like an Investor
                                     </span>
-                                    , designed to help early-stage founders navigate the realities
-                                    of raising capital.
+                                    , designed to help founders better understand how startup investment
+                                    deals actually work.
                                 </p>
 
                                 <ul className="space-y-2.5">
                                     {[
-                                        "Understand how to move from idea to investor readiness",
-                                        "Learn what investors actually evaluate beyond the pitch deck",
-                                        "Gain clarity on positioning your startup for funding",
-                                        "Explore how to identify and target the right investors",
-                                        "Understand the end-to-end fundraising process",
-                                        "Learn common mistakes founders make during fundraising",
-                                        "Get practical insights on building investor confidence",
+                                        "Understand how investors practically value startups",
+                                        "Learn the difference between pre and post-money valuation",
+                                        "Understand startup dilution with real-world examples",
+                                        "Learn how funding rounds affect founder ownership",
+                                        "Identify common red flags in startup term sheets",
+                                        "Understand how investor deals are structured and negotiated",
+                                        "Gain practical fundraising insights from an investor perspective",
                                     ].map((point) => (
                                         <li key={point} className="flex items-start gap-2 text-sm text-white/90">
                                             <span className="mt-0.5 flex-shrink-0 w-4 h-4 bg-white/20 rounded-full flex items-center justify-center text-white text-[10px]">
@@ -274,7 +291,7 @@ const WebinarPage: React.FC = () => {
                                 Reserve Your Seat
                             </h2>
                             <p className="text-center text-sm text-gray-500 mb-5">
-                                It's FREE – spots are limited!
+                                {/* It's FREE – spots are limited! */}
                             </p>
 
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
