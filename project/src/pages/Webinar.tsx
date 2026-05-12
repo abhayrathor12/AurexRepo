@@ -345,7 +345,7 @@ const WebinarPage: React.FC = () => {
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white rounded-xl shadow-2xl border border-gray-100 p-4 sm:p-5 lg:mt-10 mt-2"
+                            className="bg-white rounded-xl shadow-2xl border border-gray-100 p-4 sm:p-5 lg:mt-24 mt-18"
                             style={{ position: "relative", zIndex: 15 }}
                         >
                             <h2 className="text-base font-bold text-[#1a2d5a] text-center mb-0.5">Reserve Your Seat</h2>
