@@ -6,6 +6,7 @@ import Select from "react-select";
 import * as z from "zod";
 import { Controller } from "react-hook-form";
 import logo from "../public/aurex.png";
+// import mentorPhoto from "../public/sumeet.jpg";
 
 const formSchema = z.object({
     firstName: z.string().min(1, "First name is required"),
@@ -27,7 +28,7 @@ const WebinarPage: React.FC = () => {
         register,
         handleSubmit,
         control,
-        formState: { isSubmitting },
+        formState: { errors, isSubmitting },
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
     });
@@ -84,10 +85,9 @@ const WebinarPage: React.FC = () => {
                     }),
                 }
             );
-
             if (!response.ok) throw new Error("Registration failed");
             setStatus("success");
-        } catch (error) {
+        } catch {
             setStatus("idle");
             alert("Something went wrong. Please try again.");
         }
@@ -95,225 +95,279 @@ const WebinarPage: React.FC = () => {
 
     return (
         <>
-            {/* ── PAGE WRAPPER: white base with crimson top band ── */}
-            <div className="min-h-screen bg-[#ffffff] px-3 sm:px-4 py-5 sm:py-6 relative">
+            <div className="min-h-screen flex flex-col font-sans" style={{ background: "#f0f2f5" }}>
 
-                {/* Crimson top accent band */}
-                <div className="absolute top-0 left-0 right-0 h-2 bg-[#a8042b]" />
+                {/* ── MAIN CONTENT ── */}
+                <main className="flex-1 relative overflow-hidden bg-white">
 
-                {/* Subtle background blobs */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-20 left-[-60px] w-64 h-64 bg-[#a8042b]/8 rounded-full blur-3xl" />
-                    <div className="absolute bottom-20 right-[-60px] w-72 h-72 bg-[#223258]/8 rounded-full blur-3xl" />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#a8042b]/5 rounded-full blur-3xl" />
-                </div>
+                    {/* Red right panel - hidden on mobile */}
+                    <div
+                        className="hidden lg:block absolute top-0 right-0 bottom-0"
+                        style={{ width: "48%", background: "#b8002e" }}
+                    />
 
-                <div className="relative z-10 max-w-6xl mx-auto pt-0">
+                    {/* White left panel with diagonal edge - hidden on mobile */}
+                    <div
+                        className="hidden lg:block absolute top-0 left-0 bottom-0 bg-white"
+                        style={{
+                            width: "60%",
+                            clipPath: "polygon(0 0, 100% 0, 82% 100%, 0 100%)",
+                            zIndex: 2,
+                        }}
+                    />
 
-                    {/* ── LOGO ── */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="flex justify-center mb-2"
-                    >
-                        <img
-                            src={logo}
-                            alt="Aurex Ventures Logo"
-                            className="h-12 sm:h-16 lg:h-18 object-contain"
-                        />
-                    </motion.div>
+                    {/* Mobile background - solid white */}
+                    <div className="lg:hidden absolute inset-0 bg-white" style={{ zIndex: 1 }} />
 
-                    {/* ── FREE BADGE ── */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="flex justify-center mb-1"
-                    >
-                        <div
-                            className="flex items-center gap-3 px-4 py-2 rounded-full shadow"
-                            style={{
-                                background: "linear-gradient(135deg, #a8042b 0%, #8b0323 100%)",
-                            }}
+                    {/* Red geometric shapes - desktop only */}
+                    <div className="hidden lg:block absolute top-0 right-0 bottom-0" style={{ width: "55%", zIndex: 3, pointerEvents: "none", overflow: "hidden" }}>
+                        <svg
+                            viewBox="0 0 700 580"
+                            className="absolute top-0 right-0 w-full h-full"
+                            preserveAspectRatio="xMaxYMin slice"
+                            xmlns="http://www.w3.org/2000/svg"
                         >
-                            <span className="text-white text-xs font-bold uppercase tracking-wider">
-                                Registration Fee
-                            </span>
+                            <g transform="translate(490, 180) rotate(45)">
+                                <rect x="-160" y="-160" width="320" height="320" rx="18" fill="#cc0033" />
+                            </g>
+                            <g transform="translate(390, 240) rotate(45)">
+                                <rect x="-130" y="-130" width="260" height="260" rx="14" fill="#d40038" opacity="0.85" />
+                            </g>
+                            <g transform="translate(600, 60) rotate(45)">
+                                <rect x="-100" y="-100" width="200" height="200" rx="12" fill="#a8002a" opacity="0.9" />
+                            </g>
+                            <circle cx="670" cy="30" r="180" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="2.5" />
+                            <circle cx="670" cy="30" r="130" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+                            <circle cx="680" cy="570" r="200" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
+                            <g transform="translate(310, 60)" opacity="0.25">
+                                <rect x="0" y="230" width="22" height="60" fill="white" rx="3" />
+                                <rect x="32" y="200" width="22" height="90" fill="white" rx="3" />
+                                <rect x="64" y="165" width="22" height="125" fill="white" rx="3" />
+                                <rect x="96" y="130" width="22" height="160" fill="white" rx="3" />
+                                <rect x="128" y="100" width="22" height="190" fill="white" rx="3" />
+                                <rect x="160" y="65" width="22" height="225" fill="white" rx="3" />
+                                <line x1="10" y1="230" x2="175" y2="50" stroke="white" strokeWidth="2.5" />
+                                <polygon points="168,38 188,62 155,65" fill="white" />
+                            </g>
+                            {[...Array(5)].map((_, row) =>
+                                [...Array(5)].map((_, col) => (
+                                    <circle
+                                        key={`${row}-${col}`}
+                                        cx={30 + col * 110}
+                                        cy={30 + row * 110}
+                                        r="2.5"
+                                        fill="rgba(255,255,255,0.18)"
+                                    />
+                                ))
+                            )}
+                        </svg>
+                    </div>
 
-                            <div className="w-px h-4 bg-white/30" />
-
-                            <span className="text-white text-sm font-black">
-                                ₹499
-                            </span>
-
-                            <span className="bg-white/15 border border-white/20 text-white text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap">
-                                Early Bird ₹299 · till 12 May
-                            </span>
-                        </div>
-                    </motion.div>
-
-                    {/* ── HEADING ── */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.15 }}
-                        className="text-center text-2xl sm:text-3xl md:text-5xl font-bold text-[#223258] mb-2 sm:mb-1"
-                    >
-                        Register for{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#a8042b] to-[#d4215a]">
-                            Deal Smart
-                        </span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-center text-[#223258]/70 text-sm sm:text-base mb-6 sm:mb-2"
-                    >
-                        Master Valuation, Dilution & Term Sheets Like an Investor
-                    </motion.p>
-
-                    {/* ── EVENT META PILLS ── */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.25 }}
-                        className="flex flex-wrap justify-center gap-3 mb-3"
-                    >
-                        {[
-                            { icon: "📅", text: "15th May 2026" },
-                            { icon: "⏰", text: "7:00 – 8:30 PM" },
-                            { icon: "🎤", text: "Kailash Tulsi Gajara" },
-                        ].map((item) => (
-                            <div
-                                key={item.text}
-                                className="flex items-center gap-2 bg-[#223258]/8 border border-[#223258]/15 rounded-full px-4 py-1.5 text-sm font-medium text-[#223258]"
-                            >
-                                <span>{item.icon}</span>
-                                <span>{item.text}</span>
-                            </div>
-                        ))}
-                    </motion.div>
+                    {/* City skyline watermark - desktop only */}
+                    <div className="hidden lg:block absolute bottom-0 left-0 pointer-events-none overflow-hidden" style={{ width: "50%", height: "140px", opacity: 0.045, zIndex: 1 }}>
+                        <svg viewBox="0 0 800 200" className="w-full h-full" preserveAspectRatio="xMinYMax meet">
+                            <rect x="0" y="80" width="40" height="120" fill="#1a2d5a" />
+                            <rect x="50" y="60" width="30" height="140" fill="#1a2d5a" />
+                            <rect x="90" y="40" width="50" height="160" fill="#1a2d5a" />
+                            <rect x="150" y="20" width="35" height="180" fill="#1a2d5a" />
+                            <rect x="155" y="5" width="25" height="20" fill="#1a2d5a" />
+                            <rect x="195" y="50" width="60" height="150" fill="#1a2d5a" />
+                            <rect x="265" y="70" width="40" height="130" fill="#1a2d5a" />
+                            <rect x="315" y="30" width="45" height="170" fill="#1a2d5a" />
+                            <rect x="370" y="55" width="35" height="145" fill="#1a2d5a" />
+                            <rect x="415" y="45" width="55" height="155" fill="#1a2d5a" />
+                            <rect x="480" y="65" width="30" height="135" fill="#1a2d5a" />
+                            <rect x="520" y="35" width="45" height="165" fill="#1a2d5a" />
+                            <rect x="575" y="75" width="35" height="125" fill="#1a2d5a" />
+                            <rect x="620" y="50" width="50" height="150" fill="#1a2d5a" />
+                        </svg>
+                    </div>
 
                     {/* ── CONTENT GRID ── */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 items-start">
+                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 sm:py-6 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-8 items-start" style={{ zIndex: 10 }}>
 
-                        {/* ── LEFT: Info Panel ── */}
-                        {/* ── LEFT: Info Panel ── */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            {/* Mentor card — navy */}
-                            <div className="mb-4 bg-[#223258] rounded-2xl p-4 sm:p-5 max-w-full sm:max-w-md mx-auto lg:mx-0 shadow">
-                                <p className="text-xs text-white/50 uppercase tracking-widest mb-2 font-semibold">
-                                    Your Mentor
-                                </p>
-                                <div className="flex items-start justify-between">
-                                    <div>
-                                        <p className="text-white font-bold text-base">Kailash Tulsi Gajara</p>
-                                        <p className="text-white/70 text-sm mt-1">
-                                            Founder &amp; CEO – Atulsia Technologies
-                                        </p>
-                                        <p className="text-white/70 text-sm">
-                                            Founder &amp; CEO – Megastores.com
-                                        </p>
-                                    </div>
-                                    <a
-                                        href="https://www.linkedin.com/in/kailashgajara"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="ml-3 flex-shrink-0 mt-1 w-8 h-8 bg-[#0077B5] hover:bg-[#0066a1] rounded-lg flex items-center justify-center transition-colors duration-200"
-                                        title="View LinkedIn Profile"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="white"
-                                            className="w-4 h-4"
-                                        >
-                                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        {/* ── LEFT: Hero Content ── */}
+                        <div>
+
+                            {/* Logo + Fee badge */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5"
+                            >
+                                <img
+                                    src={logo}
+                                    alt="Aurex Ventures"
+                                    className="h-9 sm:h-14 object-contain"
+                                />
+                                <div className="flex items-center gap-0 rounded-full overflow-hidden shadow border border-[#a8042b]/20">
+                                    <div className="bg-[#a8042b] flex items-center gap-1.5 px-3 py-1.5 sm:h-9 h-9">
+                                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                                         </svg>
-                                    </a>
+                                        <span className="text-white text-[11px] font-bold uppercase tracking-wider">Registration Fee</span>
+                                        <span className="text-white text-xs font-black ml-0.5">₹499</span>
+                                    </div>
+                                    <div className="bg-[#fff8f8] border-l border-[#a8042b]/20 px-3 py-1.5">
+                                        <span className="text-[#a8042b] text-[11px] font-semibold">Early Bird ₹299 · till 19th May</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            {/* Info card — crimson background */}
-                            <div className="bg-[#a8042b] rounded-2xl p-5 sm:p-6 max-w-full sm:max-w-md mx-auto lg:mx-0 shadow-lg">
-                                <h3 className="text-lg font-bold text-white mb-3">
-                                    What You'll Learn
-                                </h3>
-
-                                <p className="text-sm text-white/90 mb-4 leading-relaxed">
-                                    Join us for a practical and insight-driven webinar on{" "}
-                                    <span className="font-semibold">
-                                        Deal Smart: Master Valuation, Dilution & Term Sheets Like an Investor
-                                    </span>
-                                    , designed to help founders better understand how startup investment
-                                    deals actually work.
+                            {/* Heading */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.1 }}
+                                className="mb-4"
+                            >
+                                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-[#1a2d5a]">
+                                    Register for
+                                </h1>
+                                <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-[#a8042b]">
+                                    Deal Smart
+                                </h2>
+                                <p className="text-[#1a2d5a]/70 text-base sm:text-lg font-medium mt-2 leading-snug">
+                                    Master Valuation, Dilution &amp;<br className="hidden sm:block" /> Term Sheets Like an Investor
                                 </p>
+                            </motion.div>
 
-                                <ul className="space-y-2.5">
-                                    {[
-                                        "Understand how investors practically value startups",
-                                        "Learn the difference between pre and post-money valuation",
-                                        "Understand startup dilution with real-world examples",
-                                        "Learn how funding rounds affect founder ownership",
-                                        "Identify common red flags in startup term sheets",
-                                        "Understand how investor deals are structured and negotiated",
-                                        "Gain practical fundraising insights from an investor perspective",
-                                    ].map((point) => (
-                                        <li key={point} className="flex items-start gap-2 text-sm text-white/90">
-                                            <span className="mt-0.5 flex-shrink-0 w-4 h-4 bg-white/20 rounded-full flex items-center justify-center text-white text-[10px]">
-                                                ✓
-                                            </span>
-                                            <span>{point}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {/* Event meta pills */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                                className="flex flex-wrap gap-4 mb-5"
+                            >
+                                {[
+                                    {
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                                            </svg>
+                                        ),
+                                        label: "25th May 2026",
+                                        sub: "Monday",
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+                                            </svg>
+                                        ),
+                                        label: "7:00 – 9:00 PM",
+                                        sub: "IST",
+                                    },
+                                    {
+                                        icon: (
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <path d="M12 1a3 3 0 100 6 3 3 0 000-6z" /><path d="M6 8a6 6 0 1112 0" /><path d="M3 21v-2a4 4 0 014-4h10a4 4 0 014 4v2" />
+                                            </svg>
+                                        ),
+                                        label: "Sumeet Agrawal",
+                                        sub: "Live Webinar",
+                                    },
+                                ].map((item, i) => (
+                                    <div key={i} className="flex items-center gap-2.5 border-r border-[#1a2d5a]/15 pr-4 last:border-r-0 last:pr-0">
+                                        <div className="w-8 h-8 rounded-full bg-[#a8042b] flex items-center justify-center text-white flex-shrink-0">
+                                            {item.icon}
+                                        </div>
+                                        <div>
+                                            <p className="text-[#1a2d5a] font-bold text-xs leading-tight">{item.label}</p>
+                                            <p className="text-[#1a2d5a]/50 text-[10px]">{item.sub}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </motion.div>
 
-                            <div className="flex justify-center lg:justify-start gap-2 mt-4 text-[#a8042b] font-semibold text-sm">
-                                🚀 Limited seats available – Register now!
-                            </div>
-                        </motion.div>
+                            {/* ── MENTOR CARD ── */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 14 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                className="relative mb-5"
+                                style={{ maxWidth: "460px", width: "100%" }}
+                            >
+                                <div
+                                    className="rounded-xl px-5 pt-4 pb-4 shadow-xl"
+                                    style={{ background: "#6b0e20", minHeight: "130px" }}
+                                >
+                                    <p className="text-white/55 text-[9px] uppercase tracking-[0.22em] font-bold flex items-center gap-2 mb-2">
+                                        YOUR MENTOR
+                                        <span className="flex-1 h-px bg-white/25 max-w-[40px]" />
+                                    </p>
+                                    <div style={{ paddingRight: "120px" }}>
+                                        <p className="text-white font-extrabold text-xl leading-tight mb-0.5">
+                                            Sumeet Agrawal
+                                        </p>
+                                        <p className="text-white/75 text-xs leading-snug">Investor &amp; Startup Mentor</p>
+                                        <p className="text-white/75 text-xs leading-snug">20+ Years in Finance &amp; Investments</p>
+                                        <a
+                                            href="https://www.linkedin.com/in/sumeetagrawal"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-2 inline-flex w-7 h-7 rounded-md items-center justify-center transition-colors duration-200"
+                                            style={{ background: "#0077B5" }}
+                                            title="LinkedIn Profile"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-3.5 h-3.5">
+                                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                {/* Mentor photo placeholder */}
+                                <div
+                                    className="absolute bottom-0 right-5 overflow-hidden"
+                                    style={{
+                                        width: "108px",
+                                        height: "138px",
+                                        borderRadius: "10px 10px 0 0",
+                                    }}
+                                >
+                                    <div
+                                        className="w-full h-full flex items-end justify-center"
+                                        style={{ background: "linear-gradient(160deg, #e8d5c4 0%, #c4a898 100%)" }}
+                                    >
+                                        <svg className="w-20 h-20 mb-1" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
+                                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                        </div>
+
                         {/* ── RIGHT: Registration Form ── */}
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="bg-white rounded-2xl p-5 sm:p-6 shadow-2xl border border-gray-100"
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="bg-white rounded-xl shadow-2xl border border-gray-100 p-4 sm:p-5 lg:mt-10 mt-2"
+                            style={{ position: "relative", zIndex: 15 }}
                         >
-                            <h2 className="text-2xl font-bold text-[#223258] text-center mb-1">
-                                Reserve Your Seat
-                            </h2>
-                            <p className="text-center text-sm text-gray-500 mb-5">
-                                {/* It's FREE – spots are limited! */}
-                            </p>
+                            <h2 className="text-base font-bold text-[#1a2d5a] text-center mb-0.5">Reserve Your Seat</h2>
+                            <p className="text-center text-[10px] text-gray-400 mb-3">Your info is secure and used only for this webinar.</p>
 
-                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <input
-                                        {...register("firstName")}
-                                        placeholder="First Name *"
-                                        className="input"
-                                    />
-                                    <input
-                                        {...register("lastName")}
-                                        placeholder="Last Name *"
-                                        className="input"
-                                    />
+                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-2.5">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <div>
+                                        <input {...register("firstName")} placeholder="First Name *" className="input" />
+                                        {errors.firstName && <p className="text-[10px] text-red-500 mt-0.5">{errors.firstName.message}</p>}
+                                    </div>
+                                    <div>
+                                        <input {...register("lastName")} placeholder="Last Name *" className="input" />
+                                        {errors.lastName && <p className="text-[10px] text-red-500 mt-0.5">{errors.lastName.message}</p>}
+                                    </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <input
-                                        {...register("companyName")}
-                                        placeholder="Startup / Company Name *"
-                                        className="input"
-                                    />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <div>
+                                        <input {...register("companyName")} placeholder="Startup / Company *" className="input" />
+                                        {errors.companyName && <p className="text-[10px] text-red-500 mt-0.5">{errors.companyName.message}</p>}
+                                    </div>
                                     <Controller
                                         name="city"
                                         control={control}
@@ -322,7 +376,7 @@ const WebinarPage: React.FC = () => {
                                             <Select
                                                 options={cityOptions}
                                                 placeholder="Select City"
-                                                isSearchable={true}
+                                                isSearchable
                                                 value={cityOptions.find((c) => c.value === field.value) || null}
                                                 onChange={(option) => field.onChange(option?.value)}
                                                 menuPlacement="bottom"
@@ -331,10 +385,12 @@ const WebinarPage: React.FC = () => {
                                                 styles={{
                                                     control: (base) => ({
                                                         ...base,
-                                                        minHeight: "40px",
-                                                        borderRadius: "8px",
+                                                        minHeight: "36px",
+                                                        borderRadius: "6px",
                                                         borderColor: "#d1d5db",
-                                                        fontSize: "0.875rem",
+                                                        fontSize: "0.8125rem",
+                                                        boxShadow: "none",
+                                                        "&:hover": { borderColor: "#a8042b" },
                                                     }),
                                                     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                                 }}
@@ -343,149 +399,215 @@ const WebinarPage: React.FC = () => {
                                     />
                                 </div>
 
-                                <input
-                                    {...register("email")}
-                                    placeholder="Work Email (e.g. name@company.com)"
-                                    className="input"
-                                />
-                                <p className="text-xs text-gray-500">
-                                    Please use your official / professional email if available
-                                </p>
+                                <div>
+                                    <input {...register("email")} placeholder="Work Email *" className="input" />
+                                    {errors.email && <p className="text-[10px] text-red-500 mt-0.5">{errors.email.message}</p>}
+                                    <p className="text-[9px] text-gray-400 mt-0.5 ml-1">Use your official / professional email if available</p>
+                                </div>
 
-                                <input
-                                    {...register("phone")}
-                                    type="text"
-                                    inputMode="numeric"
-                                    pattern="[0-9]*"
-                                    placeholder="Phone Number *"
-                                    className="input"
-                                    onInput={(e) => {
-                                        (e.target as HTMLInputElement).value = (
-                                            e.target as HTMLInputElement
-                                        ).value.replace(/[^0-9]/g, "");
-                                    }}
-                                />
+                                <div>
+                                    <input
+                                        {...register("phone")}
+                                        type="text"
+                                        inputMode="numeric"
+                                        pattern="[0-9]*"
+                                        placeholder="Phone Number *"
+                                        className="input"
+                                        onInput={(e) => {
+                                            (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[^0-9]/g, "");
+                                        }}
+                                    />
+                                    {errors.phone && <p className="text-[10px] text-red-500 mt-0.5">{errors.phone.message}</p>}
+                                </div>
 
                                 <motion.button
                                     type="submit"
                                     disabled={isSubmitting || status === "submitting"}
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="w-full bg-gradient-to-r from-[#a8042b] to-[#c2053a] text-white font-semibold py-3 rounded-lg shadow-md"
+                                    className="w-full text-white font-bold py-2.5 rounded-lg shadow-md text-sm tracking-wide"
+                                    style={{ background: "linear-gradient(to right, #a8042b, #c2053a)" }}
                                 >
                                     {status === "submitting" ? "Registering..." : "Reserve My Seat →"}
                                 </motion.button>
                             </form>
 
-                            <p className="text-center text-xs text-gray-500 mt-4">
-                                Your info is secure and used only for this webinar.
-                            </p>
-
-                            <div className="mt-5 pt-4 border-t flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-sm font-medium text-[#223258]">
-                                <span>🌐 aurexventures.in</span>
+                            <div className="mt-3 pt-2.5 border-t flex items-center justify-center gap-2 text-[10px] text-[#1a2d5a]/60 font-medium">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" />
+                                    <path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" />
+                                </svg>
+                                aurexventures.in
                             </div>
                         </motion.div>
                     </div>
-                </div >
+                </main>
 
-                <style>
-                    {`
-            .input {
-              width: 100%;
-              padding: 0.65rem 0.75rem;
-              font-size: 0.875rem;
-              border-radius: 0.5rem;
-              border: 1px solid #d1d5db;
-              background: #fff;
-              color: #111827;
-            }
-            .input:focus {
-              border-color: #a8042b;
-              box-shadow: 0 0 0 2px rgba(168, 4, 43, 0.15);
-              outline: none;
-            }
-          `}
-                </style>
+                {/* ── SESSION HIGHLIGHTS FOOTER BAR ── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 }}
+                    style={{ background: "#1a2d5a", position: "relative", zIndex: 10 }}
+                >
+                    <div style={{ height: "3px", background: "#a8042b" }} />
 
-                {/* ── FOOTER ── */}
-                <footer className="relative z-10 text-center py-3 px-4 mt-8 text-sm text-gray-400 border-t border-gray-200">
+                    <div className="max-w-7xl mx-auto px-6 sm:px-10 py-4">
+                        <div className="flex items-center gap-3 justify-center mb-3.5">
+                            <div className="flex-1 h-px max-w-[60px]" style={{ background: "rgba(255,255,255,0.12)" }} />
+                            <p className="text-white text-[10px] uppercase tracking-[0.25em] font-bold">Session Highlights</p>
+                            <div className="flex-1 h-px max-w-[60px]" style={{ background: "rgba(255,255,255,0.12)" }} />
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                            {[
+                                {
+                                    icon: (
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" />
+                                            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                                        </svg>
+                                    ),
+                                    title: "Investor Mindset",
+                                    desc: "Decode how investors think and decide",
+                                },
+                                {
+                                    icon: (
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                                            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
+                                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" />
+                                        </svg>
+                                    ),
+                                    title: "Valuation Mastery",
+                                    desc: "Pre-money vs Post-money explained simply",
+                                },
+                                {
+                                    icon: (
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" />
+                                            <line x1="19" y1="8" x2="19" y2="14" /><line x1="22" y1="11" x2="16" y2="11" />
+                                        </svg>
+                                    ),
+                                    title: "Dilution Decoded",
+                                    desc: "Understand dilution with clarity",
+                                },
+                                {
+                                    icon: (
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" />
+                                            <line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" />
+                                        </svg>
+                                    ),
+                                    title: "Term Sheet Essentials",
+                                    desc: "Key clauses every founder must know",
+                                },
+                                {
+                                    icon: (
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" />
+                                        </svg>
+                                    ),
+                                    title: "Red Flags",
+                                    desc: "Spot what investors worry about",
+                                },
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-start gap-2.5">
+                                    <div
+                                        className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white"
+                                        style={{ background: "#a8042b" }}
+                                    >
+                                        {item.icon}
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-xs leading-tight">{item.title}</p>
+                                        <p className="text-[10px] mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.55)" }}>{item.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* ── PAGE FOOTER ── */}
+                <footer className="bg-white text-center py-2.5 px-4 text-[10px] text-gray-400 border-t border-gray-200">
                     For more information, please visit{" "}
                     <a
                         href="https://www.aurexventures.in/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#a8042b] hover:text-[#c2053a] underline underline-offset-2 font-medium transition-colors duration-200"
+                        className="font-medium underline underline-offset-2 transition-colors"
+                        style={{ color: "#a8042b" }}
                     >
                         www.aurexventures.in
                     </a>
                 </footer>
-            </div >
+            </div>
 
             {/* ── SUCCESS MODAL ── */}
             <AnimatePresence>
-                {
-                    status === "success" && (
+                {status === "success" && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 flex items-center justify-center z-50 p-4"
+                        style={{ background: "rgba(0,0,0,0.6)" }}
+                    >
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            <motion.div
-                                initial={{ scale: 0.9, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.9, opacity: 0 }}
-                                className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center"
-                                onClick={(e) => e.stopPropagation()}
+                            <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">You're Registered! 🎉</h3>
+                            <p className="text-gray-600 text-sm mb-1.5">
+                                Thank you for registering for{" "}
+                                <span className="font-semibold" style={{ color: "#a8042b" }}>Deal Smart</span>.
+                            </p>
+                            <p className="text-gray-500 text-xs mb-5">
+                                See you on <strong>25th May 2026</strong> at <strong>7:00 PM</strong> IST!
+                            </p>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => (window.location.href = "https://www.aurexventures.in")}
+                                className="text-white font-semibold py-2.5 px-7 rounded-lg shadow text-sm"
+                                style={{ background: "linear-gradient(to right, #a8042b, #c2053a)" }}
                             >
-                                <div className="w-20 h-20 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
-                                    <svg
-                                        className="w-12 h-12 text-green-600"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="3"
-                                            d="M5 13l4 4L19 7"
-                                        />
-                                    </svg>
-                                </div>
-
-                                <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                                    You're Registered! 🎉
-                                </h3>
-
-                                <p className="text-gray-600 mb-2">
-                                    Thank you for registering for{" "}
-                                    <span className="font-semibold text-[#a8042b]">
-                                        Fundraising 101: From Idea to First Investor
-                                    </span>
-                                    .
-                                </p>
-                                <p className="text-gray-500 text-sm mb-6">
-                                    See you on <strong>24th April 2026</strong> at <strong>7:00 PM</strong>!
-                                </p>
-
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => (window.location.href = "https://www.aurexventures.in")}
-                                    className="bg-gradient-to-r from-[#a8042b] to-[#c2053a] text-white font-semibold py-3 px-8 rounded-lg shadow"
-                                >
-                                    Continue to Website →
-                                </motion.button>
-
-                                <p className="text-xs text-gray-400 mt-4">
-                                    (Auto-redirecting in {countdown} second{countdown !== 1 ? "s" : ""}...)
-                                </p>
-                            </motion.div>
+                                Continue to Website →
+                            </motion.button>
+                            <p className="text-[10px] text-gray-400 mt-3">
+                                (Auto-redirecting in {countdown} second{countdown !== 1 ? "s" : ""}...)
+                            </p>
                         </motion.div>
-                    )
-                }
-            </AnimatePresence >
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <style>{`
+        .input {
+          width: 100%;
+          padding: 0.5rem 0.65rem;
+          font-size: 0.8125rem;
+          border-radius: 0.375rem;
+          border: 1px solid #d1d5db;
+          background: #fff;
+          color: #111827;
+          transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .input:focus {
+          border-color: #a8042b;
+          box-shadow: 0 0 0 2px rgba(168, 4, 43, 0.10);
+          outline: none;
+        }
+        .input::placeholder { color: #9ca3af; }
+      `}</style>
         </>
     );
 };
