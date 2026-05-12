@@ -298,13 +298,13 @@ const WebinarPage: React.FC = () => {
                                         <span className="flex-1 h-px bg-white/25 max-w-[40px]" />
                                     </p>
                                     <div style={{ paddingRight: "120px" }}>
-                                        <p className="text-white font-extrabold text-xl leading-tight mb-0.5">
+                                        <p className="text-white font-bold text-xl leading-tight mb-0.5">
                                             Sumeet Agrawal
                                         </p>
                                         <p className="text-white/75 text-xs leading-snug">Investor &amp; Startup Mentor</p>
                                         <p className="text-white/75 text-xs leading-snug">20+ Years in Finance &amp; Investments</p>
                                         <a
-                                            href="https://www.linkedin.com/in/sumeetagrawal"
+                                            href="#"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="mt-2 inline-flex w-7 h-7 rounded-md items-center justify-center transition-colors duration-200"
