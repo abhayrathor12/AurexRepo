@@ -6,6 +6,7 @@ import Select from "react-select";
 import * as z from "zod";
 import { Controller } from "react-hook-form";
 import logo from "../public/aurex.png";
+import sumeet from "../public/summet.png";
 // import mentorPhoto from "../public/sumeet.jpg";
 
 const formSchema = z.object({
@@ -184,7 +185,7 @@ const WebinarPage: React.FC = () => {
                     </div>
 
                     {/* ── CONTENT GRID ── */}
-                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 sm:py-6 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 lg:gap-8 items-start" style={{ zIndex: 10 }}>
+                    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 sm:py-6 grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-6 lg:gap-8 items-start" style={{ zIndex: 10 }}>
 
                         {/* ── LEFT: Hero Content ── */}
                         <div>
@@ -194,14 +195,15 @@ const WebinarPage: React.FC = () => {
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
-                                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5"
+
+                                className="flex items-center justify-between w-full gap-3 mb-5 "
                             >
                                 <img
                                     src={logo}
                                     alt="Aurex Ventures"
                                     className="h-9 sm:h-14 object-contain"
                                 />
-                                <div className="flex items-center gap-0 rounded-full overflow-hidden shadow border border-[#a8042b]/20">
+                                <div className="flex items-center gap-0 rounded-full overflow-hidden shadow border border-[#a8042b]/20" >
                                     <div className="bg-[#a8042b] flex items-center gap-1.5 px-3 py-1.5 sm:h-9 h-9">
                                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path fillRule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
@@ -214,6 +216,7 @@ const WebinarPage: React.FC = () => {
                                     </div>
                                 </div>
                             </motion.div>
+
 
                             {/* Heading */}
                             <motion.div
@@ -285,59 +288,143 @@ const WebinarPage: React.FC = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 14 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.3 }}
-                                className="relative mb-5"
-                                style={{ maxWidth: "460px", width: "100%" }}
+                                transition={{ duration: 0.5 }}
+                                className="relative w-full max-w-[520px]"
                             >
                                 <div
-                                    className="rounded-xl px-5 pt-4 pb-4 shadow-xl"
-                                    style={{ background: "#6b0e20", minHeight: "130px" }}
+                                    className="relative overflow-hidden rounded-[18px]"
+                                    style={{
+                                        height: "160px",
+                                        background: "linear-gradient(90deg, #7b0017 0%, #a10020 100%)",
+                                    }}
                                 >
-                                    <p className="text-white/55 text-[9px] uppercase tracking-[0.22em] font-bold flex items-center gap-2 mb-2">
-                                        YOUR MENTOR
-                                        <span className="flex-1 h-px bg-white/25 max-w-[40px]" />
-                                    </p>
-                                    <div style={{ paddingRight: "120px" }}>
-                                        <p className="text-white font-bold text-xl leading-tight mb-0.5">
+                                    {/* Right soft circle */}
+                                    <div
+                                        className="absolute"
+                                        style={{
+                                            width: "220px",
+                                            height: "220px",
+                                            borderRadius: "999px",
+                                            background: "rgba(255,255,255,0.14)",
+                                            top: "-28px",
+                                            right: "-35px",
+                                        }}
+                                    />
+
+                                    {/* Left content */}
+                                    <div
+                                        className="relative z-10 h-full flex flex-col justify-center"
+                                        style={{
+                                            paddingLeft: "22px",
+                                            paddingTop: "14px",
+                                            paddingBottom: "14px",
+                                            width: "58%",
+                                        }}
+                                    >
+                                        {/* Top small title */}
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span
+                                                style={{
+                                                    fontSize: "9px",
+                                                    letterSpacing: "0.28em",
+                                                    color: "rgba(255,255,255,0.75)",
+                                                    fontWeight: 600,
+                                                    textTransform: "uppercase",
+                                                }}
+                                            >
+                                                Your Mentor
+                                            </span>
+
+                                            <div
+                                                style={{
+                                                    width: "42px",
+                                                    height: "1px",
+                                                    background: "rgba(255,255,255,0.35)",
+                                                }}
+                                            />
+                                        </div>
+
+                                        {/* Name */}
+                                        <h2
+                                            style={{
+                                                color: "white",
+                                                fontSize: "23px",
+                                                fontWeight: 700,
+                                                lineHeight: 1.1,
+                                                marginBottom: "8px",
+                                            }}
+                                        >
                                             Sumeet Agrawal
+                                        </h2>
+
+                                        {/* Subtitle */}
+                                        <p
+                                            style={{
+                                                color: "rgba(255,255,255,0.82)",
+                                                fontSize: "11px",
+                                                lineHeight: 1.45,
+                                                margin: 0,
+                                            }}
+                                        >
+                                            Investor & Startup Mentor
                                         </p>
-                                        <p className="text-white/75 text-xs leading-snug">Investor &amp; Startup Mentor</p>
-                                        <p className="text-white/75 text-xs leading-snug">20+ Years in Finance &amp; Investments</p>
+
+                                        <p
+                                            style={{
+                                                color: "rgba(255,255,255,0.82)",
+                                                fontSize: "11px",
+                                                lineHeight: 1.45,
+                                                marginTop: "1px",
+                                            }}
+                                        >
+                                            20+ Years in Finance & Investments
+                                        </p>
+
+                                        {/* LinkedIn */}
                                         <a
-                                            href="#"
+                                            href="https://www.linkedin.com/in/sumeetagrawal/"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="mt-2 inline-flex w-7 h-7 rounded-md items-center justify-center transition-colors duration-200"
-                                            style={{ background: "#0077B5" }}
-                                            title="LinkedIn Profile"
+                                            className="flex items-center justify-center"
+                                            style={{
+                                                width: "28px",
+                                                height: "28px",
+                                                borderRadius: "6px",
+                                                background: "#0077B5",
+                                                marginTop: "12px",
+                                            }}
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="w-3.5 h-3.5">
-                                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="white"
+                                                style={{ width: "13px", height: "13px" }}
+                                            >
+                                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
                                             </svg>
                                         </a>
                                     </div>
-                                </div>
 
-                                {/* Mentor photo placeholder */}
-                                <div
-                                    className="absolute bottom-0 right-5 overflow-hidden"
-                                    style={{
-                                        width: "108px",
-                                        height: "138px",
-                                        borderRadius: "10px 10px 0 0",
-                                    }}
-                                >
+                                    {/* Right image */}
                                     <div
-                                        className="w-full h-full flex items-end justify-center"
-                                        style={{ background: "linear-gradient(160deg, #e8d5c4 0%, #c4a898 100%)" }}
+                                        className="absolute bottom-0 right-0 z-10"
+                                        style={{
+                                            width: "250px",
+                                            height: "165px",
+                                        }}
                                     >
-                                        <svg className="w-20 h-20 mb-1" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
-                                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
-                                        </svg>
+                                        <img
+                                            src={sumeet}
+                                            alt="Sumeet Agrawal"
+                                            className="w-full h-full"
+                                            style={{
+                                                objectFit: "contain",
+                                                objectPosition: "bottom right",
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             </motion.div>
-
                         </div>
 
                         {/* ── RIGHT: Registration Form ── */}
@@ -440,11 +527,11 @@ const WebinarPage: React.FC = () => {
                                 aurexventures.in
                             </div>
                         </motion.div>
-                    </div>
-                </main>
+                    </div >
+                </main >
 
                 {/* ── SESSION HIGHLIGHTS FOOTER BAR ── */}
-                <motion.div
+                < motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.5 }}
@@ -526,10 +613,10 @@ const WebinarPage: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                </motion.div>
+                </motion.div >
 
                 {/* ── PAGE FOOTER ── */}
-                <footer className="bg-white text-center py-2.5 px-4 text-[10px] text-gray-400 border-t border-gray-200">
+                < footer className="bg-white text-center py-2.5 px-4 text-[10px] text-gray-400 border-t border-gray-200" >
                     For more information, please visit{" "}
                     <a
                         href="https://www.aurexventures.in/"
@@ -540,55 +627,57 @@ const WebinarPage: React.FC = () => {
                     >
                         www.aurexventures.in
                     </a>
-                </footer>
-            </div>
+                </footer >
+            </div >
 
             {/* ── SUCCESS MODAL ── */}
             <AnimatePresence>
-                {status === "success" && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 flex items-center justify-center z-50 p-4"
-                        style={{ background: "rgba(0,0,0,0.6)" }}
-                    >
+                {
+                    status === "success" && (
                         <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center"
-                            onClick={(e) => e.stopPropagation()}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 flex items-center justify-center z-50 p-4"
+                            style={{ background: "rgba(0,0,0,0.6)" }}
                         >
-                            <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">You're Registered! 🎉</h3>
-                            <p className="text-gray-600 text-sm mb-1.5">
-                                Thank you for registering for{" "}
-                                <span className="font-semibold" style={{ color: "#a8042b" }}>Deal Smart</span>.
-                            </p>
-                            <p className="text-gray-500 text-xs mb-5">
-                                See you on <strong>25th May 2026</strong> at <strong>7:00 PM</strong> IST!
-                            </p>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => (window.location.href = "https://www.aurexventures.in")}
-                                className="text-white font-semibold py-2.5 px-7 rounded-lg shadow text-sm"
-                                style={{ background: "linear-gradient(to right, #a8042b, #c2053a)" }}
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.9, opacity: 0 }}
+                                className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center"
+                                onClick={(e) => e.stopPropagation()}
                             >
-                                Continue to Website →
-                            </motion.button>
-                            <p className="text-[10px] text-gray-400 mt-3">
-                                (Auto-redirecting in {countdown} second{countdown !== 1 ? "s" : ""}...)
-                            </p>
+                                <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                                    <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">You're Registered! 🎉</h3>
+                                <p className="text-gray-600 text-sm mb-1.5">
+                                    Thank you for registering for{" "}
+                                    <span className="font-semibold" style={{ color: "#a8042b" }}>Deal Smart</span>.
+                                </p>
+                                <p className="text-gray-500 text-xs mb-5">
+                                    See you on <strong>25th May 2026</strong> at <strong>7:00 PM</strong> IST!
+                                </p>
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => (window.location.href = "https://www.aurexventures.in")}
+                                    className="text-white font-semibold py-2.5 px-7 rounded-lg shadow text-sm"
+                                    style={{ background: "linear-gradient(to right, #a8042b, #c2053a)" }}
+                                >
+                                    Continue to Website →
+                                </motion.button>
+                                <p className="text-[10px] text-gray-400 mt-3">
+                                    (Auto-redirecting in {countdown} second{countdown !== 1 ? "s" : ""}...)
+                                </p>
+                            </motion.div>
                         </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                    )
+                }
+            </AnimatePresence >
 
             <style>{`
         .input {
