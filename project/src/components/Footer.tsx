@@ -102,7 +102,7 @@ export default function Footer() {
               <div className="pt-2">
                 <a href="/contact" className="text-slate-300 hover:text-white text-sm flex items-center gap-2 transition-colors">
                   <span>📧</span>
-                  <span>aurexventures@zohomail.in</span>
+                  <span>info@aurexventures.in</span>
                 </a>
               </div>
             </div>

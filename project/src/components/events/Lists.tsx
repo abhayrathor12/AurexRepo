@@ -302,7 +302,7 @@ export function EventsListsSection({
                                 border: `1px solid #bbf7d0`,
                               }}
                             >
-                              Early Bird ₹299 · till 12 May
+                              Early Bird ₹299 · till 19 May
                             </span>
                           </div>
                         )}
@@ -343,13 +343,13 @@ export function EventsListsSection({
                           style={{ backgroundColor: `${NAVY}08`, border: `1px solid ${NAVY}15` }}>
                           <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
                             style={{ backgroundColor: NAVY }}>
-                            KG
+                            SA
                           </div>
                           <div>
-                            <p className="text-sm font-semibold" style={{ color: NAVY }}>Kailash Tulsi Gajara</p>
+                            <p className="text-sm font-semibold" style={{ color: NAVY }}>Sumeet Agarwal</p>
                             <p className="text-xs text-slate-500 leading-tight">
-                              Founder & CEO – Atulsia Technologies<br />
-                              Founder & CEO – Megastores.com
+                              Investor & Startup Mentor<br />
+
                             </p>
                           </div>
                         </div>

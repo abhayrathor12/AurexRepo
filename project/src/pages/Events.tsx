@@ -43,7 +43,7 @@ const EVENTS_DATA: Event[] = [
     title: 'Deal Smart: Master Valuation, Dilution & Term Sheets Like an Investor',
     description:
       'An exclusive business webinar designed to help founders understand startup valuation, dilution, funding rounds, and investor term sheets from a practical investor perspective. Learn how investment deals work, identify red flags, and confidently prepare for fundraising with real-world examples and actionable insights.',
-    event_date: '2026-05-15',
+    event_date: '2026-05-31',
     location: 'Online (Zoom)',
     image_url: null,
   },
