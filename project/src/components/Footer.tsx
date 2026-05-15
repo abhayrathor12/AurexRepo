@@ -94,7 +94,7 @@ export default function Footer() {
                 Ready to accelerate your startup journey?
               </p>
               <a
-                href="/services"
+                onClick={() => window.dispatchEvent(new CustomEvent('openRegisterModal'))}
                 className="inline-block bg-[#a8042b] hover:bg-[#8a0323] text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#a8042b]/30"
               >
                 Register Now
