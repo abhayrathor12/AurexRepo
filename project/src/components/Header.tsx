@@ -87,7 +87,7 @@ export default function Header() {
 
             {/* Register */}
             <button
-              onClick={() => goTo("/Webinar-Registration")}
+              onClick={() => window.open("https://www.technovizautomation.com/Aurex-Webinar-Registration", "_blank")}
               className="bg-[#a8042b] text-white px-4 py-1.5 rounded-lg hover:bg-[#8a0323] transition-all font-medium"
             >
               Register for Webinar
