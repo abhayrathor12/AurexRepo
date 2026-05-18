@@ -394,7 +394,7 @@ export function EventsListsSection({
                       {isWebinar && (
                         <div className="mt-auto flex gap-2">
                           <button
-                            onClick={() => navigate('/Webinar-Registration')}
+                            onClick={() => window.open("https://www.technovizautomation.com/Aurex-Webinar-Registration", "_blank")}
                             className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white text-sm font-bold transition-all duration-200 hover:opacity-90 hover:shadow-lg"
                             style={{ backgroundColor: NAVY }}
                           >
