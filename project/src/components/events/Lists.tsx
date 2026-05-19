@@ -236,7 +236,7 @@ export function EventsListsSection({
                       <div className="px-5 py-2.5 flex items-center gap-2" style={{ background: '#1a2c52' }}>
                         <span className="w-2 h-2 rounded-full bg-green-300 flex-shrink-0" />
                         <span className="text-xs font-semibold tracking-wide text-green-300">
-                          Webinar · May 15, 2026
+                          Webinar · 31st May, 2026
                         </span>
                       </div>
                     )}
@@ -302,7 +302,7 @@ export function EventsListsSection({
                                 border: `1px solid #bbf7d0`,
                               }}
                             >
-                              Early Bird ₹299 · till 19 May
+                              Early Bird ₹299 · till 25th May
                             </span>
                           </div>
                         )}
